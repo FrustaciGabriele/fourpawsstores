@@ -1,0 +1,19 @@
+.title-label {
+    -fx-font-size: 27px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.text-field {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 5;
+    -fx-border-color: #d0d0d0;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+.login-button {
+    -fx-background-color: #1a73e8; /* Cambiato in blu */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+}
