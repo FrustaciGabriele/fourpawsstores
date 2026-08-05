@@ -1,6 +1,7 @@
 package com.example.fourpawsstores.model.dao;
 
 import com.example.fourpawsstores.FourPawsApplication;
+import com.example.fourpawsstores.model.domain.Role;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,4 +39,26 @@ public class ConnectionFactory {
 
         return connection;
     }
+    public static void changeRole(Role role) throws SQLException {
+        if(connection != null){
+            connection.close();
+        }
+
+        // Uso del ClassLoader per ottenere l'InputStream del file nel classpath
+        ClassLoader classLoader = FourPawsApplication.class.getClassLoader();
+
+        try (InputStream input = classLoader.getResourceAsStream("db.properties")) {
+            Properties properties = new Properties();
+            properties.load(input);
+
+            String connectionUrl = properties.getProperty("CONNECTION_URL");
+            String user = properties.getProperty(role.name() + "_USER");
+            String pass = properties.getProperty(role.name() + "_PASS");
+
+            connection = DriverManager.getConnection(connectionUrl, user, pass);
+        } catch (IOException | SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 }
+

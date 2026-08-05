@@ -3,6 +3,7 @@ package com.example.fourpawsstores.controller;
 import com.example.fourpawsstores.FourPawsApplication;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CredentialsBean;
+import com.example.fourpawsstores.model.dao.ConnectionFactory;
 import com.example.fourpawsstores.model.dao.LoginProcDAO;
 import com.example.fourpawsstores.model.dao.ProfileProcDAO;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
@@ -40,6 +41,12 @@ public class ControllerLogin {
         }//altrimenti verifico il ruolo del profilo e apro la rispettiva schermata
         else {
             String FxmlRole;
+            try {
+                ConnectionFactory.changeRole(Credentials.getRole());
+            } catch(SQLException e) {
+                throw new IllegalArgumentException(e);
+            }
+
             if (Credentials.getRole().getId() == 1) {
 
                 try {
