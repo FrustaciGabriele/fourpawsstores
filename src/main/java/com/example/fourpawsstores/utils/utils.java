@@ -1,5 +1,6 @@
 package com.example.fourpawsstores.utils;
 
+import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,6 +23,10 @@ public class utils {
     private static double sceneW = 400;
     private static double sceneH = 700;
     private static int grafica=0;
+    private static final String SETTING1 = "-fx-alignment: center;";
+    private static final String SETTING2 = "-fx-alignment: center-right;";
+    private static final String SETTING3 = "TimesNewRoman";
+    private static final String SETTING4 = "-fx-background-color: white; -fx-padding: 20px; -fx-margin: 20px; ";
     public static void switchGrafica(){
         if(grafica==0){
             grafica=1;
@@ -40,5 +45,47 @@ public class utils {
 
     public static double getSceneH(){
         return sceneH;
+    }
+
+    public static void showErrorPopup(String msg) {Popup popup = new Popup();
+
+        Stage owner = ApplicazioneStage.getStage();
+
+        // Crea l'overlay nero
+        Rectangle overlay = new Rectangle(owner.getWidth() - 5, owner.getHeight() - 5, Color.BLACK);
+        overlay.setOpacity(0.3);
+
+        // Crea il pulsante di chiusura
+        Button closeButton = new Button("X");
+        closeButton.setOnAction(e -> popup.hide());
+        closeButton.setStyle(SETTING2);
+
+        Text title = new Text("Attenzione \t");
+        title.setFont(Font.font(SETTING3, FontWeight.BOLD, 18));
+        title.setStyle(SETTING1);
+
+        HBox header = new HBox(10, title, closeButton);
+        header.setAlignment(Pos.CENTER);
+
+        Label messageLabel = new Label();
+        messageLabel.setText("\n" + msg);
+        messageLabel.setWrapText(true);
+
+        VBox vBoxContentBody = new VBox(messageLabel);
+
+        // Crea il contenuto del popup
+        VBox popupContent = new VBox(header, vBoxContentBody);
+        popupContent.setFillWidth(true);
+        popupContent.setMaxWidth(owner.getWidth() - 200);
+        popupContent.setMaxHeight(owner.getHeight() - 600);
+        popupContent.setStyle(SETTING4);
+
+        // Aggiungi l'overlay e il contenuto al popup
+        StackPane popupRoot = new StackPane(overlay, popupContent);
+        popupRoot.setStyle(SETTING1); // Centra il contenuto del popup
+        popup.getContent().add(popupRoot);
+
+        // Mostra il popup
+        popup.show(owner);
     }
 }
