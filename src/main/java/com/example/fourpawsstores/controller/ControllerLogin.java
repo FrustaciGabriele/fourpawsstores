@@ -9,6 +9,7 @@ import com.example.fourpawsstores.model.dao.ProfileProcDAO;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import com.example.fourpawsstores.model.domain.Credentials;
 import com.example.fourpawsstores.utils.utils;
+import com.example.fourpawsstores.view.SearchControllerGrafico;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,6 +62,8 @@ public class ControllerLogin {
             }
             fxmlLoad = new FXMLLoader();
             Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+            final SearchControllerGrafico controller=fxmlLoad.getController();
+            controller.inizializzamappa();
             scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
         }
         stage.setTitle("4Paws Stores");

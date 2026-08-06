@@ -6,9 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.web.WebView?>
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.fourpawsstores.view.SearchControllerGrafico"
             prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+    <center>
+        <WebView fx:id="webViewMap" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>
