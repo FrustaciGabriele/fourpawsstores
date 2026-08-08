@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import com.example.fourpawsstores.utils.utils;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class FourPawsApplication extends Application {
     @Override

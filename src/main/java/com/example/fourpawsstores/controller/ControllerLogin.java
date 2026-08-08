@@ -13,9 +13,11 @@ import com.example.fourpawsstores.view.SearchControllerGrafico;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 
 public class ControllerLogin {
@@ -60,11 +62,13 @@ public class ControllerLogin {
             } else {
                 FxmlRole = "/com/example/fourpawsstores/utente.fxml";
             }
+
             fxmlLoad = new FXMLLoader();
             Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
             final SearchControllerGrafico controller=fxmlLoad.getController();
-            controller.inizializzamappa();
+            controller.inizializza();
             scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
+            scene.getRoot().requestFocus();
         }
         stage.setTitle("4Paws Stores");
         stage.setScene(scene);
