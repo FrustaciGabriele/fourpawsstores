@@ -4,6 +4,7 @@ module com.example.fourpawsstores {
     requires java.sql;
     requires java.sql.rowset;
     requires javafx.web;
+    requires com.google.gson;
 
 
     opens com.example.fourpawsstores to javafx.fxml;
