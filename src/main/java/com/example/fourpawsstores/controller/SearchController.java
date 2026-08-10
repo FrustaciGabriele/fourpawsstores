@@ -35,7 +35,7 @@ public class SearchController {
         ListStoresBean StoresB;
         coordinateBean coordB;
         Coordinate coordinate= Coordinate.addressConvert(addrBean);
-        coordB= new coordinateBean(coordinate.getAddress(),coordinate.getlon(),coordinate.getlat());
+        coordB= new coordinateBean(coordinate.getAddress(), Coordinate.getlon(), Coordinate.getlat());
         Stores= facade.getListStores(coordinate);
         StoresB=new ListStoresBean(coordB.getAddressB(),coordB.getLatitudineB(),coordB.getLongitudineB());
         for (Store store: Stores.getList()){

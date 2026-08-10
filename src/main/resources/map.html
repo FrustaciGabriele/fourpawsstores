@@ -9,7 +9,7 @@
 <div id="map" style="height: 100vh;"></div>
 
 <script>
-    const map = L.map('map').setView([41.9028, 12.4964], 13);
+    var map = L.map('map').setView([41.9028, 12.4964], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19
@@ -18,6 +18,11 @@
     function addMarker(lat, lon, label) {
       L.marker([lat, lon]).addTo(map).bindPopup(label);
     }
+
+    var markers = [];
+
+
+
   </script>
 </body>
 </html>

@@ -1,9 +1,11 @@
 package com.example.fourpawsstores.model.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListStores {
-    private List<Store> list;
+    private List<Store> list= new ArrayList<>();
+
     public List<Store> getList() {return list;}
     public void addStore(Store store) {list.add(store);}
 }

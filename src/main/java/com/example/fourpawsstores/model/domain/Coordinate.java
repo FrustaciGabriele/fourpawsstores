@@ -26,35 +26,40 @@ public class Coordinate {
         this.latitudine=latD;
 
     }
+    public Coordinate( Double lonD, Double latD) {
+        this.longitudine=lonD;
+        this.latitudine=latD;
+
+    }
 
     public static Coordinate addressConvert(addressBean addrBean) throws IOException {
         String address=addrBean.getIndirizzo();
 
         String indirizzoEcoded = encodeValue(address);
-        // URL a cui eseguire la richiesta GET
-        URL url = new URL("https://nominatim.openstreetmap.org/search?format=geocodejson&q=" + indirizzoEcoded);
-
-        // Apertura della connessione
+        URL url = new URL("https://photon.komoot.io/api/?q=" + indirizzoEcoded);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
+        conn.setRequestProperty("User-Agent", "FourPawsStoresApp/1.0");
 
-        // Lettura della risposta
         BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         StringBuilder response = new StringBuilder();
         String line;
         while ((line = rd.readLine()) != null) {
             response.append(line);
-            response.append('\n');
         }
         rd.close();
 
-        JsonArray results = JsonParser.parseString(response.toString()).getAsJsonArray();
-        JsonObject firstResult = results.get(0).getAsJsonObject();
+        JsonObject obj = JsonParser.parseString(response.toString()).getAsJsonObject();
+        JsonArray features = obj.getAsJsonArray("features");
+        JsonObject first = features.get(0).getAsJsonObject();
+        JsonObject geometry = first.getAsJsonObject("geometry");
+        JsonArray coords = geometry.getAsJsonArray("coordinates");
 
-        Double latD = firstResult.get("lat").getAsDouble();
-        Double lonD = firstResult.get("lon").getAsDouble();
+        double lon = coords.get(0).getAsDouble();
+        double lat = coords.get(1).getAsDouble();
+        System.out.println("lat:"+ lat );
+        System.out.println("lat:"+ lon );
 
-        return new Coordinate(address,lonD,latD);
+        return new Coordinate(address,lon,lat);
     }
     private static String encodeValue(String value) throws UnsupportedEncodingException {
         return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
