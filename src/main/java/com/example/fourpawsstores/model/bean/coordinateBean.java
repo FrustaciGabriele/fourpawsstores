@@ -2,31 +2,33 @@ package com.example.fourpawsstores.model.bean;
 
 public class coordinateBean {
     private String addressB;
-    private String longitudine;
-    private String latitudine;
+    private Double longitudine;
+    private Double latitudine;
 
-    public coordinateBean(String indirizzo, String longitudine, String latitudine) {
-        this.addressB = indirizzo;
+
+    public coordinateBean(String address, Double lon, Double lat) {
+        this.addressB=address;
+        this.longitudine=lon;
+        this.latitudine=lat;
+    }
+
+    public void CoordinateBean(Double longitudine, Double latitudine) {
         this.longitudine = longitudine;
         this.latitudine = latitudine;
     }
 
-
-    public void CoordinateBean(String longitudine, String latitudine) {
-        this.longitudine = longitudine;
-        this.latitudine = latitudine;
-    }
-
-    public String getAddress() {
+    public String getAddressB() {
         return addressB;
     }
 
-    public String getLongitudine() {
+    public Double getLongitudineB() {
         return longitudine;
     }
 
-    public String getLatitudine() {
+    public Double getLatitudineB() {
         return latitudine;
     }
+
+
 }
 

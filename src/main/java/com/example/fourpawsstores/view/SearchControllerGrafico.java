@@ -31,7 +31,7 @@ public class SearchControllerGrafico {
     private ImageView Imappa;
     @FXML
     private ImageView Iordini;
-    private SearchController search;
+    private SearchController search=null;
 
 
     public void inizializza() {
@@ -46,7 +46,8 @@ public class SearchControllerGrafico {
 
     public void handleEnter(ActionEvent actionEvent) {FindAddress();}
     public void FindAddress() {
-        search= new SearchController();if(
+        search= new SearchController();
+        if(
                 address.getText().equals("")){
             utils.showErrorPopup("Inserisci un indirizzo");
         }else {

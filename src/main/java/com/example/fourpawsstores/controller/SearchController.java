@@ -2,6 +2,7 @@ package com.example.fourpawsstores.controller;
 
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.ListStoresBean;
+import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.bean.addressBean;
 import com.example.fourpawsstores.model.bean.coordinateBean;
 
@@ -10,6 +11,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+
+import com.example.fourpawsstores.model.domain.Coordinate;
+import com.example.fourpawsstores.model.domain.FacadeGetStores;
+import com.example.fourpawsstores.model.domain.ListStores;
+import com.example.fourpawsstores.model.domain.Store;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -22,44 +28,23 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class SearchController {
+    ListStores Stores;
+    FacadeGetStores facade;
+    public SearchController(){facade=new FacadeGetStores();}
     public ListStoresBean obtainStores(addressBean addrBean)  throws DAOException, SQLException, IOException {
-        ListStoresBean Stores;
-        coordinateBean coord;
-        coord=addressConvert(addrBean);
-
-        return Stores;
-    }
-
-    private coordinateBean addressConvert(addressBean addrBean) throws IOException {
-        String address=addrBean.getIndirizzo();
-
-        String indirizzoEcoded = encodeValue(address);
-        // URL a cui eseguire la richiesta GET
-        URL url = new URL("https://nominatim.openstreetmap.org/search?format=geocodejson&q=" + indirizzoEcoded);
-
-        // Apertura della connessione
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-
-        // Lettura della risposta
-        BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            response.append(line);
-            response.append('\n');
+        ListStoresBean StoresB;
+        coordinateBean coordB;
+        Coordinate coordinate= Coordinate.addressConvert(addrBean);
+        coordB= new coordinateBean(coordinate.getAddress(),coordinate.getlon(),coordinate.getlat());
+        Stores= facade.getListStores(coordinate);
+        StoresB=new ListStoresBean(coordB.getAddressB(),coordB.getLatitudineB(),coordB.getLongitudineB());
+        for (Store store: Stores.getList()){
+            StoreBeans storeB=new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog());
+            StoresB.addStore(storeB);
         }
-        rd.close();
 
-        JsonArray results = JsonParser.parseString(response.toString()).getAsJsonArray();
-        JsonObject firstResult = results.get(0).getAsJsonObject();
-
-        String latStr = firstResult.get("lat").getAsString();
-        String lonStr = firstResult.get("lon").getAsString();
-
-        return new coordinateBean(address,lonStr,latStr);
+        return StoresB;
     }
-    private String encodeValue(String value) throws UnsupportedEncodingException {
-        return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
-    }
+
+
 }
