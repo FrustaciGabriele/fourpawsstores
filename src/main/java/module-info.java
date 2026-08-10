@@ -11,4 +11,5 @@ module com.example.fourpawsstores {
     opens com.example.fourpawsstores.view to javafx.fxml;
     exports com.example.fourpawsstores;
     exports com.example.fourpawsstores.view;
+    exports com.example.fourpawsstores.model.bean;
 }

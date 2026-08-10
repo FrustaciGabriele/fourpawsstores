@@ -4,15 +4,10 @@ import com.example.fourpawsstores.controller.SearchController;
 import com.example.fourpawsstores.model.bean.ListStoresBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.bean.addressBean;
-import com.example.fourpawsstores.model.domain.Coordinate;
 import com.example.fourpawsstores.utils.utils;
-import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-//import com.sothawo.mapjfx.*;
-//import com.sothawo.mapjfx.event.MapViewEvent;
-//import com.sothawo.mapjfx.event.MarkerEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -67,6 +62,7 @@ public class SearchControllerGrafico {
         ListStoresBean Stores;
         try {
             Stores = search.obtainStores(addrBean);
+            engine.executeScript("centerMap(" + Stores.getLatB() + "," + Stores.getLonB() + ")");
             aggiungiMarker(Stores);
 
         } catch (IllegalArgumentException e){

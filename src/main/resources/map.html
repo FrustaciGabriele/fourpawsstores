@@ -18,7 +18,9 @@
     function addMarker(lat, lon, label) {
       L.marker([lat, lon]).addTo(map).bindPopup(label);
     }
-
+    function centerMap(lat, lon) {
+    map.setView([lat, lon], 20);
+    }
     var markers = [];
 
 
