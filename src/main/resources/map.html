@@ -15,8 +15,12 @@
       maxZoom: 19
     }).addTo(map);
 
-    function addMarker(lat, lon, label) {
-      L.marker([lat, lon]).addTo(map).bindPopup(label);
+    function addMarker(lat, lon, id, label) {
+      const marker = L.marker([lat, lon]).addTo(map).bindPopup(label);
+      marker.on ('click', function() {
+        javaApp.onMarkerClicked(id);
+    });
+    window.addMarker=addMarker
     }
     function centerMap(lat, lon) {
     map.setView([lat, lon], 20);
