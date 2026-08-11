@@ -35,6 +35,7 @@ public class FindStoresDAO {
                     store.setlat(rs.getDouble(6));
                     store.setLon(rs.getDouble(7));
                     store.setIdCatalog(rs.getInt(8));
+                    store.setTel(rs.getString(9));
                     ListStores.addStore(store);
 
                 }

@@ -11,11 +11,12 @@ public class StoreBeans {
     private Double lat;
     private Double lon;
     private int catalog;
+    private String tel;
     public StoreBeans(){
         
     }
 
-    public StoreBeans(int id, String nameB, String descriptionB, Blob imageB, String addressB, Double latB, Double lonB, int idCatalogB) {
+    public StoreBeans(int id, String nameB, String descriptionB, Blob imageB, String addressB, Double latB, Double lonB, int idCatalogB,String telB) {
         this.idStore=id;
         this.name=nameB;
         this.description=descriptionB;
@@ -24,6 +25,7 @@ public class StoreBeans {
         this.lat=latB;
         this.lon=lonB;
         this.catalog=idCatalogB;
+        this.tel=telB;
     }
     public int getid() { return idStore;}
     public String getName(){return name;}
@@ -33,5 +35,5 @@ public class StoreBeans {
     public Double getLat(){return lat;}
     public Double getLon(){return lon;}
     public int getIdCatalog(){return catalog;}
-
+    public String getTel(){return tel;}
 }

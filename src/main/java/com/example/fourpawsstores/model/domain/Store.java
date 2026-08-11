@@ -12,6 +12,7 @@ public class Store {
     private Double lat;
     private Double lon;
     private int catalog;
+    private String tel;
 
     public void setid(int anInt) {this.idStore=anInt;
     }
@@ -36,6 +37,8 @@ public class Store {
 
     public void setIdCatalog(int cat) {this.catalog=cat;
     }
+    public void setTel(String telephone) {this.tel=telephone;
+    }
 
     public int getid() { return idStore;}
     public String getName(){return name;}
@@ -45,6 +48,8 @@ public class Store {
     public Double getLat(){return lat;}
     public Double getLon(){return lon;}
     public int getIdCatalog(){return catalog;}
+    public String getTel(){return tel;}
+
 
 
 }

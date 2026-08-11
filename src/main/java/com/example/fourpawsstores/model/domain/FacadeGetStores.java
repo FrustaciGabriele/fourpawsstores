@@ -9,8 +9,8 @@ public class FacadeGetStores {
     private static ListStores ListStores;
 
     public ListStores getListStores(Coordinate coord) throws DAOException, SQLException {
-        if (this.coordinate == null || (!this.coordinate.getlat().equals(Coordinate.getlat()) || !this.coordinate.getlon().equals(Coordinate.getlon()))) {
-            ListStores = new FindStoresDAO().FindStores(coordinate);
+        if (this.coordinate == null || (!this.coordinate.getlat().equals(coord.getlat()) || !this.coordinate.getlon().equals(coord.getlon()))) {
+            ListStores = new FindStoresDAO().FindStores(coord);
         }
         return ListStores;
     }

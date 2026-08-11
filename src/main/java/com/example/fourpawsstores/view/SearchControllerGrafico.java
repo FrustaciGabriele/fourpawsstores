@@ -1,21 +1,30 @@
 package com.example.fourpawsstores.view;
 
+import com.example.fourpawsstores.controller.CatalogueController;
 import com.example.fourpawsstores.controller.SearchController;
 import com.example.fourpawsstores.model.bean.ListStoresBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.bean.addressBean;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
+import com.example.fourpawsstores.model.domain.Store;
 import com.example.fourpawsstores.utils.utils;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 import javafx.stage.Popup;
@@ -23,6 +32,9 @@ import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.Locale;
 
 
@@ -31,8 +43,6 @@ public class SearchControllerGrafico {
     private TextField address;
     @FXML
     private WebView webViewMap;
-    @FXML
-    private TextField ncivic;
     @FXML
     private ImageView Icerca;
     @FXML
@@ -117,18 +127,50 @@ public class SearchControllerGrafico {
         Popup popup = new Popup();
 
         Stage owner = ApplicazioneStage.getStage();
-
-        // Crea l'overlay nero
         Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
-        //overlay.setOpacity(0.3);
-
-        // Crea il pulsante di chiusura
         Button buttonClose = new Button("X");
         buttonClose.setOnAction(e -> popup.hide());
         buttonClose.setStyle("-fx-alignment: center-right;");
+        Text title =new Text ("Scheda Negozio");
+        HBox titleboard=new HBox(buttonClose,title);
+        Text Name=new Text("Nome: "+ store.getName());
+        Text Address=new Text("Indirizzo: "+ store.getAddress());
+        Text Tel= new Text("Tel. : "+ store.getTel());
+        VBox information= new VBox(Name,Address,Tel);
+        HBox img;
+        if(store.getImage() != null) {
+            try {
+                InputStream input = store.getImage().getBinaryStream();
+                Image image = new Image(input);
 
-        popup.getContent().addAll(overlay, buttonClose);
+                ImageView imageView = new ImageView(image);
+
+                imageView.setFitHeight(200);
+                imageView.setPreserveRatio(true);
+
+                img = new HBox(imageView);
+            } catch (SQLException e) {
+                img = new HBox(new Text("IMG NON PRESENTE"));
+            }
+        }else{
+            img = new HBox(new Text("IMG NON PRESENTE"));
+        }
+        HBox imgInfo=new HBox(img, information);
+        Text description= new Text("descrizione: "+store.getDescription());
+        Button catalogue =new Button("Vai al Catalogo");
+        catalogue.setOnAction(e -> {
+            try {
+                search.showCatalogue(store);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        VBox All= new VBox(titleboard,imgInfo, description,catalogue);
+
+        popup.getContent().addAll(overlay, All);
         popup.show(owner);
     }
 
-}
+    }
+
+

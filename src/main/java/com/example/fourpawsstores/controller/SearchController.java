@@ -12,25 +12,22 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 
-import com.example.fourpawsstores.model.domain.Coordinate;
-import com.example.fourpawsstores.model.domain.FacadeGetStores;
-import com.example.fourpawsstores.model.domain.ListStores;
-import com.example.fourpawsstores.model.domain.Store;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.example.fourpawsstores.model.domain.*;
+import com.example.fourpawsstores.utils.utils;
+import com.example.fourpawsstores.view.CatalogueControllerGrafico;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class SearchController {
     ListStores Stores;
     FacadeGetStores facade;
     public SearchController(){facade=new FacadeGetStores();}
+
+
     public ListStoresBean obtainStores(addressBean addrBean)  throws DAOException, SQLException, IOException {
         ListStoresBean StoresB;
         coordinateBean coordB;
@@ -39,12 +36,29 @@ public class SearchController {
         Stores= facade.getListStores(coordinate);
         StoresB=new ListStoresBean(coordB.getAddressB(),coordB.getLatitudineB(),coordB.getLongitudineB());
         for (Store store: Stores.getList()){
-            StoreBeans storeB=new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog());
+            StoreBeans storeB=new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog(),store.getTel());
             StoresB.addStore(storeB);
         }
 
         return StoresB;
     }
 
+    public void showCatalogue(StoreBeans store) throws IOException {
+        FXMLLoader fxmlLoader;
+        Stage stage = ApplicazioneStage.getStage();
+        Scene scene;
+        String fxmlFile;
+        fxmlFile="/com/example/fourpawsstores/catalogo.fxml";
+        fxmlLoader = new FXMLLoader();
+        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+        final CatalogueControllerGrafico controller=fxmlLoader.getController();
+        controller.inizializza(store);
+        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
+
+        stage.setTitle("StrArt");
+        stage.setScene(scene);
+        stage.show();
+
+    }
 }
