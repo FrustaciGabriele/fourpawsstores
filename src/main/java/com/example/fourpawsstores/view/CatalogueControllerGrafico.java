@@ -26,6 +26,8 @@ public class CatalogueControllerGrafico {
     private ImageView ShoppingCart;
     @FXML
     private Label title;
+    @FXML
+    private VBox productList;
     private CatalogueBean catB;
     private CatalogueController controller;
 
@@ -37,6 +39,7 @@ public class CatalogueControllerGrafico {
         controller= new CatalogueController();
         catB= controller.getCatalogue(store);
         for(ProductBean p :catB.getListProdB()){
+            System.out.println(p.getId()+""+p.getNameB());
             HBox product =new HBox(10);
             VBox info =new VBox(10);
             Label name = new Label("Prodotto: " + p.getNameB());
@@ -69,6 +72,7 @@ public class CatalogueControllerGrafico {
             });
             info.getChildren().addAll(name,description,price);
             product.getChildren().addAll(img,info,addCartButton,numAdd);
+            productList.getChildren().add(product);
 
         }
 

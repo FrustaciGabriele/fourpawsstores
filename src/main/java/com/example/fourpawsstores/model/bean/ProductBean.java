@@ -29,4 +29,7 @@ public class ProductBean {
 
     public BigDecimal getPriceB() {return priceB;
     }
+
+    public int getId() {return idB;
+    }
 }

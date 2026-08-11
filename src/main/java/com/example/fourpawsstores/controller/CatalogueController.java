@@ -20,6 +20,7 @@ public class CatalogueController {
        catalogue= facade.getItems(store);
        cat= new CatalogueBean(store.getid());
        for(Product p : catalogue.getList()){
+           System.out.println("id prodotto" + p.getId());
            ProductBean prodB = new ProductBean(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice(),p.getStoc());
            cat.addProductBean(prodB);
        }
