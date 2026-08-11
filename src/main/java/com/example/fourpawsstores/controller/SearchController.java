@@ -43,7 +43,7 @@ public class SearchController {
         return StoresB;
     }
 
-    public void showCatalogue(StoreBeans store) throws IOException {
+    public void showCatalogue(StoreBeans store) throws IOException, DAOException, SQLException {
         FXMLLoader fxmlLoader;
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
@@ -56,7 +56,7 @@ public class SearchController {
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
 
-        stage.setTitle("StrArt");
+        stage.setTitle("4Paws Stores");
         stage.setScene(scene);
         stage.show();
 

@@ -5,10 +5,31 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
+<?import javafx.scene.image.ImageView?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.fourpawsstores.view.CatalogueControllerGrafico"
             prefHeight="400.0" prefWidth="600.0">
 
+
+    <HBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <ImageView fx:id="Back" fitHeight="30" fitWidth="30" onMouseClicked="#goBack"/>
+        <Label fx:id="title" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+    </HBox>
+
+    <ScrollPane AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <VBox fx:id="productList" spacing="15" >
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        </VBox>
+    </ScrollPane>
+
+    <ImageView fx:id="ShoppingCart" fitHeight="50" fitWidth="50"
+               AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10"
+               onMouseClicked="#openCart"/>
+
 </AnchorPane>
+

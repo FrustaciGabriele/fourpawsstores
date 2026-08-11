@@ -2,6 +2,7 @@ package com.example.fourpawsstores.view;
 
 import com.example.fourpawsstores.controller.CatalogueController;
 import com.example.fourpawsstores.controller.SearchController;
+import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.ListStoresBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.bean.addressBean;
@@ -159,9 +160,14 @@ public class SearchControllerGrafico {
         Text description= new Text("descrizione: "+store.getDescription());
         Button catalogue =new Button("Vai al Catalogo");
         catalogue.setOnAction(e -> {
+            popup.hide();
             try {
                 search.showCatalogue(store);
             } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (DAOException ex) {
+                throw new RuntimeException(ex);
+            } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
