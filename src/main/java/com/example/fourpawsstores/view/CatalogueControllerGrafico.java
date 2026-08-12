@@ -64,7 +64,6 @@ public class CatalogueControllerGrafico {
             HBox buttons= new HBox(10);
 
             Label name = new Label("Prodotto: " + p.getNameB());
-            Label remaining= new Label("Rimanenti: "+p.getStock());
             Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
             Label numAdd= new Label("0");
 
@@ -90,12 +89,8 @@ public class CatalogueControllerGrafico {
             Button addCartButton= new Button("+");
             addCartButton.setOnAction(e ->{
                 int q = Integer.parseInt(numAdd.getText()) + 1;
-                if (q<=(p.getStock())){
                 numAdd.setText(String.valueOf(q));
                 cart.addToCart(p,q);
-                }else {
-                    utils.showErrorPopup("Non in stock");}
-
             });
             Button removeCartButton= new Button("-");
             removeCartButton.setOnAction(e->{
@@ -114,7 +109,7 @@ public class CatalogueControllerGrafico {
 
 
             buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);
-            info.getChildren().addAll(name,remaining,price);
+            info.getChildren().addAll(name,price);
             product.getChildren().addAll(img,info,description,buttons);
             productList.getChildren().add(product);
 

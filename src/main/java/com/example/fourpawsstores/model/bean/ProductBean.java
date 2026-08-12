@@ -9,14 +9,12 @@ public class ProductBean {
     private String descriptionB;
     private Blob imgB;
     private BigDecimal priceB;
-    private int stockB;
-    public ProductBean(int id, String name, String description, Blob img, BigDecimal price, int stoc) {
+    public ProductBean(int id, String name, String description, Blob img, BigDecimal price) {
         this.idB=id;
         this.nameB=name;
         this.descriptionB=description;
         this.imgB=img;
         this.priceB=price;
-        this.stockB=stoc;
     }
 
     public String getNameB() {return nameB;}
@@ -33,6 +31,4 @@ public class ProductBean {
     public int getId() {return idB;
     }
 
-    public int getStock() {return stockB;
-    }
 }

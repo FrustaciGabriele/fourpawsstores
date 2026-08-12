@@ -9,16 +9,14 @@ public class Product {
     private String description;
     private Blob img;
     private BigDecimal price;
-    private int stock;
     public Product(){
     }
-    public Product(int idB, String nameB, String descriptionB, Blob image, BigDecimal priceB, int stockB) {
+    public Product(int idB, String nameB, String descriptionB, Blob image, BigDecimal priceB) {
         this.id=idB;
         this.name=nameB;
         this.description=descriptionB;
         this.img=image;
         this.price=priceB;
-        this.stock=stockB;
     }
 
     public void setid(int pid) { this.id=pid;
@@ -36,8 +34,6 @@ public class Product {
     public void setPrice(BigDecimal priceP) {this.price=priceP;
     }
 
-    public void setNum(int num) {this.stock=num;
-    }
 
     public int getId() {return this.id;
     }
@@ -54,6 +50,5 @@ public class Product {
     public BigDecimal getPrice() {return this.price;
     }
 
-    public int getStoc() {return this.stock;
-    }
+
 }

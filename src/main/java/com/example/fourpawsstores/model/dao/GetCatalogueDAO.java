@@ -30,7 +30,6 @@ public class GetCatalogueDAO {
                     prod.setDescription(rs.getString(3));
                     prod.setImage(rs.getBlob(4));
                     prod.setPrice(rs.getBigDecimal(5));
-                    prod.setNum(rs.getInt(6));
                     cat.addProduct(prod);
                 }
             }

@@ -13,7 +13,7 @@ public class FacadeGetOrder {
     public Order createOrder(CartBean cart, int storeid, String paymentType) {
         Order order= new Order();
         for(ProductBean p: cart.getList()){
-            Product prod=new Product(p.getId(),p.getNameB(),p.getDescriptionB(),p.getImage(),p.getPriceB(),p.getStock());
+            Product prod=new Product(p.getId(),p.getNameB(),p.getDescriptionB(),p.getImage(),p.getPriceB());
             order.addToProductList(prod);
             order.addToProdId(p.getId());
         }
