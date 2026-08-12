@@ -24,7 +24,7 @@ public class insertOrderDAO {
   }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
   }
   try { Connection conn= ConnectionFactory.getConnection();
-   String sql = "INSERT INTO prodottiordine (idordine, idprodotto, quantita, prezzo) VALUES (?, ?, ?, ?)";
+   String sql = "INSERT INTO prodottiordine (idordini, idprodotto, quantita, prezzo) VALUES (?, ?, ?, ?)";
    PreparedStatement ps = conn.prepareStatement(sql);
 
    for (Product p : order.getListProduct()) {
