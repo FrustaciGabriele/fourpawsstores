@@ -26,7 +26,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -232,6 +231,8 @@ public class CatalogueControllerGrafico {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            popup.hide();
+            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
         });
         Button creditButton= new Button("Paga con carta");
         creditButton.setOnAction(e->{
@@ -242,6 +243,8 @@ public class CatalogueControllerGrafico {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            popup.hide();
+            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
         });
 
         Label total=new Label("Totale: "+ String.valueOf(cart.getTot())+"€");
