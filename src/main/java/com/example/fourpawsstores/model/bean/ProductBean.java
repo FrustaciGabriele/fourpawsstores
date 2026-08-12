@@ -32,4 +32,7 @@ public class ProductBean {
 
     public int getId() {return idB;
     }
+
+    public int getStock() {return stockB;
+    }
 }

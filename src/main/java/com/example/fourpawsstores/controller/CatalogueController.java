@@ -1,13 +1,13 @@
 package com.example.fourpawsstores.controller;
 
 import com.example.fourpawsstores.exception.DAOException;
+import com.example.fourpawsstores.model.bean.CartBean;
 import com.example.fourpawsstores.model.bean.CatalogueBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.domain.Catalogue;
 import com.example.fourpawsstores.model.domain.FacadeGetCatalogue;
 import com.example.fourpawsstores.model.domain.Product;
-import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
 
@@ -27,6 +27,6 @@ public class CatalogueController {
        return cat;
     }
 
-    public void addToCart(HBox product) {
+    public void inviaordine(CartBean cart, int i, int storeid) {
     }
 }
