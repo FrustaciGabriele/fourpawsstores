@@ -8,6 +8,7 @@ import java.sql.*;
 
 public class insertOrderDAO {
  public void insertOnDB(Order order) throws DAOException, SQLException {
+  System.out.println("CIAOO");
   CallableStatement cs=null;
   try { Connection conn= ConnectionFactory.getConnection();
    cs=conn.prepareCall("{call inserisciOrdine(?,?,?,?,?,?,?)}");
@@ -24,7 +25,8 @@ public class insertOrderDAO {
   }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
   }
   try { Connection conn= ConnectionFactory.getConnection();
-   String sql = "INSERT INTO prodottiordine (idordini, idprodotto, quantita, prezzo) VALUES (?, ?, ?, ?)";
+   String sql = "INSERT INTO prodottiordini (idordini, idprodotto, quantita, prezzo) VALUES (?, ?, ?, ?)";
+   System.out.println("SQL da eseguire: " + sql);
    PreparedStatement ps = conn.prepareStatement(sql);
 
    for (Product p : order.getListProduct()) {
