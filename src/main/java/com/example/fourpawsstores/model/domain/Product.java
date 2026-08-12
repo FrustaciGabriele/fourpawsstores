@@ -10,6 +10,17 @@ public class Product {
     private Blob img;
     private BigDecimal price;
     private int stock;
+    public Product(){
+    }
+    public Product(int idB, String nameB, String descriptionB, Blob image, BigDecimal priceB, int stockB) {
+        this.id=idB;
+        this.name=nameB;
+        this.description=descriptionB;
+        this.img=image;
+        this.price=priceB;
+        this.stock=stockB;
+    }
+
     public void setid(int pid) { this.id=pid;
     }
 

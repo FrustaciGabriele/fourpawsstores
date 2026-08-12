@@ -11,5 +11,6 @@ public class Profile {
     public static void setUsername(String user){username=user;}
     public static void setName(String name){nome=name;}
     public static void setCredit(String carta){idCarta=carta;}
+    public String getUsername(){return username;}
 
 }
