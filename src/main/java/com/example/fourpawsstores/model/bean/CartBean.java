@@ -41,4 +41,5 @@ public class CartBean {
 
     public BigDecimal getTot() {return Total;
     }
+    public int getLenght(){return list.size();}
 }

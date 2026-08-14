@@ -53,7 +53,7 @@ public class CatalogueControllerGrafico {
         System.out.println("id= %d"+ store.getid());
         Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
         ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
-        title= new Label(store.getName()+ " catalogo:");
+        title= new Label(""+ store.getName()+ " catalogo:");
         controller= new CatalogueController();
         catB= controller.getCatalogue(store);
         cart= new CartBean();
@@ -118,6 +118,7 @@ public class CatalogueControllerGrafico {
     }
 
     private void showPopUpDes(String descriptionB) {
+
         System.out.println("" + descriptionB);
         Popup popup= new Popup();
         Stage owner = ApplicazioneStage.getStage();
@@ -165,6 +166,7 @@ public class CatalogueControllerGrafico {
     }
 
     public void openCart(MouseEvent mouseEvent) {
+        if(cart.getLenght()>=1){
         Popup popup= new Popup();
         Stage owner = ApplicazioneStage.getStage();
 
@@ -247,6 +249,9 @@ public class CatalogueControllerGrafico {
         VBox popUpContent= new VBox(header,scrollProduct,total,buttonPay);
         StackPane popupRoot = new StackPane(overlay, popUpContent);
         popup.getContent().add(popupRoot);
-        popup.show(owner);
+        popup.show(owner);}
+        else {
+            utils.showErrorPopup("Non hai aggiunto nulla al carrello");
+        }
 }
 }

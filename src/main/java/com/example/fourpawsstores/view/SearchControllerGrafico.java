@@ -58,6 +58,7 @@ public class SearchControllerGrafico {
 
 
     public void inizializza() {
+        search= new SearchController();
         Icerca.setImage(new Image(getClass().getResourceAsStream("/images/cerca.png")));
         Iprofilo.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
         Imappa.setImage(new Image(getClass().getResourceAsStream("/images/mapclicked.png")));
@@ -75,7 +76,6 @@ public class SearchControllerGrafico {
 
     public void handleEnter(ActionEvent actionEvent) {FindAddress();}
     public void FindAddress() {
-        search= new SearchController();
         if(
                 address.getText().equals("")){
             utils.showErrorPopup("Inserisci un indirizzo");
@@ -105,7 +105,8 @@ public class SearchControllerGrafico {
     public void SeeProfile(MouseEvent mouseEvent) {
     }
 
-    public void openOrders(MouseEvent mouseEvent) {
+    public void openOrders(MouseEvent mouseEvent) throws IOException {
+        search.obtainOrders();
     }
     public void aggiungiMarker(ListStoresBean Stor){
         for (StoreBeans s : Stor.getList()) {

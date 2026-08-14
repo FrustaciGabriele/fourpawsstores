@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class FacadeGetOrder {
+public class FacadeCreateOrder {
     public Order createOrder(CartBean cart, int storeid, String paymentType) {
         Order order= new Order();
         for(ProductBean p: cart.getList()){

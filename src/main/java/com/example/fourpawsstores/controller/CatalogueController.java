@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class CatalogueController {
     private Catalogue catalogue;
     private FacadeGetCatalogue facade;
-    private FacadeGetOrder facadeOrder;
+    private FacadeCreateOrder facadeOrder;
     public CatalogueController(){facade=new FacadeGetCatalogue();}
     public CatalogueBean getCatalogue(StoreBeans store) throws DAOException, SQLException {
        CatalogueBean cat;
@@ -34,7 +34,7 @@ public class CatalogueController {
         else{
             paymentType="Paga con carta";
         }
-        facadeOrder=new FacadeGetOrder();
+        facadeOrder=new FacadeCreateOrder();
         Order newOrder= facadeOrder.createOrder(cart,storeid,paymentType);
         facadeOrder.insertOrder(newOrder);
     }

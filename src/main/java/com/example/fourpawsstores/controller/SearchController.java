@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import com.example.fourpawsstores.model.domain.*;
 import com.example.fourpawsstores.utils.utils;
 import com.example.fourpawsstores.view.CatalogueControllerGrafico;
+import com.example.fourpawsstores.view.OrderControllerGrafico;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -60,5 +61,23 @@ public class SearchController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    public void obtainOrders() throws IOException {
+        FXMLLoader fxmlLoader;
+        Stage stage = ApplicazioneStage.getStage();
+        Scene scene;
+        String fxmlFile;
+        fxmlFile="/com/example/fourpawsstores/ordini.fxml";
+        fxmlLoader = new FXMLLoader();
+        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+        final OrderControllerGrafico controller=fxmlLoader.getController();
+        controller.inizializza();
+        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
+
+
+        stage.setTitle("4Paws Stores");
+        stage.setScene(scene);
+        stage.show();
     }
 }
