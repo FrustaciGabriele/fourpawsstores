@@ -50,6 +50,39 @@ public class FindStoresDAO {
     }
         return ListStores;
 }
+
+    public Store findStoreById(int storeIdB) throws DAOException, SQLException {
+        CallableStatement cs=null;
+        Store store = FactoryStore.CreateStore();
+        try { Connection conn= ConnectionFactory.getConnection();
+            cs=conn.prepareCall("{call cercanegozioid(?)}");
+            cs.setDouble(1, storeIdB);
+            boolean status=cs.execute();
+            if (status){
+                ResultSet rs=cs.getResultSet();
+                while (rs.next()){
+
+                    store.setid(rs.getInt(1));
+                    store.setname(rs.getString(2));
+                    store.setDescription(rs.getString(3));
+                    store.setImage(rs.getBlob(4));
+                    store.setAddress(rs.getString(5));
+                    store.setlat(rs.getDouble(6));
+                    store.setLon(rs.getDouble(7));
+                    store.setIdCatalog(rs.getInt(8));
+                    store.setTel(rs.getString(9));
+
+
+                }
+            }
+
+        }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
+        }finally {
+            if(cs!= null){
+                cs.close();
+            }
+
+        }
+        return store;
+    }
 }
-
-

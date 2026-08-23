@@ -3,9 +3,12 @@ package com.example.fourpawsstores.controller;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.ListOrderBean;
 import com.example.fourpawsstores.model.bean.OrderBean;
+import com.example.fourpawsstores.model.bean.StoreBeans;
+import com.example.fourpawsstores.model.dao.FindStoresDAO;
 import com.example.fourpawsstores.model.domain.FacadeCreateOrder;
 import com.example.fourpawsstores.model.domain.ListOrder;
 import com.example.fourpawsstores.model.domain.Order;
+import com.example.fourpawsstores.model.domain.Store;
 import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
@@ -22,5 +25,15 @@ public class OrderController {
             ordersBean.addOrder(ordBean);
         }
         return ordersBean;
+    }
+
+    public OrderBean getCompleteOrder(OrderBean order) {
+    return order;
+    }
+
+    public StoreBeans getInfoStore(int storeIdB) throws DAOException, SQLException {
+        Store store=  new FindStoresDAO().findStoreById(storeIdB);
+        StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(),store.getTel());
+        return storeB;
     }
 }

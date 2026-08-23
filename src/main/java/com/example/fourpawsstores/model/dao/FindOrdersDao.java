@@ -30,8 +30,6 @@ public class FindOrdersDao {
                     order.setPayType(rs.getString(4));
                     order.setOrderId(rs.getInt(5));
                     order.setStateOrder(rs.getString(6));
-                    order.addToProdId(rs.getInt(7));
-                    order.addToQuantity(rs.getInt(8));
                     order.setClientId(username);
                     list.addOrder(order);
                 }
