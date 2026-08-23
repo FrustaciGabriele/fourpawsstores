@@ -60,6 +60,11 @@ public class ControllerLogin {
 
                 FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
             } else {
+                try {
+                    new ProfileProcDAO().getProfile();
+                } catch(DAOException | SQLException e) {
+                    throw new IllegalArgumentException(e);
+                }
                 FxmlRole = "/com/example/fourpawsstores/utente.fxml";
             }
 

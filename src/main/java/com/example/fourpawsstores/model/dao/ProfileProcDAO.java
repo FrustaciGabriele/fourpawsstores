@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class ProfileProcDAO {
     public void getProfile() throws DAOException, SQLException {
-        CallableStatement cs = null;
+        CallableStatement cs;
         if (Credentials.getRole().getId()==2){
             try {
                 Connection conn = ConnectionFactory.getConnection();

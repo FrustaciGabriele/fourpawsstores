@@ -66,4 +66,6 @@ public class Order {
 
     public List<Integer> getQuantity() {return quantity;
     }
+    public List<Integer> getListProdId() {return listProdId;
+    }
 }

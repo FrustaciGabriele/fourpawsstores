@@ -8,4 +8,7 @@ public class ListOrderBean {
     public void addOrder(OrderBean orderB){
         listOrderB.add(orderB);
     }
+    public List<OrderBean> getListOrderB(){
+        return listOrderB;
+    }
 }

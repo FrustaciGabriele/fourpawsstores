@@ -1,5 +1,6 @@
 package com.example.fourpawsstores.model.bean;
 
+import com.example.fourpawsstores.controller.OrderController;
 import com.example.fourpawsstores.model.domain.Product;
 
 import java.math.BigDecimal;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderBean {
-    public class Order {
         private int storeIdB;
         private String clientIdB;
         private List<ProductBean> listProductB= new ArrayList<>();
@@ -19,6 +19,18 @@ public class OrderBean {
         private String stateOrderB;
         private Timestamp dateB;
         private int orderIdB;
+
+        public OrderBean(int sId,String cId,List<Integer> prodId,List<Integer> quantB,String pay, BigDecimal tot, String state, Timestamp date, int ordid){
+                this.storeIdB=sId;
+                this.clientIdB=cId;
+                this.listProdIdB=prodId;
+                this.quantityB= quantB;
+                this.typeOfPaymentB=pay;
+                this.totalB=tot;
+                this.stateOrderB=state;
+                this.dateB=date;
+                this.orderIdB=ordid;
+        }
 
         public void addToProductListB(ProductBean p) {listProductB.add(p);
         }
@@ -68,6 +80,5 @@ public class OrderBean {
 
         public List<Integer> getQuantityB() {return quantityB;
         }
-    }
 
 }

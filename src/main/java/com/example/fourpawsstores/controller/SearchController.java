@@ -63,7 +63,7 @@ public class SearchController {
 
     }
 
-    public void obtainOrders() throws IOException {
+    public void obtainOrders() throws IOException, DAOException, SQLException {
         FXMLLoader fxmlLoader;
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;

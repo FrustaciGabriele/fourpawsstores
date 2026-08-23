@@ -105,7 +105,7 @@ public class SearchControllerGrafico {
     public void SeeProfile(MouseEvent mouseEvent) {
     }
 
-    public void openOrders(MouseEvent mouseEvent) throws IOException {
+    public void openOrders(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {
         search.obtainOrders();
     }
     public void aggiungiMarker(ListStoresBean Stor){

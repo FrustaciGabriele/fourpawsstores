@@ -3,6 +3,7 @@ package com.example.fourpawsstores.model.domain;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CartBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
+import com.example.fourpawsstores.model.dao.FindOrdersDao;
 import com.example.fourpawsstores.model.dao.insertOrderDAO;
 
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class FacadeCreateOrder {
+    private ListOrder list;
     public Order createOrder(CartBean cart, int storeid, String paymentType) {
         Order order= new Order();
         for(ProductBean p: cart.getList()){
@@ -31,5 +33,12 @@ public class FacadeCreateOrder {
 
     public void insertOrder(Order newOrder) throws DAOException, SQLException {
         new insertOrderDAO().insertOnDB(newOrder);
+    }
+
+    public ListOrder findOrders() throws DAOException, SQLException {
+        String username=Profile.getUsername();
+        System.out.println("username:"+username);
+         list= new FindOrdersDao().getOrders(username);
+         return list;
     }
 }
