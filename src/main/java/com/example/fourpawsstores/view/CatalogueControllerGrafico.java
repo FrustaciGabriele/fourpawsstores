@@ -7,6 +7,8 @@ import com.example.fourpawsstores.model.bean.CatalogueBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
+import com.example.fourpawsstores.model.domain.Credentials;
+import com.example.fourpawsstores.model.domain.Role;
 import com.example.fourpawsstores.utils.utils;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -43,16 +45,22 @@ public class CatalogueControllerGrafico {
     private Label title;
     @FXML
     private VBox productList;
+    @FXML
+    private ImageView Iprofilo;
+    @FXML
+    private ImageView Icatalogo;
+    @FXML
+    private ImageView Iordini;
     private CatalogueBean catB;
     private CatalogueController controller;
     private CartBean cart;
     private int storeid;
 
     public void inizializza(StoreBeans store) throws DAOException, SQLException {
-        storeid=store.getid();
-        System.out.println("id= %d"+ store.getid());
+
         Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
         ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
+
         title= new Label(""+ store.getName()+ " catalogo:");
         controller= new CatalogueController();
         catB= controller.getCatalogue(store);

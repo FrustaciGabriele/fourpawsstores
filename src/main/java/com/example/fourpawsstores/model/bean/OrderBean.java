@@ -20,11 +20,9 @@ public class OrderBean {
         private Timestamp dateB;
         private int orderIdB;
 
-        public OrderBean(int sId,String cId,List<Integer> prodId,List<Integer> quantB,String pay, BigDecimal tot, String state, Timestamp date, int ordid){
+        public OrderBean(int sId,String cId,String pay, BigDecimal tot, String state, Timestamp date, int ordid){
                 this.storeIdB=sId;
                 this.clientIdB=cId;
-                this.listProdIdB=prodId;
-                this.quantityB= quantB;
                 this.typeOfPaymentB=pay;
                 this.totalB=tot;
                 this.stateOrderB=state;
@@ -81,4 +79,7 @@ public class OrderBean {
         public List<Integer> getQuantityB() {return quantityB;
         }
 
+        public void setListProductB(List<Product> listProduct) {
+
+        }
 }

@@ -16,7 +16,16 @@ public class Order {
     private String stateOrder;
     private Timestamp date;
     private int orderId;
-
+    public Order(){}
+    public Order(int sId,String cId,String pay, BigDecimal tot, String state, Timestamp date, int ordid){
+        this.storeId=sId;
+        this.clientId=cId;
+        this.typeOfPayment=pay;
+        this.total=tot;
+        this.stateOrder=state;
+        this.date=date;
+        this.orderId=ordid;
+    }
     public void addToProductList(Product p) {listProduct.add(p);
     }
 
