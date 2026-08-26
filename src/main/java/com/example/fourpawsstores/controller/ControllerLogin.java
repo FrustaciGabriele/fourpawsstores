@@ -14,6 +14,7 @@ import com.example.fourpawsstores.model.domain.Profile;
 import com.example.fourpawsstores.model.domain.Store;
 import com.example.fourpawsstores.utils.utils;
 import com.example.fourpawsstores.view.CatalogueControllerGrafico;
+import com.example.fourpawsstores.view.CatalogueStoreControllerGrafico;
 import com.example.fourpawsstores.view.SearchControllerGrafico;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -80,9 +81,9 @@ public class ControllerLogin {
             controller.inizializza();}
             else{
                 Store store= new FindStoresDAO().findStoreById(Profile.getStoreId());
-                StoreBeans storeBeans= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog(),store.getTel());
-                final CatalogueControllerGrafico controller=fxmlLoad.getController();
-                controller.inizializza(storeBeans);
+                StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog(),store.getTel());
+                final CatalogueStoreControllerGrafico controller=fxmlLoad.getController();
+                controller.inizializza(storeB);
             }
             scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
             scene.getRoot().requestFocus();

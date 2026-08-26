@@ -14,4 +14,7 @@ public class Profile {
 
     public static int getStoreId() {return IdStore;
     }
+
+    public static void setIdStore(int anInt) { IdStore=anInt;
+    }
 }

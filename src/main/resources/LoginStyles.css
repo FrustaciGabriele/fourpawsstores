@@ -11,7 +11,7 @@
     -fx-padding: 5;
 }
 .login-button {
-    -fx-background-color: #1a73e8; /* Cambiato in blu */
+    -fx-background-color: #1a73e8;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;

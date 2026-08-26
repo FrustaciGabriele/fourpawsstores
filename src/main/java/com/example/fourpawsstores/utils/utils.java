@@ -131,4 +131,47 @@ public class utils {
         // Mostra il popup
         popup.show(owner);
     }
+    public static void showPopUpDes(String descriptionB) {
+
+        System.out.println("" + descriptionB);
+        Popup popup= new Popup();
+        Stage owner = ApplicazioneStage.getStage();
+
+        // Crea l'overlay nero
+        Rectangle overlay = new Rectangle(owner.getWidth() - 5, owner.getHeight() - 5, Color.BLACK);
+        overlay.setOpacity(0.3);
+
+        // Crea il pulsante di chiusura
+        Button closeButton = new Button("X");
+        closeButton.setOnAction(e -> popup.hide());
+        closeButton.setStyle(SETTING2);
+
+        Text title = new Text("Descrizione: \t");
+        title.setFont(Font.font(SETTING3, FontWeight.BOLD, 18));
+        title.setStyle(SETTING1);
+
+        HBox header = new HBox(10, title, closeButton);
+        header.setAlignment(Pos.CENTER);
+
+        Label messageLabel = new Label();
+        messageLabel.setText("\n" + descriptionB);
+        messageLabel.setWrapText(true);
+
+        VBox vBoxContentBody = new VBox(messageLabel);
+
+        // Crea il contenuto del popup
+        VBox popupContent = new VBox(header, vBoxContentBody);
+        popupContent.setFillWidth(true);
+        popupContent.setMaxWidth(owner.getWidth() - 200);
+        popupContent.setMaxHeight(owner.getHeight() - 600);
+        popupContent.setStyle(SETTING4);
+
+        // Aggiungi l'overlay e il contenuto al popup
+        StackPane popupRoot = new StackPane(overlay, popupContent);
+        popupRoot.setStyle(SETTING1); // Centra il contenuto del popup
+        popup.getContent().add(popupRoot);
+
+        // Mostra il popup
+        popup.show(owner);
+    }
 }

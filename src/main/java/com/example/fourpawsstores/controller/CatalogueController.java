@@ -70,4 +70,11 @@ public class CatalogueController {
         Order newOrder= facadeOrder.createOrder(clientCart,storeid,paymentType);
         facadeOrder.insertOrder(newOrder);}
     }
+
+    public boolean checkLenght() {
+        if (catalogue.getList().size()>0){
+            return true;
+        }
+        return false;
+    }
 }

@@ -54,24 +54,17 @@ public class CatalogueControllerGrafico {
     private CatalogueBean catB;
     private CatalogueController controller;
     private CartBean cart;
-    private int storeid;
 
     public void inizializza(StoreBeans store) throws DAOException, SQLException {
-        if(Credentials.getRole().getId()==2){
+
         Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
-        ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));}
-        else{
-            Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
-            Iprofilo.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
-            Icatalogo.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
-            Iordini.setImage(new Image(getClass().getResourceAsStream("/images/package.png")));
-        }
+        ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
+
         title= new Label(""+ store.getName()+ " catalogo:");
         controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
         cart= controller.createCart();
         for(ProductBean p :catB.getListProdB()){
-            System.out.println(p.getId()+""+p.getNameB());
             HBox product =new HBox(10);
             VBox info =new VBox(10);
             HBox buttons= new HBox(10);
@@ -119,7 +112,7 @@ public class CatalogueControllerGrafico {
             Button description= new Button("i");
             description.getStyleClass().add("roundbutton");
             description.setOnAction(e ->{
-                showPopUpDes(p.getDescriptionB());
+                utils.showPopUpDes(p.getDescriptionB());
             });
 
 
@@ -132,49 +125,7 @@ public class CatalogueControllerGrafico {
 
     }
 
-    private void showPopUpDes(String descriptionB) {
 
-        System.out.println("" + descriptionB);
-        Popup popup= new Popup();
-        Stage owner = ApplicazioneStage.getStage();
-
-        // Crea l'overlay nero
-        Rectangle overlay = new Rectangle(owner.getWidth() - 5, owner.getHeight() - 5, Color.BLACK);
-        overlay.setOpacity(0.3);
-
-        // Crea il pulsante di chiusura
-        Button closeButton = new Button("X");
-        closeButton.setOnAction(e -> popup.hide());
-        closeButton.setStyle(SETTING2);
-
-        Text title = new Text("Descrizione: \t");
-        title.setFont(Font.font(SETTING3, FontWeight.BOLD, 18));
-        title.setStyle(SETTING1);
-
-        HBox header = new HBox(10, title, closeButton);
-        header.setAlignment(Pos.CENTER);
-
-        Label messageLabel = new Label();
-        messageLabel.setText("\n" + descriptionB);
-        messageLabel.setWrapText(true);
-
-        VBox vBoxContentBody = new VBox(messageLabel);
-
-        // Crea il contenuto del popup
-        VBox popupContent = new VBox(header, vBoxContentBody);
-        popupContent.setFillWidth(true);
-        popupContent.setMaxWidth(owner.getWidth() - 200);
-        popupContent.setMaxHeight(owner.getHeight() - 600);
-        popupContent.setStyle(SETTING4);
-
-        // Aggiungi l'overlay e il contenuto al popup
-        StackPane popupRoot = new StackPane(overlay, popupContent);
-        popupRoot.setStyle(SETTING1); // Centra il contenuto del popup
-        popup.getContent().add(popupRoot);
-
-        // Mostra il popup
-        popup.show(owner);
-    }
 
 
     public void goBack(MouseEvent mouseEvent) {
@@ -238,9 +189,7 @@ public class CatalogueControllerGrafico {
         cashButton.setOnAction(e->{
             try {
                 controller.inviaordine(1);
-            } catch (DAOException ex) {
-                throw new RuntimeException(ex);
-            } catch (SQLException ex) {
+            } catch (DAOException | SQLException ex) {
                 throw new RuntimeException(ex);
             }
             popup.hide();
@@ -250,9 +199,7 @@ public class CatalogueControllerGrafico {
         creditButton.setOnAction(e->{
             try {
                 controller.inviaordine(2);
-            } catch (DAOException ex) {
-                throw new RuntimeException(ex);
-            } catch (SQLException ex) {
+            } catch (DAOException | SQLException ex) {
                 throw new RuntimeException(ex);
             }
             popup.hide();

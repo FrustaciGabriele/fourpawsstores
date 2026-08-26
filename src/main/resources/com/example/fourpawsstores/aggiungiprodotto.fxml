@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fourpawsstores.view.AddProductControllerGrafico"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+    <HBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+        <ImageView fx:id="Back" fitHeight="30" fitWidth="30" onMouseClicked="#goBack"/>
+        <Label fx:id="title" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+    </HBox>
+    </top>
+    <center>
+        <TextField fx:id="prodName" promptText="Inserisci nome prodotto"  />
+        <TextField fx:id="prodDescription" promptText="Inserisci nome prodotto"  />
+    </center>
+    <bottom>
+        <HBox alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" />
+            </padding>
+        <Button text="Aggiungi prodotto" onAction="#addProduct" />
+        </HBox>
+    </bottom>
+</BorderPane>

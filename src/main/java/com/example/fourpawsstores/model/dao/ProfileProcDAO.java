@@ -41,6 +41,7 @@ public class ProfileProcDAO {
                 if (rs.next()) {
                     Profile.setUsername(rs.getString(1));
                     Profile.setName(rs.getString(2));
+                    Profile.setIdStore(rs.getInt(3));
                 }
             }
         } catch (SQLException e) {

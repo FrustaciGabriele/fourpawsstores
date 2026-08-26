@@ -10,13 +10,17 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fourpawsstores.view.CatalogueControllerGrafico"
+            fx:controller="com.example.fourpawsstores.view.CatalogueStoreControllerGrafico"
             prefHeight="400.0" prefWidth="600.0">
     <top>
-        <HBox spacing="10.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-            <ImageView fx:id="Back" fitHeight="30" fitWidth="30" onMouseClicked="#goBack"/>
-            <Label fx:id="title" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
-        </HBox>
+        <BorderPane  AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <left>
+            <ImageView fx:id="Add" fitHeight="30" fitWidth="30" onMouseClicked="#addProduct"/>
+            </left>
+            <center>
+            <Label fx:id="titleC" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: black; -fx-alignment: center;" HBox.hgrow="ALWAYS" BorderPane.alignment="CENTER"/>
+            </center>
+        </BorderPane>
     </top>
     <center>
         <ScrollPane AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
