@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class LoginView {
@@ -26,6 +27,8 @@ public class LoginView {
             loginController.start(credB);
         }catch (DAOException | IOException e){
             throw new IllegalArgumentException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
     @FXML

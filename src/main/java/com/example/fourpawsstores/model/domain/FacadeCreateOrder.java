@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 
 public class FacadeCreateOrder {
     private ListOrder list;
-    public Order createOrder(CartBean cart, int storeid, String paymentType) {
+    public Order createOrder(Cart cart, int storeid, String paymentType) {
         Order order= new Order();
-        for(ProductBean p: cart.getList()){
-            Product prod=new Product(p.getId(),p.getNameB(),p.getDescriptionB(),p.getImage(),p.getPriceB());
+        for(Product p: cart.getList()){
+            Product prod=new Product(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice());
             order.addToProductList(prod);
             order.addToProdId(p.getId());
         }

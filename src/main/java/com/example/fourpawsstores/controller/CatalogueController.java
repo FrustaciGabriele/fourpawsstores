@@ -13,7 +13,12 @@ public class CatalogueController {
     private Catalogue catalogue;
     private FacadeGetCatalogue facade;
     private FacadeCreateOrder facadeOrder;
-    public CatalogueController(){facade=new FacadeGetCatalogue();}
+    private Cart clientCart;
+    private int storeid;
+    public CatalogueController(StoreBeans store){
+        facade=new FacadeGetCatalogue();
+        storeid=store.getid();
+    }
     public CatalogueBean getCatalogue(StoreBeans store) throws DAOException, SQLException {
        CatalogueBean cat;
        catalogue= facade.getItems(store);
@@ -25,9 +30,36 @@ public class CatalogueController {
        }
        return cat;
     }
-
-    public void inviaordine(CartBean cart, int type, int storeid) throws DAOException, SQLException {
+    public CartBean createCart(){
+        clientCart=new Cart();
+        CartBean cartB =new CartBean();
+        return cartB;
+    }
+    public boolean addProduct(ProductBean prodB, int q){
+        int idProdB = prodB.getId();
+        for (Product p : catalogue.getList()){
+            if (p.getId()== idProdB){
+                clientCart.addToCart(p,q);
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean removeProduct(ProductBean prodB, int q){
+        int idProdB = prodB.getId();
+        if (q>=1){
+            q=q-1;
+        for (Product p : catalogue.getList()){
+            if (p.getId()== idProdB){
+                clientCart.deletefromCart(p,q);
+                return true;
+            }
+        }}
+        return false;
+    }
+    public void inviaordine(int type) throws DAOException, SQLException {
         String paymentType;
+        if (clientCart.getLenght()>0){
         if (type==1){
             paymentType="Paga al ritiro";
         }
@@ -35,7 +67,7 @@ public class CatalogueController {
             paymentType="Paga con carta";
         }
         facadeOrder=new FacadeCreateOrder();
-        Order newOrder= facadeOrder.createOrder(cart,storeid,paymentType);
-        facadeOrder.insertOrder(newOrder);
+        Order newOrder= facadeOrder.createOrder(clientCart,storeid,paymentType);
+        facadeOrder.insertOrder(newOrder);}
     }
 }

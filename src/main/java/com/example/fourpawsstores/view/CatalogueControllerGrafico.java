@@ -57,14 +57,19 @@ public class CatalogueControllerGrafico {
     private int storeid;
 
     public void inizializza(StoreBeans store) throws DAOException, SQLException {
-
+        if(Credentials.getRole().getId()==2){
         Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
-        ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
-
+        ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));}
+        else{
+            Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
+            Iprofilo.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
+            Icatalogo.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
+            Iordini.setImage(new Image(getClass().getResourceAsStream("/images/package.png")));
+        }
         title= new Label(""+ store.getName()+ " catalogo:");
-        controller= new CatalogueController();
+        controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
-        cart= new CartBean();
+        cart= controller.createCart();
         for(ProductBean p :catB.getListProdB()){
             System.out.println(p.getId()+""+p.getNameB());
             HBox product =new HBox(10);
@@ -97,13 +102,15 @@ public class CatalogueControllerGrafico {
             Button addCartButton= new Button("+");
             addCartButton.setOnAction(e ->{
                 int q = Integer.parseInt(numAdd.getText()) + 1;
+                if(controller.addProduct(p,q)){
                 numAdd.setText(String.valueOf(q));
-                cart.addToCart(p,q);
+                cart.addToCart(p,q);}
+                else {utils.showErrorPopup("Errore nell'inserimento");}
             });
             Button removeCartButton= new Button("-");
             removeCartButton.setOnAction(e->{
                 int q= Integer.parseInt(numAdd.getText());
-                if (q>=1){
+                if (controller.removeProduct(p,q)){
                     q=q -1;
                     numAdd.setText(String.valueOf(q));
                     cart.deletefromCart(p,q);
@@ -230,7 +237,7 @@ public class CatalogueControllerGrafico {
         Button cashButton= new Button("Paga al ritiro");
         cashButton.setOnAction(e->{
             try {
-                controller.inviaordine(cart,1,storeid);
+                controller.inviaordine(1);
             } catch (DAOException ex) {
                 throw new RuntimeException(ex);
             } catch (SQLException ex) {
@@ -242,7 +249,7 @@ public class CatalogueControllerGrafico {
         Button creditButton= new Button("Paga con carta");
         creditButton.setOnAction(e->{
             try {
-                controller.inviaordine(cart,2, storeid);
+                controller.inviaordine(2);
             } catch (DAOException ex) {
                 throw new RuntimeException(ex);
             } catch (SQLException ex) {
