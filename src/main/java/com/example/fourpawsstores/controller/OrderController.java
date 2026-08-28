@@ -8,8 +8,15 @@ import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.dao.FindOrdersDao;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
 import com.example.fourpawsstores.model.domain.*;
+import com.example.fourpawsstores.utils.utils;
+import com.example.fourpawsstores.view.SearchControllerGrafico;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -45,5 +52,23 @@ public class OrderController {
         Store store=  new FindStoresDAO().findStoreById(storeIdB);
         StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(),store.getTel());
         return storeB;
+    }
+
+    public void goBackToMap() throws IOException {
+        FXMLLoader fxmlLoad;
+        Stage stage = ApplicazioneStage.getStage();
+        Scene scene;
+        String FxmlRole = "/com/example/fourpawsstores/utente.fxml";
+        fxmlLoad = new FXMLLoader();
+        Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+        SearchControllerGrafico controller=fxmlLoad.getController();
+        controller.inizializza();
+        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
+        scene.getRoot().requestFocus();
+        stage.setTitle("4Paws Stores");
+        stage.setScene(scene);
+        stage.show(); stage.setTitle("4Paws Stores");
+        stage.setScene(scene);
+        stage.show();
     }
 }

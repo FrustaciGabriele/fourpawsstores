@@ -33,7 +33,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
         <ImageView fx:id="Iprofilo" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="Imappa" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="Imappa" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToMap"/>
         <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
 
     </HBox>

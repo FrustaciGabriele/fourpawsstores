@@ -5,3 +5,17 @@
     -fx-background-radius: 5;
     -fx-padding: 5;
 }
+.product-row {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+}
+.scroll-image {
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}

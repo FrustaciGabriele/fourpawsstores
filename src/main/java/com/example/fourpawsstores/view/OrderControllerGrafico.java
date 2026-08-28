@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -24,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
@@ -102,33 +104,6 @@ public class OrderControllerGrafico {
         List<ProductBean> listB=orderB.getListProductB();
         for(ProductBean p :listB){
             HBox product = cardInfoProduct(p,orderB);
-           /* VBox info =new VBox(10);
-
-            Label name = new Label("Prodotto: " + p.getNameB());
-            Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
-            Label numProd= new Label("Qt: "+ orderB.getQuantityB().get(listB.indexOf(p)));
-
-            HBox imgProd;
-            if(p.getImage() != null) {
-                try {
-                    InputStream input = p.getImage().getBinaryStream();
-                    Image image = new Image(input);
-
-                    ImageView imageView = new ImageView(image);
-
-                    imageView.setFitHeight(200);
-                    imageView.setPreserveRatio(true);
-
-                    imgProd = new HBox(imageView);
-                } catch (SQLException e) {
-                    imgProd = new HBox(new Text("IMG NON PRESENTE"));
-                }
-            }else{
-                imgProd = new HBox(new Text("IMG NON PRESENTE"));
-            }
-
-            info.getChildren().addAll(name,price);
-            product.getChildren().addAll(imgProd,info,numProd);*/
             productOrderList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productOrderList);
@@ -209,5 +184,10 @@ public class OrderControllerGrafico {
         info.getChildren().addAll(name,price);
         product.getChildren().addAll(img,info,numProd);
         return product;
+    }
+
+    public void goToMap(MouseEvent mouseEvent) throws IOException {
+        controller.goBackToMap();
+
     }
 }
