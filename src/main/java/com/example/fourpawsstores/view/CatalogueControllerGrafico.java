@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Objects;
 
 
 public class CatalogueControllerGrafico {
@@ -60,10 +61,10 @@ public class CatalogueControllerGrafico {
 
     public void inizializza(StoreBeans store) throws DAOException, SQLException {
 
-        Back.setImage(new Image(getClass().getResourceAsStream("/images/backArrow.png")));
-        ShoppingCart.setImage(new Image(getClass().getResourceAsStream("/images/icona.png")));
+        Back.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backArrow.png"))));
+        ShoppingCart.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
 
-        title= new Label(""+ store.getName()+ " catalogo:");
+        title.setText(""+ store.getName()+ " catalogo:");
         controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
         cart= controller.createCart();
