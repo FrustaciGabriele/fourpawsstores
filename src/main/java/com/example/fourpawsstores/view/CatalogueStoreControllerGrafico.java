@@ -9,6 +9,7 @@ import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import com.example.fourpawsstores.utils.utils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -64,9 +66,20 @@ public class CatalogueStoreControllerGrafico {
     }
     private HBox productInfo(ProductBean p){
         HBox product =new HBox(10);
+        product.setAlignment(Pos.CENTER_LEFT);
+        product.setFillHeight(true);
+        HBox.setHgrow(product, Priority.ALWAYS);
+
         VBox info =new VBox(10);
+        product.setAlignment(Pos.CENTER);
+        HBox.setHgrow(info, Priority.ALWAYS);
+        info.setMaxWidth(Double.MAX_VALUE);
+
         VBox buttons= new VBox(10);
-        Label name = new Label("Prodotto: " + p.getNameB());
+        buttons.setMinWidth(130);
+        buttons.setPrefWidth(130);
+        product.setAlignment(Pos.CENTER_RIGHT);
+        Label name = new Label("Prodotto: \n" + p.getNameB());
         Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
         HBox img;
         if(p.getImage() != null) {
@@ -76,17 +89,22 @@ public class CatalogueStoreControllerGrafico {
 
                 ImageView imageView = new ImageView(image);
 
-                imageView.setFitHeight(200);
+                imageView.setFitHeight(150);
+                imageView.setFitWidth(150);
                 imageView.setPreserveRatio(true);
 
                 img = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
+                img = new HBox(new Text("IMG \nNON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            img = new HBox(new Text("IMG \nNON PRESENTE"));
         }
-
+        img.setAlignment(Pos.CENTER);
+        img.setMinWidth(90);
+        img.setPrefWidth(90);
+        img.setMaxWidth(90);
+        img.getStyleClass().add("scroll-image");
         Button removeProd= new Button("Rimuovi il prodotto");
         removeProd.setOnAction(e ->{
 

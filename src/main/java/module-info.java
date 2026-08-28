@@ -6,6 +6,7 @@ module com.example.fourpawsstores {
     requires javafx.web;
     requires com.google.gson;
     requires jdk.jsobject;
+    requires java.desktop;
 
 
     opens com.example.fourpawsstores to javafx.fxml;

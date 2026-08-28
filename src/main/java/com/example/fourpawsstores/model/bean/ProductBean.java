@@ -18,6 +18,13 @@ public class ProductBean {
         this.imgB=img;
         this.priceB=price;
     }
+    public ProductBean( String name, String description, Blob img, BigDecimal price) {
+        this.nameB=name;
+        this.descriptionB=description;
+        this.imgB=img;
+        this.priceB=price;
+    }
+
 
     public ProductBean() {
     }

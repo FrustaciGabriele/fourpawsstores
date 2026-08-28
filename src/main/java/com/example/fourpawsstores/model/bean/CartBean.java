@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CartBean {
     private List<ProductBean> list= new ArrayList<>();
-    private List<Integer> numProd= new ArrayList<Integer>();
+    private List<Integer> numProd= new ArrayList<>();
     private BigDecimal Total= BigDecimal.valueOf(0);
 
     public void addToCart(ProductBean p, int q) {

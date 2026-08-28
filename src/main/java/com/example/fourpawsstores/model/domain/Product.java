@@ -18,6 +18,13 @@ public class Product {
         this.img=image;
         this.price=priceB;
     }
+    public Product( String nameB, String descriptionB, Blob image, BigDecimal priceB) {
+        this.name=nameB;
+        this.description=descriptionB;
+        this.img=image;
+        this.price=priceB;
+    }
+
 
     public void setid(int pid) { this.id=pid;
     }

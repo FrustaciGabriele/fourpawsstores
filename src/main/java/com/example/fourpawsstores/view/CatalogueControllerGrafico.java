@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -65,60 +66,8 @@ public class CatalogueControllerGrafico {
         catB= controller.getCatalogue(store);
         cart= controller.createCart();
         for(ProductBean p :catB.getListProdB()){
-            HBox product =new HBox(10);
-            VBox info =new VBox(10);
-            HBox buttons= new HBox(10);
+            HBox product =showInfoProduct(p);
 
-            Label name = new Label("Prodotto: " + p.getNameB());
-            Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
-            Label numAdd= new Label("0");
-
-            HBox img;
-            if(p.getImage() != null) {
-                try {
-                    InputStream input = p.getImage().getBinaryStream();
-                    Image image = new Image(input);
-
-                    ImageView imageView = new ImageView(image);
-
-                    imageView.setFitHeight(200);
-                    imageView.setPreserveRatio(true);
-
-                    img = new HBox(imageView);
-                } catch (SQLException e) {
-                    img = new HBox(new Text("IMG NON PRESENTE"));
-                }
-            }else{
-                img = new HBox(new Text("IMG NON PRESENTE"));
-            }
-
-            Button addCartButton= new Button("+");
-            addCartButton.setOnAction(e ->{
-                int q = Integer.parseInt(numAdd.getText()) + 1;
-                if(controller.addProduct(p,q)){
-                numAdd.setText(String.valueOf(q));
-                cart.addToCart(p,q);}
-                else {utils.showErrorPopup("Errore nell'inserimento");}
-            });
-            Button removeCartButton= new Button("-");
-            removeCartButton.setOnAction(e->{
-                int q= Integer.parseInt(numAdd.getText());
-                if (controller.removeProduct(p,q)){
-                    q=q -1;
-                    numAdd.setText(String.valueOf(q));
-                    cart.deletefromCart(p,q);
-                }
-            });
-            Button description= new Button("i");
-            description.getStyleClass().add("roundbutton");
-            description.setOnAction(e ->{
-                utils.showPopUpDes(p.getDescriptionB());
-            });
-
-
-            buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);
-            info.getChildren().addAll(name,price);
-            product.getChildren().addAll(img,info,description,buttons);
             productList.getChildren().add(product);
 
         }
@@ -151,35 +100,8 @@ public class CatalogueControllerGrafico {
 
         VBox productCartList= new VBox();
 
-        for(ProductBean p :catB.getListProdB()){
-            HBox product =new HBox(10);
-            VBox info =new VBox(10);
-
-            Label name = new Label("Prodotto: " + p.getNameB());
-            Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
-            Label numProd= new Label("Qt: "+ String.valueOf(cart.getListNumProd().get(cart.getList().indexOf(p))));
-
-            HBox img;
-            if(p.getImage() != null) {
-                try {
-                    InputStream input = p.getImage().getBinaryStream();
-                    Image image = new Image(input);
-
-                    ImageView imageView = new ImageView(image);
-
-                    imageView.setFitHeight(200);
-                    imageView.setPreserveRatio(true);
-
-                    img = new HBox(imageView);
-                } catch (SQLException e) {
-                    img = new HBox(new Text("IMG NON PRESENTE"));
-                }
-            }else{
-                img = new HBox(new Text("IMG NON PRESENTE"));
-            }
-
-            info.getChildren().addAll(name,price);
-            product.getChildren().addAll(img,info,numProd);
+        for(ProductBean p :cart.getList()){
+            HBox product =showInfoCartProducts(p);
             productCartList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productCartList);
@@ -215,5 +137,107 @@ public class CatalogueControllerGrafico {
         else {
             utils.showErrorPopup("Non hai aggiunto nulla al carrello");
         }
+}
+ private HBox showInfoProduct(ProductBean p){
+    HBox product =new HBox(10);
+        product.setAlignment(Pos.CENTER_LEFT);
+        product.setFillHeight(true);
+        HBox.setHgrow(product, Priority.ALWAYS);
+
+    VBox info =new VBox(10);
+        product.setAlignment(Pos.CENTER);
+        HBox.setHgrow(info, Priority.ALWAYS);
+        info.setMaxWidth(Double.MAX_VALUE);
+
+    HBox buttons= new HBox(10);
+        buttons.setMinWidth(130);
+        buttons.setPrefWidth(130);
+        product.setAlignment(Pos.CENTER_RIGHT);
+    Label name = new Label("Prodotto: \n" + p.getNameB());
+    Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
+    Label numAdd= new Label("0");
+    HBox img;
+        if(p.getImage() != null) {
+        try {
+            InputStream input = p.getImage().getBinaryStream();
+            Image image = new Image(input);
+
+            ImageView imageView = new ImageView(image);
+
+            imageView.setFitHeight(150);
+            imageView.setFitWidth(150);
+            imageView.setPreserveRatio(true);
+
+            img = new HBox(imageView);
+        } catch (SQLException e) {
+            img = new HBox(new Text("IMG \nNON PRESENTE"));
+        }
+    }else{
+        img = new HBox(new Text("IMG \nNON PRESENTE"));
+    }
+        img.setAlignment(Pos.CENTER);
+        img.setMinWidth(90);
+        img.setPrefWidth(90);
+        img.setMaxWidth(90);
+        img.getStyleClass().add("scroll-image");
+     Button addCartButton= new Button("+");
+     addCartButton.setOnAction(e ->{
+         int q = Integer.parseInt(numAdd.getText()) + 1;
+         if(controller.addProduct(p,q)){
+             numAdd.setText(String.valueOf(q));
+             cart.addToCart(p,q);}
+         else {utils.showErrorPopup("Errore nell'inserimento");}
+     });
+     Button removeCartButton= new Button("-");
+     removeCartButton.setOnAction(e->{
+         int q= Integer.parseInt(numAdd.getText());
+         if (controller.removeProduct(p,q)){
+             q=q -1;
+             numAdd.setText(String.valueOf(q));
+             cart.deletefromCart(p,q);
+         }
+     });
+     Button description= new Button("i");
+     description.getStyleClass().add("roundbutton");
+     description.setOnAction(e ->{
+         utils.showPopUpDes(p.getDescriptionB());
+     });
+
+
+     buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);
+     info.getChildren().addAll(name,price);
+     product.getChildren().addAll(img,info,description,buttons);
+     return product;
+}
+private HBox showInfoCartProducts(ProductBean p){
+    HBox product =new HBox(10);
+    VBox info =new VBox(10);
+
+    Label name = new Label("Prodotto: " + p.getNameB());
+    Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
+    Label numProd= new Label("Qt: "+ String.valueOf(cart.getListNumProd().get(cart.getList().indexOf(p))));
+
+    HBox img;
+    if(p.getImage() != null) {
+        try {
+            InputStream input = p.getImage().getBinaryStream();
+            Image image = new Image(input);
+
+            ImageView imageView = new ImageView(image);
+
+            imageView.setFitHeight(200);
+            imageView.setPreserveRatio(true);
+
+            img = new HBox(imageView);
+        } catch (SQLException e) {
+            img = new HBox(new Text("IMG NON PRESENTE"));
+        }
+    }else{
+        img = new HBox(new Text("IMG NON PRESENTE"));
+    }
+
+    info.getChildren().addAll(name,price);
+    product.getChildren().addAll(img,info,numProd);
+    return product;
 }
 }
