@@ -32,4 +32,38 @@ public class AddProductDAO {
 
         }
     }
+
+    public void deleteProduct(Product p) throws DAOException, SQLException {
+        CallableStatement cs=null;
+        try { Connection conn= ConnectionFactory.getConnection();
+            cs=conn.prepareCall("{call eliminaProdotto(?)}");
+            cs.setInt(1, p.getId());
+            cs.execute();
+
+
+        }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
+        }finally {
+            if(cs!= null){
+                cs.close();
+            }
+
+        }
+    }
+
+    public void changeStateProduct(Product p,String text) throws DAOException, SQLException {
+        CallableStatement cs=null;
+        try { Connection conn= ConnectionFactory.getConnection();
+            cs=conn.prepareCall("{call modificaStatoProdotto(?,?)}");
+            cs.setInt(1, p.getId());
+            cs.setString(2, text);
+            cs.execute();
+
+        }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
+        }finally {
+            if(cs!= null){
+                cs.close();
+            }
+
+        }
+    }
 }

@@ -29,6 +29,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -77,7 +79,8 @@ public class CatalogueControllerGrafico {
 
 
 
-    public void goBack(MouseEvent mouseEvent) {
+    public void goBack(MouseEvent mouseEvent) throws IOException {
+        controller.goBackScene();
     }
 
     public void openCart(MouseEvent mouseEvent) {
@@ -189,6 +192,8 @@ public class CatalogueControllerGrafico {
      img.setPrefHeight(90);
      img.setMaxHeight(90);
      img.getStyleClass().add("scroll-image");
+
+     if(p.getState().equals("disponibile")){
      Button addCartButton= new Button("+");
      addCartButton.setOnAction(e ->{
          int q = Integer.parseInt(numAdd.getText()) + 1;
@@ -206,14 +211,17 @@ public class CatalogueControllerGrafico {
              cart.deletefromCart(p,q);
          }
      });
+
+     buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);}
+     else{
+         buttons.getChildren().add(new Text("Non disponibile"));
+     }
      Button description= new Button("i");
      description.getStyleClass().add("roundbutton");
      description.setOnAction(e ->{
          utils.showPopUpDes(p.getDescriptionB());
      });
 
-
-     buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);
      info.getChildren().addAll(name,price);
      product.getChildren().addAll(img,info,description,buttons);
      return product;

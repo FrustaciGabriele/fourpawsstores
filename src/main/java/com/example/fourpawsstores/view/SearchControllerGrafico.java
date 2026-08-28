@@ -87,6 +87,7 @@ public class SearchControllerGrafico {
     }
 
     private void SearchStores(addressBean addrBean) {
+        removeMarkers();
         try {
             Stores = search.obtainStores(addrBean);
             engine.executeScript("centerMap(" + Stores.getLatB() + "," + Stores.getLonB() + ")");
@@ -100,6 +101,10 @@ public class SearchControllerGrafico {
         }
 
 
+    }
+
+    private void removeMarkers() {
+        engine.executeScript("removeMarkers()");
     }
 
     public void SeeProfile(MouseEvent mouseEvent) {

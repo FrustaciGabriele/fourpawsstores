@@ -114,10 +114,30 @@ public class CatalogueStoreControllerGrafico {
         img.getStyleClass().add("scroll-image");
         Button removeProd= new Button("Rimuovi il prodotto");
         removeProd.setOnAction(e ->{
+            try {
+                deleteProd(p);
+                utils.openAdvisepopup("Prodotto rimosso correttamente");
+                refreshUI();
+            } catch (DAOException | SQLException ex) {
+                utils.showErrorPopup("Errore");
+                throw new RuntimeException(ex);
+            }
 
         });
-        Button notAvailableProd= new Button("Segna non disponibile");
+        String buttonText;
+        if(p.getState().equals("disponibile")){
+            buttonText="Segna indisponibile";
+        }else{buttonText="Segna disponibile  ";}
+        Button notAvailableProd= new Button(buttonText);
         notAvailableProd.setOnAction(e->{
+            try {
+                changeState(p);
+                utils.openAdvisepopup("Prodotto modificato correttamente");
+                refreshUI();
+            } catch (DAOException | SQLException ex) {
+            utils.showErrorPopup("Errore");
+            throw new RuntimeException(ex);
+            }
 
         });
         Button description= new Button("i");
@@ -132,6 +152,28 @@ public class CatalogueStoreControllerGrafico {
         product.getChildren().addAll(img,info,description,buttons);
         return product;
     }
+
+    private void refreshUI() throws DAOException, SQLException {
+        catalogueBean = controller.refreshCatalogue();
+        productList.getChildren().clear();
+        for(ProductBean p :catalogueBean.getListProdB()){
+
+            HBox productInfo =productInfo(p);
+
+            productList.getChildren().add(productInfo);
+
+        }
+    }
+
+    private void changeState(ProductBean p) throws DAOException, SQLException {
+        controller.changeProductState(p);
+    }
+
+    private  void deleteProd(ProductBean p) throws DAOException, SQLException {
+        controller.deleteProduct(p);
+
+    }
+
     public void addProduct(MouseEvent mouseEvent) throws IOException {
         FXMLLoader fxmlLoader;
         Stage stage = ApplicazioneStage.getStage();

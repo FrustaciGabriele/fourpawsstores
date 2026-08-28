@@ -10,6 +10,7 @@
 
 <script>
     var map = L.map('map').setView([41.9028, 12.4964], 13);
+    var markers = [];
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19
@@ -20,12 +21,17 @@
       marker.on ('click', function() {
         javaApp.onMarkerClicked(id);
     });
-    window.addMarker=addMarker
+    markers.push(marker);
+
     }
     function centerMap(lat, lon) {
-    map.setView([lat, lon], 20);
+    map.setView([lat, lon], 13);
     }
-    var markers = [];
+    function removeMarkers() {
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+}
+
 
 
 

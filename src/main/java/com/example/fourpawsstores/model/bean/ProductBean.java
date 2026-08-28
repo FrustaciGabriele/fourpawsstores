@@ -11,12 +11,14 @@ public class ProductBean {
     private String descriptionB;
     private Blob imgB;
     private BigDecimal priceB;
-    public ProductBean(int id, String name, String description, Blob img, BigDecimal price) {
+    private String stateB;
+    public ProductBean(int id, String name, String description, Blob img, BigDecimal price,String state) {
         this.idB=id;
         this.nameB=name;
         this.descriptionB=description;
         this.imgB=img;
         this.priceB=price;
+        this.stateB=state;
     }
     public ProductBean( String name, String description, Blob img, BigDecimal price) {
         this.nameB=name;
@@ -43,4 +45,7 @@ public class ProductBean {
     public int getId() {return idB;
     }
 
+    public String getState() {
+        return stateB;
+    }
 }

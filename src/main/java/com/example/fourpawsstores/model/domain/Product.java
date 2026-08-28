@@ -9,6 +9,7 @@ public class Product {
     private String description;
     private Blob img;
     private BigDecimal price;
+    private String state;
     public Product(){
     }
     public Product(int idB, String nameB, String descriptionB, Blob image, BigDecimal priceB) {
@@ -40,7 +41,9 @@ public class Product {
 
     public void setPrice(BigDecimal priceP) {this.price=priceP;
     }
-
+    public void setState(String string) {
+        state=string;
+    }
 
     public int getId() {return this.id;
     }
@@ -58,4 +61,7 @@ public class Product {
     }
 
 
+    public String getState() {
+        return state;
+    }
 }

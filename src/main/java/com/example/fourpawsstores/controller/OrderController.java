@@ -33,7 +33,7 @@ public class OrderController {
         List<Integer> listQuantity= completeOrder.getQuantity();
         List<Integer> listid=completeOrder.getListProdId();
         for (Product p : list){
-            ProductBean prodB= new ProductBean(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice());
+            ProductBean prodB= new ProductBean(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice(),p.getState());
             order.addToProductListB(prodB);
             order.addToQuantityB(listQuantity.get(list.indexOf(p)));
             order.addToProdIdB(listid.get(list.indexOf(p)));
