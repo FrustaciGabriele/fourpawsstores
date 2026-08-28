@@ -3,13 +3,15 @@ package com.example.fourpawsstores.model.bean;
 import com.example.fourpawsstores.controller.OrderController;
 import com.example.fourpawsstores.model.domain.Product;
 
+import java.io.ObjectInputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class OrderBean {
-        private int storeIdB;
+    private int storeIdB;
         private String clientIdB;
         private List<ProductBean> listProductB= new ArrayList<>();
         private List<Integer> listProdIdB=new ArrayList<>();
@@ -82,4 +84,7 @@ public class OrderBean {
         public void setListProductB(List<Product> listProduct) {
 
         }
+
+    public List<Integer> getListProdIdB() {return listProdIdB;
+    }
 }

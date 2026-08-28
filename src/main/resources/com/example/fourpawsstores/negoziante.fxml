@@ -39,7 +39,7 @@
             </padding>
             <ImageView fx:id="Iprofilo" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
             <ImageView fx:id="Icatalogo" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
-            <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToOrders"/>
 
         </HBox>
     </bottom>

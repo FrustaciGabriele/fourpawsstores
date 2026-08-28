@@ -193,4 +193,7 @@ public class CatalogueStoreControllerGrafico {
     }
 
 
+    public void goToOrders() throws DAOException, SQLException, IOException {
+        controller.goToOrderScene();
+    }
 }

@@ -72,4 +72,51 @@ public class FindOrdersDao {
         }
         return compOrder;
     }
+
+    public ListOrder getOrdersStore(int storeId) throws DAOException, SQLException {
+        ListOrder list=new ListOrder();
+        CallableStatement cs=null;
+        try { Connection conn= ConnectionFactory.getConnection();
+            cs=conn.prepareCall("{call trovaordininegozio(?)}");
+            cs.setInt(1, storeId);
+            boolean status=cs.execute();
+            if (status){
+                ResultSet rs=cs.getResultSet();
+                while (rs.next()){
+                    Order order = new Order();
+                    order.setClientId(rs.getString(1));
+                    order.setDate(rs.getTimestamp(2));
+                    order.setTotal(rs.getBigDecimal(3));
+                    order.setPayType(rs.getString(4));
+                    order.setOrderId(rs.getInt(5));
+                    order.setStateOrder(rs.getString(6));
+                    order.setStoreId(storeId);
+                    list.addOrder(order);
+                }
+            }
+
+        }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
+        }finally {
+            if(cs!= null){
+                cs.close();
+            }
+        }
+        return list;
+    }
+
+    public void updateOrder(int storeId, String text) throws SQLException {
+        CallableStatement cs=null;
+        try { Connection conn= ConnectionFactory.getConnection();
+            cs=conn.prepareCall("{call modificaordine(?,?)}");
+            cs.setInt(1,storeId);
+            cs.setString(2, text);
+            cs.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            if(cs!= null){
+                cs.close();
+            }
+    }
+    }
 }

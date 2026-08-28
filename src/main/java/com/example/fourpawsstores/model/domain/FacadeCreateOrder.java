@@ -37,8 +37,13 @@ public class FacadeCreateOrder {
 
     public ListOrder findOrders() throws DAOException, SQLException {
         String username=Profile.getUsername();
-        System.out.println("username:"+username);
          list= new FindOrdersDao().getOrders(username);
          return list;
+    }
+
+    public ListOrder findOrdersStore() throws DAOException, SQLException {
+        int storeId=Profile.getStoreId();
+        list= new FindOrdersDao().getOrdersStore(storeId);
+        return list;
     }
 }

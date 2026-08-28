@@ -39,6 +39,9 @@ public class OrderController {
         List<Product> list= completeOrder.getListProduct();
         List<Integer> listQuantity= completeOrder.getQuantity();
         List<Integer> listid=completeOrder.getListProdId();
+        order.getListProductB().clear();
+        order.getQuantityB().clear();
+        order.getListProdIdB().clear();
         for (Product p : list){
             ProductBean prodB= new ProductBean(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice(),p.getState());
             order.addToProductListB(prodB);
@@ -70,5 +73,33 @@ public class OrderController {
         stage.show(); stage.setTitle("4Paws Stores");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public ListOrderBean getOrdersStore() throws DAOException, SQLException {
+        ListOrderBean ordersBean = new ListOrderBean();
+        orders= facade.findOrdersStore();
+        for (Order ord: orders.getListOrders()){
+            OrderBean ordBean = new OrderBean(ord.getStoreId(),ord.getUserId(),ord.getTypeOfPay(),ord.getTotal(),ord.getState(),ord.getDate(),ord.getOrderId());
+            ordersBean.addOrder(ordBean);
+        }
+        return ordersBean;
+    }
+
+    public void acceptOrder(OrderBean orderB) throws SQLException {
+        int id = orderB.getOrderIdB();
+        for(Order o : orders.getListOrders()){
+            if (o.getOrderId()==id){
+                new FindOrdersDao().updateOrder(id,"Accettato");
+            }
+        }
+    }
+
+    public void rejectOrder(OrderBean orderB) throws SQLException {
+        int id = orderB.getOrderIdB();
+        for(Order o : orders.getListOrders()){
+            if (o.getOrderId()==id){
+                new FindOrdersDao().updateOrder(id,"Rifiutato");
+            }
+        }
     }
 }
