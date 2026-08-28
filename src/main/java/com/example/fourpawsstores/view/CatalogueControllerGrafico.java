@@ -105,6 +105,8 @@ public class CatalogueControllerGrafico {
             productCartList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productCartList);
+        scrollProduct.setFitToWidth(true);
+        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         HBox buttonPay=new HBox(10);
         Button cashButton= new Button("Paga al ritiro");
@@ -140,9 +142,13 @@ public class CatalogueControllerGrafico {
 }
  private HBox showInfoProduct(ProductBean p){
     HBox product =new HBox(10);
-        product.setAlignment(Pos.CENTER_LEFT);
-        product.setFillHeight(true);
-        HBox.setHgrow(product, Priority.ALWAYS);
+     product.getStyleClass().add("product-row");
+     product.setPrefHeight(100);
+     product.setMinHeight(100);
+     product.setMaxHeight(100);
+     product.setAlignment(Pos.CENTER_LEFT);
+     product.setFillHeight(true);
+     HBox.setHgrow(product, Priority.ALWAYS);
 
     VBox info =new VBox(10);
         product.setAlignment(Pos.CENTER);
@@ -164,8 +170,8 @@ public class CatalogueControllerGrafico {
 
             ImageView imageView = new ImageView(image);
 
-            imageView.setFitHeight(150);
-            imageView.setFitWidth(150);
+            imageView.setFitHeight(90);
+            imageView.setFitWidth(90);
             imageView.setPreserveRatio(true);
 
             img = new HBox(imageView);
@@ -175,11 +181,14 @@ public class CatalogueControllerGrafico {
     }else{
         img = new HBox(new Text("IMG \nNON PRESENTE"));
     }
-        img.setAlignment(Pos.CENTER);
-        img.setMinWidth(90);
-        img.setPrefWidth(90);
-        img.setMaxWidth(90);
-        img.getStyleClass().add("scroll-image");
+     img.setAlignment(Pos.CENTER);
+     img.setMinWidth(90);
+     img.setPrefWidth(90);
+     img.setMaxWidth(90);
+     img.setMinHeight(90);
+     img.setPrefHeight(90);
+     img.setMaxHeight(90);
+     img.getStyleClass().add("scroll-image");
      Button addCartButton= new Button("+");
      addCartButton.setOnAction(e ->{
          int q = Integer.parseInt(numAdd.getText()) + 1;
@@ -211,7 +220,18 @@ public class CatalogueControllerGrafico {
 }
 private HBox showInfoCartProducts(ProductBean p){
     HBox product =new HBox(10);
+    product.getStyleClass().add("product-row");
+    product.setPrefHeight(100);
+    product.setMinHeight(100);
+    product.setMaxHeight(100);
+    product.setAlignment(Pos.CENTER_LEFT);
+    product.setFillHeight(true);
+    HBox.setHgrow(product, Priority.ALWAYS);
+
     VBox info =new VBox(10);
+    product.setAlignment(Pos.CENTER);
+    HBox.setHgrow(info, Priority.ALWAYS);
+    info.setMaxWidth(Double.MAX_VALUE);
 
     Label name = new Label("Prodotto: " + p.getNameB());
     Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
@@ -225,7 +245,8 @@ private HBox showInfoCartProducts(ProductBean p){
 
             ImageView imageView = new ImageView(image);
 
-            imageView.setFitHeight(200);
+            imageView.setFitHeight(90);
+            imageView.setFitWidth(90);
             imageView.setPreserveRatio(true);
 
             img = new HBox(imageView);
@@ -235,6 +256,14 @@ private HBox showInfoCartProducts(ProductBean p){
     }else{
         img = new HBox(new Text("IMG NON PRESENTE"));
     }
+    img.setAlignment(Pos.CENTER);
+    img.setMinWidth(90);
+    img.setPrefWidth(90);
+    img.setMaxWidth(90);
+    img.setMinHeight(90);
+    img.setPrefHeight(90);
+    img.setMaxHeight(90);
+    img.getStyleClass().add("scroll-image");
 
     info.getChildren().addAll(name,price);
     product.getChildren().addAll(img,info,numProd);

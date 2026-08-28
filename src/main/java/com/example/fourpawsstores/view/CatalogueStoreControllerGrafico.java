@@ -66,6 +66,10 @@ public class CatalogueStoreControllerGrafico {
     }
     private HBox productInfo(ProductBean p){
         HBox product =new HBox(10);
+        product.getStyleClass().add("product-row");
+        product.setPrefHeight(100);
+        product.setMinHeight(100);
+        product.setMaxHeight(100);
         product.setAlignment(Pos.CENTER_LEFT);
         product.setFillHeight(true);
         HBox.setHgrow(product, Priority.ALWAYS);
@@ -89,8 +93,8 @@ public class CatalogueStoreControllerGrafico {
 
                 ImageView imageView = new ImageView(image);
 
-                imageView.setFitHeight(150);
-                imageView.setFitWidth(150);
+                imageView.setFitHeight(90);
+                imageView.setFitWidth(90);
                 imageView.setPreserveRatio(true);
 
                 img = new HBox(imageView);
@@ -104,6 +108,9 @@ public class CatalogueStoreControllerGrafico {
         img.setMinWidth(90);
         img.setPrefWidth(90);
         img.setMaxWidth(90);
+        img.setMinHeight(90);
+        img.setPrefHeight(90);
+        img.setMaxHeight(90);
         img.getStyleClass().add("scroll-image");
         Button removeProd= new Button("Rimuovi il prodotto");
         removeProd.setOnAction(e ->{

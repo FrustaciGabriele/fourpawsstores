@@ -20,7 +20,7 @@
         <Label fx:id="title" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
     </HBox>
 
-    <ScrollPane AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
         <VBox fx:id="productList" spacing="15" >
         <padding>
             <Insets top="10" right="10" bottom="10" left="10"/>
