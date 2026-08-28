@@ -130,7 +130,7 @@ public class OrderControllerGrafico {
         infoorder.getChildren().addAll(id,state,payment);
         otherinfo.getChildren().addAll(date,total);
         HBox orderline = new HBox(10);
-        orderline.setStyle("order-row");
+        orderline.getStyleClass().add("order-row");
         orderline.getChildren().addAll(infoorder,otherinfo,viewOrder);
         return orderline;
     }
