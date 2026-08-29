@@ -8,8 +8,8 @@ public class ProfileBean {
     private static String idCartaB;
     private static int IdStoreB;
 
-    private ProfileBean() {}
-    private ProfileBean(String username,String name,String cartaNum) {
+    public ProfileBean() {}
+    public ProfileBean(String username,String name,String cartaNum) {
         usernameB=username;
         nomeB= name;
         idCartaB= cartaNum;
@@ -19,6 +19,8 @@ public class ProfileBean {
         nomeB= name;
         IdStoreB = id;
     }
+
+
     public static void setUsername(String user){usernameB=user;}
     public static void setName(String name){nomeB=name;}
     public static void setCredit(String carta){idCartaB=carta;}

@@ -13,11 +13,16 @@
             fx:controller="com.example.fourpawsstores.view.SearchControllerGrafico"
             prefHeight="400.0" prefWidth="600.0">
     <top>
-    <HBox fx:id="topControls" spacing="10.0" BorderPane.alignment="CENTER">
-        <TextField fx:id="address" promptText="Inserisci l'indirizzo" HBox.hgrow="ALWAYS" onAction="#handleEnter" />
-        <ImageView  fx:id="Icerca" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#FindAddress">
-        </ImageView>
-    </HBox>
+        <VBox >
+            <HBox spacing="10.0" BorderPane.alignment="CENTER" alignment="CENTER">
+                <Label text="Cerca Negozi" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+            </HBox>
+            <HBox fx:id="topControls" spacing="10.0" BorderPane.alignment="CENTER">
+                <TextField fx:id="address" promptText="Inserisci l'indirizzo" HBox.hgrow="ALWAYS" onAction="#handleEnter" />
+                <ImageView  fx:id="Icerca" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#FindAddress">
+                </ImageView>
+             </HBox>
+        </VBox>
     </top>
     <center>
         <WebView fx:id="webViewMap" BorderPane.alignment="CENTER"/>

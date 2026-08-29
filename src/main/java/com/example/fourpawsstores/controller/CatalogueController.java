@@ -9,10 +9,7 @@ import com.example.fourpawsstores.model.dao.AddProductDAO;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
 import com.example.fourpawsstores.model.domain.*;
 import com.example.fourpawsstores.utils.utils;
-import com.example.fourpawsstores.view.CatalogueStoreControllerGrafico;
-import com.example.fourpawsstores.view.OrderControllerGrafico;
-import com.example.fourpawsstores.view.SearchControllerGrafico;
-import com.example.fourpawsstores.view.StoresOrderControllerGrafico;
+import com.example.fourpawsstores.view.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -151,6 +148,24 @@ public class CatalogueController {
         fxmlLoader = new FXMLLoader();
         Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
         final StoresOrderControllerGrafico controller=fxmlLoader.getController();
+        controller.inizializza();
+        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
+
+
+        stage.setTitle("4Paws Stores");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void goToProfileStore() throws IOException, DAOException, SQLException {
+        FXMLLoader fxmlLoader;
+        Stage stage = ApplicazioneStage.getStage();
+        Scene scene;
+        String fxmlFile;
+        fxmlFile="/com/example/fourpawsstores/profiloNegozio.fxml";
+        fxmlLoader = new FXMLLoader();
+        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+        final StoreProfileControllerGrafico controller=fxmlLoader.getController();
         controller.inizializza();
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 

@@ -196,4 +196,8 @@ public class CatalogueStoreControllerGrafico {
     public void goToOrders() throws DAOException, SQLException, IOException {
         controller.goToOrderScene();
     }
+
+    public void goToProfile(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
+        controller.goToProfileStore();
+    }
 }
