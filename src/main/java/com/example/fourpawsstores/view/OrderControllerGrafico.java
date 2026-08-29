@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -111,5 +112,9 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
     public void goToMap() throws IOException, IOException {
         controller.goBackToMap();
 
+    }
+
+    public void goToProfile(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
+        controller.goToProfileScene();
     }
 }

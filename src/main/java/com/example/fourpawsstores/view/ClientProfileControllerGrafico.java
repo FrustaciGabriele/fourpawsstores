@@ -5,12 +5,14 @@ import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CardBean;
 import com.example.fourpawsstores.model.bean.ProfileBean;
 import com.example.fourpawsstores.model.domain.Profile;
+import com.example.fourpawsstores.utils.utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -52,5 +54,14 @@ public class ClientProfileControllerGrafico {
         clientName.setText(cardB.getCardUserB());
     }
     public void changeCard(MouseEvent mouseEvent) {
+        utils.openAdvisepopup("funzione non ancora implementata");
+    }
+
+    public void goToSceneMAp(MouseEvent mouseEvent) throws IOException {
+        controller.goToMap();
+    }
+
+    public void goToceneOrder(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
+        controller.goToOrder();
     }
 }

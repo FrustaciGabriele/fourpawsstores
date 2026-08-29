@@ -26,11 +26,11 @@
            </padding>
            <VBox>
                <Label text="Nome:" style="-fx-font-size: 15px; " HBox.hgrow="ALWAYS" alignment="CENTER"/>
-               <Label fx:id="clientName"  styleClass="text-rect" prefWidth="100" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+               <Label fx:id="clientName"  styleClass="text-rect" prefWidth="150" HBox.hgrow="ALWAYS" alignment="CENTER"/>
            </VBox>
            <VBox>
                <Label text="Username:" style="-fx-font-size: 15px; " HBox.hgrow="ALWAYS" alignment="CENTER"/>
-               <Label fx:id="userName"  styleClass="text-rect" prefWidth="100" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+               <Label fx:id="userName"  styleClass="text-rect" prefWidth="150" HBox.hgrow="ALWAYS" alignment="CENTER"/>
            </VBox>
        </HBox>
         <HBox alignment="TOP_CENTER" spacing="10">
@@ -66,8 +66,8 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
         <ImageView fx:id="Iprofilo" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="Imappa" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="Imappa" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToSceneMAp"/>
+        <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToceneOrder"/>
     </HBox>
     </bottom>
 </BorderPane>
