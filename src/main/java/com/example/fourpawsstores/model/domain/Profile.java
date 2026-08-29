@@ -17,4 +17,10 @@ public class Profile {
 
     public static void setIdStore(int anInt) { IdStore=anInt;
     }
+
+    public static String getName() { return nome;
+    }
+
+    public static String getCardNum() {return idCarta;
+    }
 }

@@ -107,7 +107,8 @@ public class SearchControllerGrafico {
         engine.executeScript("removeMarkers()");
     }
 
-    public void SeeProfile(MouseEvent mouseEvent) {
+    public void SeeProfile(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {
+        search.profileScene();
     }
 
     public void openOrders(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {

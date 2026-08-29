@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fourpawsstores.view.ClientProfileControllerGrafico"
+            prefHeight="400.0" prefWidth="600.0"
+            stylesheets="/profilo.css">
+    <top>
+        <HBox  spacing="10.0" BorderPane.alignment="TOP_CENTER" alignment="CENTER">
+            <Label text="Il tuo profilo:" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox>
+       <HBox alignment="CENTER" spacing="60">
+           <padding>
+               <Insets bottom="20.0" left="10.0" right="10.0" top="50.0"/>
+           </padding>
+           <VBox>
+               <Label text="Nome:" style="-fx-font-size: 15px; " HBox.hgrow="ALWAYS" alignment="CENTER"/>
+               <Label fx:id="clientName"  styleClass="text-rect" prefWidth="100" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+           </VBox>
+           <VBox>
+               <Label text="Username:" style="-fx-font-size: 15px; " HBox.hgrow="ALWAYS" alignment="CENTER"/>
+               <Label fx:id="userName"  styleClass="text-rect" prefWidth="100" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+           </VBox>
+       </HBox>
+        <HBox alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets bottom="10.0" left="70.0" right="10.0" top="30.0"/>
+            </padding>
+            <GridPane hgap="10" vgap="10" >
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="40"/>
+                    <ColumnConstraints percentWidth="40"/>
+                </columnConstraints>
+                <Label  text="Titolare carta:" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"  />
+                <Label fx:id="cardUser"  styleClass="text-rect" prefWidth="350" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+                <Label  text="Numero carta:"  GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"  />
+                <Label  fx:id="cardNumber" styleClass="text-rect" prefWidth="350" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"  />
+                <Label  text="Scadenza:" GridPane.rowIndex="4" GridPane.columnIndex="0"   />
+                <Label fx:id="cardExDate"  styleClass="text-rect" prefWidth="100" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                <Label  text="CVV:" GridPane.rowIndex="4" GridPane.columnIndex="1"  />
+                <Label fx:id="cardCVV"  styleClass="text-rect" prefWidth="100" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+            </GridPane>
+        </HBox>
+        <HBox alignment="BOTTOM_CENTER">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="50.0"/>
+            </padding>
+            <Button text="Cambia carta" onMouseClicked="#changeCard"/>
+        </HBox>
+        </VBox>
+    </center>
+    <bottom>
+    <HBox alignment="CENTER" spacing="65.0">
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
+        <ImageView fx:id="Iprofilo" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="Imappa" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+    </HBox>
+    </bottom>
+</BorderPane>
