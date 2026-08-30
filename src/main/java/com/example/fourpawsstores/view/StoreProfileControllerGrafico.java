@@ -82,6 +82,6 @@ public class StoreProfileControllerGrafico {
 
     public void goToOrder(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
         NavigationController navController= new NavigationController();
-        navController.goToOrderStore();
+        navController.goToOrderSceneStore();
     }
 }

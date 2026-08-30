@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fourpawsstores.view.StoresOrderControllerGrafico2"
+            prefHeight="400.0" prefWidth="600.0"
+            stylesheets="/ordine.css">
+    <left>
+        <VBox VBox.vgrow="ALWAYS" BorderPane.alignment="CENTER" prefWidth="100" alignment="TOP_CENTER" >
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="40.0"/>
+            </padding>
+            <VBox spacing="20" alignment="CENTER" prefHeight="230">
+                <ImageView fx:id="Iprofilo" fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToProfileStore"/>
+                <Label text="Profilo"/>
+            </VBox>
+            <VBox spacing="20" alignment="CENTER" prefHeight="230">
+                <ImageView fx:id="Icatalogo" fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#gotoCatalog"/>
+                <Label text="Catalogo"/>
+            </VBox>
+            <VBox spacing="20" alignment="CENTER" prefHeight="230">
+                <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true"/>
+                <Label text="Ordini"/>
+            </VBox>
+        </VBox>
+    </left>
+    <right>
+        <VBox spacing="20" BorderPane.alignment="TOP_CENTER" prefWidth="1100">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <HBox spacing="10.0" BorderPane.alignment="CENTER" alignment="CENTER">
+                <Label text="I tuoi ordini: " style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+            </HBox>
+            <HBox>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefWidth="700">
+                    <VBox fx:id="orderList" spacing="15" >
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </VBox>
+                </ScrollPane>
+                <VBox prefWidth="400">
+                    <HBox alignment="CENTER">
+                        <Label text="Dettagli Ordine" style="-fx-font-size: 15px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+                    </HBox>
+                    <VBox fx:id="orderBox" spacing="15" >
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </VBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </right>
+
+</BorderPane>

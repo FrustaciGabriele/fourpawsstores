@@ -2,6 +2,7 @@ package com.example.fourpawsstores.view;
 
 import com.example.fourpawsstores.controller.AddProductController;
 import com.example.fourpawsstores.controller.CatalogueController;
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CatalogueBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
@@ -25,6 +26,7 @@ import javafx.stage.FileChooser;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -180,10 +182,14 @@ public class CatalogueStoreControllerGrafico2 {
         controller.deleteProduct(p);
 
     }
-    public void SeeOrder(MouseEvent mouseEvent) {
+    public void SeeOrder(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
+        NavigationController navController= new NavigationController();
+        navController.goToOrderSceneStore();
     }
 
-    public void gotoMap(MouseEvent mouseEvent) {
+    public void gotoProfileStoreScene(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
+        NavigationController navController= new NavigationController();
+        navController.goToProfileStore();
     }
 
     public void addImg(ActionEvent actionEvent) {
