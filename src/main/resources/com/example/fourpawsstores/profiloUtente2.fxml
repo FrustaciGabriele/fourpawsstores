@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fourpawsstores.view.ClientProfileControllerGrafico"
+            prefHeight="400.0" prefWidth="600.0"
+            stylesheets="/profilo.css">
+    <left>
+        <VBox VBox.vgrow="ALWAYS" BorderPane.alignment="CENTER" prefWidth="100" alignment="CENTER" >
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="40.0"/>
+            </padding>
+            <VBox spacing="20" alignment="CENTER" prefHeight="230">
+                <ImageView fx:id="Iprofilo" fitHeight="100.0" fitWidth="70.0"  pickOnBounds="true" preserveRatio="true" />
+                <Label text="Profilo"/>
+            </VBox>
+            <VBox spacing="20" alignment="CENTER" prefHeight="230">
+                <ImageView fx:id="Imappa" fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToSceneMAp"/>
+                <Label text="Mappa"/>
+            </VBox>
+            <VBox spacing="20" alignment="CENTER" prefHeight="230">
+                <ImageView fx:id="Iordini" fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#goToceneOrder"/>
+                <Label text="Ordini"/>
+            </VBox>
+        </VBox>
+    </left>
+    <right>
+        <VBox spacing="20" BorderPane.alignment="TOP_CENTER" prefWidth="1100">
+            <HBox  spacing="10.0" BorderPane.alignment="CENTER" alignment="CENTER">
+                <Label text="Il tuo profilo:" style="-fx-font-size: 20px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" alignment="CENTER">
+                </Label>
+            </HBox>
+            <HBox alignment="CENTER" spacing="60">
+                <padding>
+                    <Insets bottom="20.0" left="10.0" right="10.0" top="50.0"/>
+                </padding>
+                <VBox>
+                    <Label text="Nome:" style="-fx-font-size: 15px; " HBox.hgrow="ALWAYS" alignment="CENTER"/>
+                    <Label fx:id="clientName"  styleClass="text-rect" prefWidth="150" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+                </VBox>
+                <VBox>
+                    <Label text="Username:" style="-fx-font-size: 15px; " HBox.hgrow="ALWAYS" alignment="CENTER"/>
+                    <Label fx:id="userName"  styleClass="text-rect" prefWidth="150" HBox.hgrow="ALWAYS" alignment="CENTER"/>
+                </VBox>
+            </HBox>
+            <HBox alignment="TOP_CENTER" spacing="10">
+                <padding>
+                    <Insets bottom="10.0" left="70.0" right="10.0" top="30.0"/>
+                </padding>
+                <GridPane hgap="10" vgap="10" >
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="40"/>
+                        <ColumnConstraints percentWidth="40"/>
+                    </columnConstraints>
+                    <Label  text="Titolare carta:" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"  />
+                    <Label fx:id="cardUser"  styleClass="text-rect" prefWidth="350" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+                    <Label  text="Numero carta:"  GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"  />
+                    <Label  fx:id="cardNumber" styleClass="text-rect" prefWidth="350" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"  />
+                    <Label  text="Scadenza:" GridPane.rowIndex="4" GridPane.columnIndex="0"   />
+                    <Label fx:id="cardExDate"  styleClass="text-rect" prefWidth="100" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                    <Label  text="CVV:" GridPane.rowIndex="4" GridPane.columnIndex="1"  />
+                    <Label fx:id="cardCVV"  styleClass="text-rect" prefWidth="100" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                </GridPane>
+            </HBox>
+            <HBox alignment="BOTTOM_CENTER">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="50.0"/>
+                </padding>
+                <Button text="Cambia carta" onMouseClicked="#changeCard"/>
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>

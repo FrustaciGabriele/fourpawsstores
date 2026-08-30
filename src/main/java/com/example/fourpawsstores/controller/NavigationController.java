@@ -45,11 +45,20 @@ public class NavigationController {
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
         String fxmlFile;
+        Parent rootNode;
+        if (utils.getGUI()==0){
         fxmlFile="/com/example/fourpawsstores/profiloUtente.fxml";
         fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+        rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
         final ClientProfileControllerGrafico controller=fxmlLoader.getController();
         controller.inizializza();
+        }else{
+            fxmlFile="/com/example/fourpawsstores/profiloUtente2.fxml";
+            fxmlLoader = new FXMLLoader();
+            rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+            final ClientProfileControllerGrafico controller=fxmlLoader.getController();
+            controller.inizializza();
+        }
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
 
@@ -62,11 +71,21 @@ public class NavigationController {
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
         String fxmlFile;
+        Parent rootNode;
+        if(utils.getGUI()==0){
         fxmlFile="/com/example/fourpawsstores/ordini.fxml";
         fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+        rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
         final OrderControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
+        controller.inizializza();}
+        else {
+            fxmlFile="/com/example/fourpawsstores/ordini2.fxml";
+            fxmlLoader = new FXMLLoader();
+            rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+            final OrderControllerGrafico2 controller=fxmlLoader.getController();
+            controller.inizializza();
+        }
+
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
 
@@ -78,11 +97,21 @@ public class NavigationController {
         FXMLLoader fxmlLoad;
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
-        String FxmlRole = "/com/example/fourpawsstores/utente.fxml";
+        Parent rootNode;
+        String FxmlRole;
+        if (utils.getGUI()==0){
+        FxmlRole = "/com/example/fourpawsstores/utente.fxml";
         fxmlLoad = new FXMLLoader();
-        Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+        rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
         SearchControllerGrafico controller=fxmlLoad.getController();
-        controller.inizializza();
+        controller.inizializza();}
+        else {
+            FxmlRole = "/com/example/fourpawsstores/utente2.fxml";
+            fxmlLoad = new FXMLLoader();
+            rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+            SearchControllerGrafico2 controller=fxmlLoad.getController();
+            controller.inizializza();
+        }
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
         scene.getRoot().requestFocus();
         stage.setTitle("4Paws Stores");
@@ -167,14 +196,21 @@ public class NavigationController {
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
         String fxmlFile;
-        fxmlFile="/com/example/fourpawsstores/catalogo.fxml";
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        final CatalogueControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza(store);
+        Parent rootNode;
+        if(utils.getGUI()==0){
+            fxmlFile="/com/example/fourpawsstores/catalogo.fxml";
+            fxmlLoader = new FXMLLoader();
+            rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+            final CatalogueControllerGrafico controller=fxmlLoader.getController();
+            controller.inizializza(store);}
+        else {
+            fxmlFile="/com/example/fourpawsstores/catalogo2.fxml";
+            fxmlLoader = new FXMLLoader();
+            rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
+            final CatalogueControllerGrafico2 controller=fxmlLoader.getController();
+            controller.inizializza(store);
+        }
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-
-
         stage.setTitle("4Paws Stores");
         stage.setScene(scene);
         stage.show();

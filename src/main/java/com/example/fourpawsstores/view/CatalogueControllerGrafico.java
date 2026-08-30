@@ -50,12 +50,6 @@ public class CatalogueControllerGrafico {
     private Label title;
     @FXML
     private VBox productList;
-    @FXML
-    private ImageView Iprofilo;
-    @FXML
-    private ImageView Icatalogo;
-    @FXML
-    private ImageView Iordini;
     private CatalogueBean catB;
     private CatalogueController controller;
     private CartBean cart;
@@ -212,7 +206,7 @@ public class CatalogueControllerGrafico {
              q=q -1;
              numAdd.setText(String.valueOf(q));
              cart.deletefromCart(p,q);
-         }
+         }else {utils.showErrorPopup("Errore nella rimozione");}
      });
 
      buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);}
