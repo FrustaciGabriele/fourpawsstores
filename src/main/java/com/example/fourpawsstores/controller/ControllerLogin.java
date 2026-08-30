@@ -13,10 +13,7 @@ import com.example.fourpawsstores.model.domain.Credentials;
 import com.example.fourpawsstores.model.domain.Profile;
 import com.example.fourpawsstores.model.domain.Store;
 import com.example.fourpawsstores.utils.utils;
-import com.example.fourpawsstores.view.CatalogueControllerGrafico;
-import com.example.fourpawsstores.view.CatalogueStoreControllerGrafico;
-import com.example.fourpawsstores.view.SearchControllerGrafico;
-import com.example.fourpawsstores.view.SearchControllerGrafico2;
+import com.example.fourpawsstores.view.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -74,10 +71,10 @@ public class ControllerLogin {
                     StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
                     controller.inizializza(storeB);
                 } else {
-                    FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
+                    FxmlRole = "/com/example/fourpawsstores/negoziante2.fxml";
                     fxmlLoad = new FXMLLoader();
                     rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-                    final CatalogueStoreControllerGrafico controller = fxmlLoad.getController();
+                    final CatalogueStoreControllerGrafico2 controller = fxmlLoad.getController();
                     Store store = new FindStoresDAO().findStoreById(Profile.getStoreId());
                     StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
                     controller.inizializza(storeB);

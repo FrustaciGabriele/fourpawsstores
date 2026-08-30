@@ -43,7 +43,7 @@
                         <Label text="Prezzo"/>
                         <TextField fx:id="prodPrice" promptText="00.00"/>
                     </VBox>
-                    <Button text="Aggiungi Immagine" onAction="#addImg"/>
+                    <Button text="Aggiungi Immagine" onAction="#addImg" prefHeight="50" wrapText="true" alignment="CENTER"/>
                 </HBox>
 
         </GridPane>
