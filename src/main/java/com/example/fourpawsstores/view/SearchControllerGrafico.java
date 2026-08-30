@@ -121,8 +121,6 @@ public class SearchControllerGrafico {
     }
     public void aggiungiMarker(ListStoresBean Stor){
         for (StoreBeans s : Stor.getList()) {
-            System.out.println("lat=" +s.getLat());
-            System.out.println("lat=" +s.getLon());
             String js =String.format(Locale.US, "addMarker(%.6f, %.6f,%d, '%s')", s.getLat(), s.getLon(), s.getid(), s.getName());
             engine.executeScript(js);
         }

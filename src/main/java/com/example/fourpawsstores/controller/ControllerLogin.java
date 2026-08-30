@@ -16,6 +16,7 @@ import com.example.fourpawsstores.utils.utils;
 import com.example.fourpawsstores.view.CatalogueControllerGrafico;
 import com.example.fourpawsstores.view.CatalogueStoreControllerGrafico;
 import com.example.fourpawsstores.view.SearchControllerGrafico;
+import com.example.fourpawsstores.view.SearchControllerGrafico2;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,23 +37,24 @@ public class ControllerLogin {
         //effettuo il login
         try {
             new LoginProcDAO().login();
-        } catch(DAOException | SQLException e) {
+        } catch (DAOException | SQLException e) {
             throw new IllegalArgumentException(e);
         }
         FXMLLoader fxmlLoad;
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
         //se le credenziali sono non valide apro un popup
+        String FxmlRole = null;
+        Parent rootNode;
         if (Credentials.getRole() == null) {
             utils.showErrorPopup("Credenziali non valide");
             fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login.fxml"));
             scene = new Scene(fxmlLoad.load(), utils.getSceneW(), utils.getSceneH());
         }//altrimenti verifico il ruolo del profilo e apro la rispettiva schermata
         else {
-            String FxmlRole;
             try {
                 ConnectionFactory.changeRole(Credentials.getRole());
-            } catch(SQLException e) {
+            } catch (SQLException e) {
                 throw new IllegalArgumentException(e);
             }
 
@@ -60,34 +62,51 @@ public class ControllerLogin {
 
                 try {
                     new ProfileProcDAO().getProfile();
-                } catch(DAOException | SQLException e) {
+                } catch (DAOException | SQLException e) {
                     throw new IllegalArgumentException(e);
                 }
-
-                FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
+                if (utils.getGUI() == 0) {
+                    FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
+                    fxmlLoad = new FXMLLoader();
+                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+                    final CatalogueStoreControllerGrafico controller = fxmlLoad.getController();
+                    Store store = new FindStoresDAO().findStoreById(Profile.getStoreId());
+                    StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
+                    controller.inizializza(storeB);
+                } else {
+                    FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
+                    fxmlLoad = new FXMLLoader();
+                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+                    final CatalogueStoreControllerGrafico controller = fxmlLoad.getController();
+                    Store store = new FindStoresDAO().findStoreById(Profile.getStoreId());
+                    StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
+                    controller.inizializza(storeB);
+                }
             } else {
                 try {
                     new ProfileProcDAO().getProfile();
-                } catch(DAOException | SQLException e) {
+                } catch (DAOException | SQLException e) {
                     throw new IllegalArgumentException(e);
                 }
-                FxmlRole = "/com/example/fourpawsstores/utente.fxml";
+                if (utils.getGUI() == 0) {
+                    FxmlRole = "/com/example/fourpawsstores/utente.fxml";
+                    fxmlLoad = new FXMLLoader();
+                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+                    final SearchControllerGrafico controller = fxmlLoad.getController();
+                    controller.inizializza();
+                } else {
+                    FxmlRole = "/com/example/fourpawsstores/utente2.fxml";
+                    fxmlLoad = new FXMLLoader();
+                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+                    final SearchControllerGrafico2 controller = fxmlLoad.getController();
+                    controller.inizializza();
+                }
             }
 
-            fxmlLoad = new FXMLLoader();
-            Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-            if(Credentials.getRole().getId()==2){
-            final SearchControllerGrafico controller=fxmlLoad.getController();
-            controller.inizializza();}
-            else{
-                Store store= new FindStoresDAO().findStoreById(Profile.getStoreId());
-                StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog(),store.getTel());
-                final CatalogueStoreControllerGrafico controller=fxmlLoad.getController();
-                controller.inizializza(storeB);
-            }
-            scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-            scene.getRoot().requestFocus();
-        }
+        //Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
+        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
+        scene.getRoot().requestFocus();
+    }
         stage.setTitle("4Paws Stores");
         stage.setScene(scene);
         stage.show();
