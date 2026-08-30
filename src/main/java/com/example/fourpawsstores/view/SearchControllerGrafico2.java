@@ -11,15 +11,20 @@ import com.example.fourpawsstores.utils.utils;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -105,59 +110,7 @@ public class SearchControllerGrafico2 {
             openStorePopup(store);}
         else  {utils.showErrorPopup("Error");}
     }
-    private void openStorePopup(StoreBeans store) {
-        Popup popup = new Popup();
 
-        Stage owner = ApplicazioneStage.getStage();
-        Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
-        Button buttonClose = new Button("X");
-        buttonClose.setOnAction(e -> popup.hide());
-        buttonClose.setStyle("-fx-alignment: center-right;");
-        Text title =new Text ("Scheda Negozio");
-        HBox titleboard=new HBox(buttonClose,title);
-        Text Name=new Text("Nome: "+ store.getName());
-        Text Address=new Text("Indirizzo: "+ store.getAddress());
-        Text Tel= new Text("Tel. : "+ store.getTel());
-        VBox information= new VBox(Name,Address,Tel);
-        HBox img;
-        if(store.getImage() != null) {
-            try {
-                InputStream input = store.getImage().getBinaryStream();
-                Image image = new Image(input);
-
-                ImageView imageView = new ImageView(image);
-
-                imageView.setFitHeight(200);
-                imageView.setPreserveRatio(true);
-
-                img = new HBox(imageView);
-            } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
-            }
-        }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
-        }
-        HBox imgInfo=new HBox(img, information);
-        Text description= new Text("descrizione: "+store.getDescription());
-        Button catalogue =new Button("Vai al Catalogo");
-        catalogue.setOnAction(e -> {
-            popup.hide();
-            try {
-                NavigationController navController= new NavigationController();
-                navController.showCatalogue(store);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (DAOException ex) {
-                throw new RuntimeException(ex);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-        VBox All= new VBox(titleboard,imgInfo, description,catalogue);
-
-        popup.getContent().addAll(overlay, All);
-        popup.show(owner);
-    }
     private void removeMarkers() {
         engine.executeScript("removeMarkers()");
     }
@@ -175,6 +128,77 @@ public class SearchControllerGrafico2 {
     public void handleEnter(ActionEvent actionEvent) {
         findAddress();
     }
+    private void openStorePopup(StoreBeans store) {
+        Popup popup = new Popup();
+        popup.setAutoHide(true);
+        Stage owner = ApplicazioneStage.getStage();
 
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(15));
+        root.setStyle("-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-width: 1;");
+        root.setPrefWidth(280);
+        HBox img;
+        if(store.getImage() != null) {
+            try {
+                InputStream input = store.getImage().getBinaryStream();
+                Image image = new Image(input);
+
+                ImageView imageView = new ImageView(image);
+
+                imageView.setFitHeight(60);
+                imageView.setFitWidth(60);
+                imageView.setPreserveRatio(true);
+
+                img = new HBox(imageView);
+            } catch (SQLException e) {
+                img = new HBox(new Text("IMG NON PRESENTE"));
+            }
+        }else{
+            img = new HBox(new Text("IMG NON PRESENTE"));
+        }
+        Label name = new Label("Nome: "+ store.getName());
+        name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+
+        // Telefono
+        Label tel = new Label("Tel: " + store.getTel());
+
+        // Via
+        Label address = new Label("Via: "+store.getAddress());
+
+        // Descrizione
+        Label description = new Label("Descrizione: "+ store.getDescription());
+        description.setWrapText(true);
+        Button catalogue =new Button("Catalogo");
+        catalogue.setOnAction(e -> {
+            popup.hide();
+            try {
+                NavigationController navController= new NavigationController();
+                navController.showCatalogue(store);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (DAOException ex) {
+                throw new RuntimeException(ex);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        Button close=new Button("Chiudi");
+        close.setOnAction(e -> popup.hide());
+        HBox buttons =new HBox(10,catalogue,close);
+        root.getChildren().addAll(img, name, address, tel, description, buttons);
+
+        popup.getContent().add(root);
+
+        popup.show(owner, -10000, -10000);
+
+        double popupWidth = root.getWidth();
+        double popupHeight = root.getHeight();
+
+        double centerX = owner.getX() + (owner.getWidth() - popupWidth) / 2;
+        double centerY = owner.getY() + (owner.getHeight() - popupHeight) / 2;
+
+        popup.setX(centerX);
+        popup.setY(centerY);
+    }
 
 }

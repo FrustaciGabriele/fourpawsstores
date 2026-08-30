@@ -11,6 +11,7 @@ import java.sql.Types;
 
 public class LoginProcDAO {
     public void login() throws DAOException, SQLException {
+
             int role;
             CallableStatement cs = null;
             try {

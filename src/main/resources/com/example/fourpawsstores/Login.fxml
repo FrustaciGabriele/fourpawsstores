@@ -12,9 +12,13 @@
 <BorderPane xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.fourpawsstores.view.LoginView"
-           stylesheets="/LoginStyles.css">
+           stylesheets="/LoginStyles.css"
+            styleClass="left-bk">
     <top>
         <HBox>
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
             <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
         </HBox>
     </top>

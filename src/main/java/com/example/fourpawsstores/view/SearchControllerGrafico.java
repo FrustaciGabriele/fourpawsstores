@@ -14,6 +14,7 @@ import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -136,18 +137,13 @@ public class SearchControllerGrafico {
 
     private void openStorePopup(StoreBeans store) {
         Popup popup = new Popup();
-
+        popup.setAutoHide(true);
         Stage owner = ApplicazioneStage.getStage();
-        Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
-        Button buttonClose = new Button("X");
-        buttonClose.setOnAction(e -> popup.hide());
-        buttonClose.setStyle("-fx-alignment: center-right;");
-        Text title =new Text ("Scheda Negozio");
-        HBox titleboard=new HBox(buttonClose,title);
-        Text Name=new Text("Nome: "+ store.getName());
-        Text Address=new Text("Indirizzo: "+ store.getAddress());
-        Text Tel= new Text("Tel. : "+ store.getTel());
-        VBox information= new VBox(Name,Address,Tel);
+
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(15));
+        root.setStyle("-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-width: 1;");
+        root.setPrefWidth(280);
         HBox img;
         if(store.getImage() != null) {
             try {
@@ -156,7 +152,8 @@ public class SearchControllerGrafico {
 
                 ImageView imageView = new ImageView(image);
 
-                imageView.setFitHeight(200);
+                imageView.setFitHeight(60);
+                imageView.setFitWidth(60);
                 imageView.setPreserveRatio(true);
 
                 img = new HBox(imageView);
@@ -166,9 +163,19 @@ public class SearchControllerGrafico {
         }else{
             img = new HBox(new Text("IMG NON PRESENTE"));
         }
-        HBox imgInfo=new HBox(img, information);
-        Text description= new Text("descrizione: "+store.getDescription());
-        Button catalogue =new Button("Vai al Catalogo");
+        Label name = new Label("Nome: "+ store.getName());
+        name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+
+        // Telefono
+        Label tel = new Label("Tel: " + store.getTel());
+
+        // Via
+        Label address = new Label("Via: "+store.getAddress());
+
+        // Descrizione
+        Label description = new Label("Descrizione: "+ store.getDescription());
+        description.setWrapText(true);
+        Button catalogue =new Button("Catalogo");
         catalogue.setOnAction(e -> {
             popup.hide();
             try {
@@ -182,10 +189,23 @@ public class SearchControllerGrafico {
                 throw new RuntimeException(ex);
             }
         });
-        VBox All= new VBox(titleboard,imgInfo, description,catalogue);
+        Button close=new Button("Chiudi");
+        close.setOnAction(e -> popup.hide());
+        HBox buttons =new HBox(10,catalogue,close);
+        root.getChildren().addAll(img, name, address, tel, description, buttons);
 
-        popup.getContent().addAll(overlay, All);
-        popup.show(owner);
+        popup.getContent().add(root);
+
+        popup.show(owner, -10000, -10000);
+
+        double popupWidth = root.getWidth();
+        double popupHeight = root.getHeight();
+
+        double centerX = owner.getX() + (owner.getWidth() - popupWidth) / 2;
+        double centerY = owner.getY() + (owner.getHeight() - popupHeight) / 2;
+
+        popup.setX(centerX);
+        popup.setY(centerY);
     }
 
     }

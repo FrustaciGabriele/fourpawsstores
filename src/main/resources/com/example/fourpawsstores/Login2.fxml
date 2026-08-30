@@ -13,9 +13,9 @@
             prefHeight="400.0" prefWidth="600.0"
 stylesheets="/LoginStyles.css">
     <left>
-        <VBox spacing="20" BorderPane.alignment="TOP_CENTER" prefWidth="400">
+        <VBox spacing="20" BorderPane.alignment="TOP_CENTER" prefWidth="400" styleClass="left-bk">
             <padding>
-                <Insets top="40" right="30" bottom="30" left="30"/>
+                <Insets top="60" right="30" bottom="30" left="30"/>
             </padding>
             <HBox>
                 <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
