@@ -1,7 +1,7 @@
 .title-label {
     -fx-font-size: 27px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 .text-field {
     -fx-background-color: #f0f0f0;
@@ -16,4 +16,25 @@
     -fx-font-weight: bold;
     -fx-background-radius: 5;
     -fx-padding: 10 20;
+}
+.title-label2 {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+.des-label2 {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+.right-bk {
+    -fx-background-image: url("images/background.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+.text-overlay {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 8;
+    -fx-padding: 15 25 15 25;
 }

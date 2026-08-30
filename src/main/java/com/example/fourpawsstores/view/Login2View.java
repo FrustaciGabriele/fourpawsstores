@@ -4,23 +4,16 @@ import com.example.fourpawsstores.controller.ControllerLogin;
 import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CredentialsBean;
-import com.example.fourpawsstores.model.domain.ApplicazioneStage;
-import com.example.fourpawsstores.utils.utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-
-public class LoginView {
+public class Login2View {
     @FXML
     private TextField textFieldUsername;
     @FXML

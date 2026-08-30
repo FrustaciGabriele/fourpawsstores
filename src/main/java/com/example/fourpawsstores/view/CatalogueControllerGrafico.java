@@ -1,6 +1,7 @@
 package com.example.fourpawsstores.view;
 
 import com.example.fourpawsstores.controller.CatalogueController;
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CartBean;
 import com.example.fourpawsstores.model.bean.CatalogueBean;
@@ -81,7 +82,8 @@ public class CatalogueControllerGrafico {
 
 
     public void goBack(MouseEvent mouseEvent) throws IOException {
-        controller.goBackScene();
+        NavigationController navController= new NavigationController();
+        navController.goBackToMap();
     }
 
     public void openCart(MouseEvent mouseEvent) {

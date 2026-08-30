@@ -1,6 +1,7 @@
 package com.example.fourpawsstores.view;
 
 import com.example.fourpawsstores.controller.CatalogueController;
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CatalogueBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
@@ -194,10 +195,12 @@ public class CatalogueStoreControllerGrafico {
 
 
     public void goToOrders() throws DAOException, SQLException, IOException {
-        controller.goToOrderScene();
+        NavigationController navController= new NavigationController();
+        navController.goToOrderSceneStore();
     }
 
     public void goToProfile(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
-        controller.goToProfileStore();
+        NavigationController navController= new NavigationController();
+        navController.goToProfileStore();
     }
 }

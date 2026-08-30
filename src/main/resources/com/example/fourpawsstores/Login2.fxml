@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fourpawsstores.view.Login2View"
+            prefHeight="400.0" prefWidth="600.0"
+stylesheets="/LoginStyles.css">
+    <left>
+        <VBox spacing="20" BorderPane.alignment="TOP_CENTER" prefWidth="400">
+            <padding>
+                <Insets top="40" right="30" bottom="30" left="30"/>
+            </padding>
+            <HBox>
+                <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
+            </HBox>
+        <VBox spacing="20" alignment="CENTER" BorderPane.alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="160" right="30" bottom="30" left="30"/>
+            </padding>
+            <Label text="Login" styleClass="title-label2"/>
+
+            <TextField fx:id="textFieldUsername" promptText="Username" styleClass="text-field" onAction="#handleEnter"/>
+            <PasswordField fx:id="textFieldPassword" promptText="Password" styleClass="text-field" onAction="#handleEnter"/>
+
+            <Button text="Login" onAction="#login" styleClass="login-button"/>
+        </VBox>
+        </VBox>
+    </left>
+    <right>
+        <VBox spacing="20" alignment="CENTER" BorderPane.alignment="CENTER" prefWidth="800" styleClass="right-bk">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+            <VBox styleClass="text-overlay" alignment="CENTER">
+                <Label text="Trova quello di cui hai bisogno " styleClass="des-label2"/>
+                <Label text=" per il benessere del tuo animale" styleClass="des-label2"/>
+            </VBox>
+        </VBox>
+    </right>
+</BorderPane>

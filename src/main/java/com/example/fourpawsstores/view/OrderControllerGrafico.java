@@ -1,5 +1,6 @@
 package com.example.fourpawsstores.view;
 
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.controller.OrderController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.ListOrderBean;
@@ -109,12 +110,14 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
         popup.show(owner);
     }
 
-    public void goToMap() throws IOException, IOException {
-        controller.goBackToMap();
+    public void goToMap() throws  IOException {
+        NavigationController navController= new NavigationController();
+        navController.goBackToMap();
 
     }
 
     public void goToProfile(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
-        controller.goToProfileScene();
+        NavigationController navController= new NavigationController();
+        navController.profileScene();
     }
 }

@@ -27,17 +27,18 @@ public class utils {
     private static final String SETTING2 = "-fx-alignment: center-right;";
     private static final String SETTING3 = "TimesNewRoman";
     private static final String SETTING4 = "-fx-background-color: white; -fx-padding: 20px; -fx-margin: 20px; ";
-    public static void switchGrafica(){
+    public static void switchGUI(){
         if(grafica==0){
             grafica=1;
             sceneW = 1200;
             sceneH = 700;
         }else{
             grafica=0;
-            sceneW = 414;
-            sceneH = 695;
+            sceneW = 400;
+            sceneH = 700;
         }
     }
+    public static int getGUI(){return grafica;}
 
     public static double getSceneW(){
         return sceneW;

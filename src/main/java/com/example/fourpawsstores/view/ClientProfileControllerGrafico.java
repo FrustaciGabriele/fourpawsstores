@@ -1,5 +1,6 @@
 package com.example.fourpawsstores.view;
 
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.controller.profileController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CardBean;
@@ -58,10 +59,12 @@ public class ClientProfileControllerGrafico {
     }
 
     public void goToSceneMAp(MouseEvent mouseEvent) throws IOException {
-        controller.goToMap();
+        NavigationController navController= new NavigationController();
+        navController.goBackToMap();
     }
 
     public void goToceneOrder(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
-        controller.goToOrder();
+        NavigationController navController= new NavigationController();
+        navController.obtainOrders();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.fourpawsstores.view;
 
 import com.example.fourpawsstores.controller.AddProductController;
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.controller.SearchController;
 import com.example.fourpawsstores.controller.profileController;
 import com.example.fourpawsstores.exception.DAOException;
@@ -75,11 +76,12 @@ public class StoreProfileControllerGrafico {
     }
 
     public void goToCatalog(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
-        AddProductController sceneContoller=new AddProductController();
-        sceneContoller.goBackScene();
+        NavigationController navController= new NavigationController();
+        navController.goBackSceneCatStore();
     }
 
     public void goToOrder(MouseEvent mouseEvent) throws DAOException, SQLException, IOException {
-        controller.goToOrderStore();
+        NavigationController navController= new NavigationController();
+        navController.goToOrderStore();
     }
 }

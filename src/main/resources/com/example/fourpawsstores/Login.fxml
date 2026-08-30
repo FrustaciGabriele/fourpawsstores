@@ -9,14 +9,20 @@
 
 
 <?import javafx.geometry.Insets?>
-<StackPane xmlns="http://javafx.com/javafx/8"
+<BorderPane xmlns="http://javafx.com/javafx/8"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.example.fourpawsstores.view.LoginView"
            stylesheets="/LoginStyles.css">
+    <top>
+        <HBox>
+            <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
+        </HBox>
+    </top>
+    <center>
     <VBox alignment="CENTER">
-    <VBox alignment="CENTER" spacing="20" styleClass="login-panel">
+    <VBox alignment="CENTER" spacing="20" >
         <padding>
-            <Insets top="230" right="30" bottom="30" left="30"/>
+            <Insets top="100" right="30" bottom="30" left="30"/>
         </padding>
 
         <Label text="Login" styleClass="title-label"/>
@@ -29,5 +35,6 @@
 
     </VBox>
     </VBox>
+    </center>
 
-</StackPane>
+</BorderPane>

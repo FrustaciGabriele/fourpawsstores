@@ -1,6 +1,7 @@
 package com.example.fourpawsstores.view;
 
 import com.example.fourpawsstores.controller.CatalogueController;
+import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.controller.SearchController;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.ListStoresBean;
@@ -108,11 +109,15 @@ public class SearchControllerGrafico {
     }
 
     public void SeeProfile(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {
-        search.profileScene();
+        NavigationController navController= new NavigationController();
+        navController.profileScene();
+        //search.profileScene();
     }
 
     public void openOrders(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {
-        search.obtainOrders();
+        NavigationController navController= new NavigationController();
+        navController.obtainOrders();
+        //search.obtainOrders();
     }
     public void aggiungiMarker(ListStoresBean Stor){
         for (StoreBeans s : Stor.getList()) {
@@ -169,7 +174,8 @@ public class SearchControllerGrafico {
         catalogue.setOnAction(e -> {
             popup.hide();
             try {
-                search.showCatalogue(store);
+                NavigationController navController= new NavigationController();
+                navController.showCatalogue(store);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (DAOException ex) {

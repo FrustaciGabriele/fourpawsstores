@@ -138,41 +138,5 @@ public class CatalogueController {
             }
         }
     }
-
-    public void goToOrderScene() throws DAOException, SQLException, IOException {
-        FXMLLoader fxmlLoader;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
-        String fxmlFile;
-        fxmlFile="/com/example/fourpawsstores/ordiniNegoziante.fxml";
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        final StoresOrderControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-
-
-        stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void goToProfileStore() throws IOException, DAOException, SQLException {
-        FXMLLoader fxmlLoader;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
-        String fxmlFile;
-        fxmlFile="/com/example/fourpawsstores/profiloNegozio.fxml";
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        final StoreProfileControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-
-
-        stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
-    }
 }
 
