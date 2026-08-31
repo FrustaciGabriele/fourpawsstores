@@ -9,18 +9,33 @@
 
 
 <?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <BorderPane xmlns="http://javafx.com/javafx/8"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.example.fourpawsstores.view.LoginView"
-           stylesheets="/LoginStyles.css"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.fourpawsstores.view.LoginView"
+            stylesheets="/LoginStyles.css"
             styleClass="left-bk">
     <top>
-        <HBox>
+        <VBox spacing="20">
             <padding>
-                <Insets top="30" right="30" bottom="30" left="30"/>
+                <Insets top="30" right="30" bottom="10" left="30"/>
             </padding>
-            <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
-        </HBox>
+            <HBox>
+                <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
+            </HBox>
+            <HBox>
+                <ComboBox fx:id="demo" prefWidth="110" value="Mode: Final">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Mode: Final"/>
+                            <String fx:value="Mode: Demo"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+        </VBox>
     </top>
     <center>
     <VBox alignment="CENTER">

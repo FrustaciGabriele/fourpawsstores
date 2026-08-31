@@ -8,6 +8,7 @@ import com.example.fourpawsstores.model.bean.OrderBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.utils.utils;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -69,9 +70,16 @@ public class StoresOrderControllerGrafico2 extends InfoCardControllerGrafico{
             productOrderList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productOrderList);
+        scrollProduct.setPrefHeight(400);
+        scrollProduct.setPrefWidth(355);
+        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProduct.setFitToWidth(true);
+        productOrderList.setFillWidth(true);
+        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
         VBox all;
         if (orderB.getStateB().equals("in attesa")){
             HBox buttons= new HBox(10);
+            buttons.setAlignment(Pos.BOTTOM_CENTER);
             Button accept =new Button("Accetta");
             accept.setOnAction(e->{
                 try {

@@ -3,6 +3,7 @@ package com.example.fourpawsstores.controller;
 import com.example.fourpawsstores.FourPawsApplication;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.StoreBeans;
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import com.example.fourpawsstores.model.domain.Profile;
@@ -181,7 +182,12 @@ public class NavigationController {
             fxmlFile = "/com/example/fourpawsstores/negoziante.fxml";
             fxmlLoader = new FXMLLoader();
             rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-            Store store= new FindStoresDAO().findStoreById(Profile.getStoreId());
+            Store store;
+            if(utils.getMode()==0){
+            store= new FindStoresDAO().findStoreById(Profile.getStoreId());}
+            else {
+                store= new DEMODAO().getStore(Profile.getStoreId());
+            }
             StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog(),store.getTel());
             CatalogueStoreControllerGrafico controller=fxmlLoader.getController();
             controller.inizializza(storeB);
@@ -189,7 +195,12 @@ public class NavigationController {
             fxmlFile = "/com/example/fourpawsstores/negoziante2.fxml";
             fxmlLoader = new FXMLLoader();
             rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-            Store store= new FindStoresDAO().findStoreById(Profile.getStoreId());
+            Store store;
+            if(utils.getMode()==0){
+                store= new FindStoresDAO().findStoreById(Profile.getStoreId());}
+            else {
+                store= new DEMODAO().getStore(Profile.getStoreId());
+            }
             StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(),store.getLat(),store.getLon(),store.getIdCatalog(),store.getTel());
             CatalogueStoreControllerGrafico2 controller=fxmlLoader.getController();
             controller.inizializza(storeB);
@@ -199,23 +210,7 @@ public class NavigationController {
         stages.setScene(scene);
         stages.show();
     }
-    public void goToOrderStore() throws DAOException, SQLException, IOException {
-        FXMLLoader fxmlLoader;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
-        String fxmlFile;
-        fxmlFile="/com/example/fourpawsstores/ordiniNegoziante.fxml";
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        final StoresOrderControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
-
-        stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
-    }
     public void showCatalogue(StoreBeans store) throws IOException, DAOException, SQLException {
         FXMLLoader fxmlLoader;
         Stage stage = ApplicazioneStage.getStage();

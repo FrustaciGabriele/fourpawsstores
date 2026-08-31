@@ -43,7 +43,11 @@ public abstract class InfoCardControllerGrafico {
 
     HBox cardInfoProduct(ProductBean p, OrderBean orderB) {
         HBox product =new HBox(10);
-        product.getStyleClass().add("product-row");
+        product.setStyle("-fx-border-color: #cccccc;\n" +
+                "    -fx-border-width: 1;\n" +
+                "    -fx-border-radius: 5;\n" +
+                "    -fx-background-radius: 5;\n" +
+                "    -fx-padding: 5;");
         product.setPrefHeight(100);
         product.setMinHeight(100);
         product.setMaxHeight(100);
@@ -74,10 +78,10 @@ public abstract class InfoCardControllerGrafico {
 
                 img = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
+                img = new HBox(new Text("IMG \n NON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            img = new HBox(new Text("IMG \n NON PRESENTE"));
         }
         img.setAlignment(Pos.CENTER);
         img.setMinWidth(90);
@@ -86,7 +90,11 @@ public abstract class InfoCardControllerGrafico {
         img.setMinHeight(90);
         img.setPrefHeight(90);
         img.setMaxHeight(90);
-        img.getStyleClass().add("scroll-image");
+        img.setStyle(" -fx-border-color: #cccccc;\n" +
+                "    -fx-border-width: 1;\n" +
+                "    -fx-background-color: #ffffff;\n" +
+                "    -fx-border-radius: 6;\n" +
+                "    -fx-background-radius: 6;");
 
         info.getChildren().addAll(name,price);
         product.getChildren().addAll(img,info,numProd);

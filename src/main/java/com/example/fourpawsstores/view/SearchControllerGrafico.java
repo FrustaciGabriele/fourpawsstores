@@ -112,13 +112,12 @@ public class SearchControllerGrafico {
     public void SeeProfile(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {
         NavigationController navController= new NavigationController();
         navController.profileScene();
-        //search.profileScene();
     }
 
     public void openOrders(MouseEvent mouseEvent) throws IOException, DAOException, SQLException {
         NavigationController navController= new NavigationController();
         navController.obtainOrders();
-        //search.obtainOrders();
+
     }
     public void aggiungiMarker(ListStoresBean Stor){
         for (StoreBeans s : Stor.getList()) {

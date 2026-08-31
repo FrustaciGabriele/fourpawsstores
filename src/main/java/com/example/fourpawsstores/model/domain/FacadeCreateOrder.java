@@ -3,8 +3,10 @@ package com.example.fourpawsstores.model.domain;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CartBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.dao.FindOrdersDao;
 import com.example.fourpawsstores.model.dao.insertOrderDAO;
+import com.example.fourpawsstores.utils.utils;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -31,19 +33,28 @@ public class FacadeCreateOrder {
         return order;
     }
 
-    public void insertOrder(Order newOrder) throws DAOException, SQLException {
-        new insertOrderDAO().insertOnDB(newOrder);
-    }
+
 
     public ListOrder findOrders() throws DAOException, SQLException {
         String username=Profile.getUsername();
+        if(utils.getMode()==0){
          list= new FindOrdersDao().getOrders(username);
-         return list;
+         return list;}
+        else{
+            list= new DEMODAO().getOrders(username);
+            return list;
+        }
     }
 
     public ListOrder findOrdersStore() throws DAOException, SQLException {
         int storeId=Profile.getStoreId();
+        if (utils.getMode()==0){
         list= new FindOrdersDao().getOrdersStore(storeId);
-        return list;
+            return list;}
+        else{
+           list = new DEMODAO().getOrdersStores(storeId);
+            return list;
+        }
+
     }
 }

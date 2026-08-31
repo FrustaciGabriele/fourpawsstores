@@ -1,5 +1,6 @@
 package com.example.fourpawsstores.utils;
 
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -23,6 +24,7 @@ public class utils {
     private static double sceneW = 400;
     private static double sceneH = 700;
     private static int grafica=0;
+    private static int modalita=0;
     private static final String SETTING1 = "-fx-alignment: center;";
     private static final String SETTING2 = "-fx-alignment: center-right;";
     private static final String SETTING3 = "TimesNewRoman";
@@ -37,6 +39,17 @@ public class utils {
             sceneW = 400;
             sceneH = 700;
         }
+    }
+    public static void switchMode(){
+        if(modalita==0){
+            modalita=1;
+            new DEMODAO().inizializza();
+        }else{
+            modalita=0;
+        }
+    }
+    public static int getMode(){
+        return modalita;
     }
     public static int getGUI(){return grafica;}
 

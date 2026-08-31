@@ -7,11 +7,12 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.fourpawsstores.view.Login2View"
             prefHeight="400.0" prefWidth="600.0"
-stylesheets="/LoginStyles.css">
+            stylesheets="/LoginStyles.css">
     <left>
         <VBox spacing="20" BorderPane.alignment="TOP_CENTER" prefWidth="400" styleClass="left-bk">
             <padding>
@@ -20,6 +21,14 @@ stylesheets="/LoginStyles.css">
             <HBox>
                 <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
             </HBox>
+            <ComboBox fx:id="demo" prefWidth="110" value="Mode: Final">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Mode: Final"/>
+                        <String fx:value="Mode: Demo"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
         <VBox spacing="20" alignment="CENTER" BorderPane.alignment="CENTER_LEFT">
             <padding>
                 <Insets top="160" right="30" bottom="30" left="30"/>

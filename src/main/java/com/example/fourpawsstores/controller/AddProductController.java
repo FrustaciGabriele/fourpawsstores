@@ -4,6 +4,7 @@ import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.dao.AddProductDAO;
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import com.example.fourpawsstores.model.domain.Product;
@@ -24,7 +25,11 @@ import java.sql.SQLException;
 public class AddProductController {
     public  void newProduct(ProductBean prodB) throws DAOException, SQLException {
         Product newProduct= new Product(prodB.getNameB(), prodB.getDescriptionB(), prodB.getImage(), prodB.getPriceB());
-        new AddProductDAO().AddProduct(newProduct);
+        if (utils.getMode()==0){
+        new AddProductDAO().AddProduct(newProduct);}
+        else{
+            new DEMODAO().Addproduct(newProduct);
+        }
     }
 
     public boolean checkName(String text) {

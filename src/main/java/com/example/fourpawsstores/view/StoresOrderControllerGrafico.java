@@ -23,6 +23,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -46,6 +48,7 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
     private Label Title;
     private OrderController controller;
     private ListOrderBean orders;
+    private static final String SETTING1 = "TimesNewRoman";
     public void inizializza() throws DAOException, SQLException {
         Iprofilo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
         Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
@@ -70,11 +73,13 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
 
         Stage owner = ApplicazioneStage.getStage();
         Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
+        overlay.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
 
         Label title=new Label("Dettagli ordine:");
+        title.setFont(Font.font(SETTING1, FontWeight.BOLD, 18));
+        title.setStyle("-fx-alignment: center");
         Button buttonClose = new Button("X");
         buttonClose.setOnAction(e -> popup.hide());
-        buttonClose.setStyle("-fx-alignment: center-right;");
         HBox top=new HBox(title,buttonClose);
         Label client=new Label("Ordine per: "+orderB.getUserIdB());
         HBox infoClinet= new HBox(client);
@@ -85,9 +90,17 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
             productOrderList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productOrderList);
+        scrollProduct.setPrefHeight(400);
+        scrollProduct.setPrefWidth(355);
+        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProduct.setFitToWidth(true);
+
+        productOrderList.setFillWidth(true);
+        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
         VBox all;
         if (orderB.getStateB().equals("in attesa")){
             HBox buttons= new HBox(10);
+            buttons.setAlignment(Pos.BOTTOM_CENTER);
             Button accept =new Button("Accetta");
             accept.setOnAction(e->{
                 try {
@@ -125,6 +138,10 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
         }else {
              all= new VBox(top,infoClinet,scrollProduct);
         }
+        all.maxWidthProperty().bind(overlay.widthProperty());
+        all.maxHeightProperty().bind(overlay.heightProperty());
+        all.prefWidthProperty().bind(overlay.widthProperty());
+        all.prefHeightProperty().bind(overlay.heightProperty());
         popup.getContent().addAll(overlay,all);
         popup.show(owner);
     }

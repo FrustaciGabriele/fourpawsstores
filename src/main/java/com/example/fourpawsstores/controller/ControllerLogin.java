@@ -4,10 +4,7 @@ import com.example.fourpawsstores.FourPawsApplication;
 import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CredentialsBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
-import com.example.fourpawsstores.model.dao.ConnectionFactory;
-import com.example.fourpawsstores.model.dao.FindStoresDAO;
-import com.example.fourpawsstores.model.dao.LoginProcDAO;
-import com.example.fourpawsstores.model.dao.ProfileProcDAO;
+import com.example.fourpawsstores.model.dao.*;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import com.example.fourpawsstores.model.domain.Credentials;
 import com.example.fourpawsstores.model.domain.Profile;
@@ -40,14 +37,13 @@ public class ControllerLogin {
         FXMLLoader fxmlLoad;
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
-        //se le credenziali sono non valide apro un popup
         String FxmlRole = null;
         Parent rootNode;
         if (Credentials.getRole() == null) {
             utils.showErrorPopup("Credenziali non valide");
             fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login.fxml"));
             scene = new Scene(fxmlLoad.load(), utils.getSceneW(), utils.getSceneH());
-        }//altrimenti verifico il ruolo del profilo e apro la rispettiva schermata
+        }
         else {
             try {
                 ConnectionFactory.changeRole(Credentials.getRole());
@@ -56,18 +52,22 @@ public class ControllerLogin {
             }
 
             if (Credentials.getRole().getId() == 1) {
-
                 try {
                     new ProfileProcDAO().getProfile();
                 } catch (DAOException | SQLException e) {
                     throw new IllegalArgumentException(e);
+                }
+                Store store;
+                if(utils.getMode()==0){
+                    store = new FindStoresDAO().findStoreById(Profile.getStoreId());}
+                else {
+                    store=new DEMODAO().getStore(Profile.getStoreId());
                 }
                 if (utils.getGUI() == 0) {
                     FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
                     fxmlLoad = new FXMLLoader();
                     rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
                     final CatalogueStoreControllerGrafico controller = fxmlLoad.getController();
-                    Store store = new FindStoresDAO().findStoreById(Profile.getStoreId());
                     StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
                     controller.inizializza(storeB);
                 } else {
@@ -75,7 +75,6 @@ public class ControllerLogin {
                     fxmlLoad = new FXMLLoader();
                     rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
                     final CatalogueStoreControllerGrafico2 controller = fxmlLoad.getController();
-                    Store store = new FindStoresDAO().findStoreById(Profile.getStoreId());
                     StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
                     controller.inizializza(storeB);
                 }

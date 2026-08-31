@@ -53,12 +53,13 @@ public class CatalogueControllerGrafico {
     private CatalogueBean catB;
     private CatalogueController controller;
     private CartBean cart;
+    private StoreBeans storebean;
 
     public void inizializza(StoreBeans store) throws DAOException, SQLException {
 
         Back.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backArrow.png"))));
         ShoppingCart.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
-
+        storebean=store;
         title.setText(""+ store.getName()+ " catalogo:");
         controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
@@ -86,6 +87,7 @@ public class CatalogueControllerGrafico {
         Stage owner = ApplicazioneStage.getStage();
 
         Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
+            overlay.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
 
         Button closeButton = new Button("X");
         closeButton.setOnAction(e -> popup.hide());
@@ -98,49 +100,88 @@ public class CatalogueControllerGrafico {
         HBox header = new HBox(10, title, closeButton);
         header.setAlignment(Pos.CENTER);
 
-        VBox productCartList= new VBox();
+        VBox productCartList= new VBox(8);
 
         for(ProductBean p :cart.getList()){
             HBox product =showInfoCartProducts(p);
             productCartList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productCartList);
-        scrollProduct.setFitToWidth(true);
+        scrollProduct.setPrefHeight(400);
         scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProduct.setFitToWidth(true);
+
+        productCartList.setFillWidth(true);
+        productCartList.maxWidthProperty().bind(scrollProduct.widthProperty());
 
         HBox buttonPay=new HBox(10);
         Button cashButton= new Button("Paga al ritiro");
         cashButton.setOnAction(e->{
             try {
                 controller.inviaordine(1);
-            } catch (DAOException | SQLException ex) {
-                throw new RuntimeException(ex);
+                popup.hide();
+                utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+                refreshUI();
+            } catch (DAOException|RuntimeException | SQLException ex) {
+                popup.hide();
+                utils.showErrorPopup(ex.getMessage());
+                try {
+                    refreshUI();
+                } catch (DAOException | SQLException exc) {
+                    throw new RuntimeException(exc);
+                }
             }
-            popup.hide();
-            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+
         });
         Button creditButton= new Button("Paga con carta");
         creditButton.setOnAction(e->{
             try {
                 controller.inviaordine(2);
-            } catch (DAOException | SQLException ex) {
-                throw new RuntimeException(ex);
+                popup.hide();
+                utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+                refreshUI();
+            } catch (DAOException|RuntimeException | SQLException ex) {
+                popup.hide();
+                utils.showErrorPopup(ex.getMessage());
+                try {
+                    refreshUI();
+                } catch (DAOException | SQLException exc) {
+                    throw new RuntimeException(exc);
+                }
+
             }
-            popup.hide();
-            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
         });
 
         Label total=new Label("Totale: "+ String.valueOf(cart.getTot())+"€");
         buttonPay.getChildren().addAll(cashButton,creditButton);
+        buttonPay.setStyle("-fx-alignment: center;");
         VBox popUpContent= new VBox(header,scrollProduct,total,buttonPay);
+            popUpContent.maxWidthProperty().bind(overlay.widthProperty());
+            popUpContent.maxHeightProperty().bind(overlay.heightProperty());
+            popUpContent.prefWidthProperty().bind(overlay.widthProperty());
+            popUpContent.prefHeightProperty().bind(overlay.heightProperty());
         StackPane popupRoot = new StackPane(overlay, popUpContent);
+
+
         popup.getContent().add(popupRoot);
         popup.show(owner);}
         else {
             utils.showErrorPopup("Non hai aggiunto nulla al carrello");
         }
 }
- private HBox showInfoProduct(ProductBean p){
+
+    private void refreshUI() throws DAOException, SQLException {
+        productList.getChildren().clear();
+        cart= controller.createCart();
+        catB= controller.getCatalogue(storebean);
+        for(ProductBean p :catB.getListProdB()){
+            HBox product =showInfoProduct(p);
+
+            productList.getChildren().add(product);
+        }
+    }
+
+    private HBox showInfoProduct(ProductBean p){
     HBox product =new HBox(10);
      product.getStyleClass().add("product-row");
      product.setPrefHeight(100);
@@ -225,7 +266,11 @@ public class CatalogueControllerGrafico {
 }
 private HBox showInfoCartProducts(ProductBean p){
     HBox product =new HBox(10);
-    product.getStyleClass().add("product-row");
+    product.setStyle("-fx-border-color: #cccccc;\n" +
+            "    -fx-border-width: 1;\n" +
+            "    -fx-border-radius: 5;\n" +
+            "    -fx-background-radius: 5;\n" +
+            "    -fx-padding: 5;");
     product.setPrefHeight(100);
     product.setMinHeight(100);
     product.setMaxHeight(100);
@@ -241,6 +286,9 @@ private HBox showInfoCartProducts(ProductBean p){
     Label name = new Label("Prodotto: " + p.getNameB());
     Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
     Label numProd= new Label("Qt: "+ String.valueOf(cart.getListNumProd().get(cart.getList().indexOf(p))));
+    name.maxWidthProperty().bind(info.widthProperty());
+    price.maxWidthProperty().bind(info.widthProperty());
+    numProd.maxWidthProperty().bind(info.widthProperty());
 
     HBox img;
     if(p.getImage() != null) {
@@ -256,10 +304,14 @@ private HBox showInfoCartProducts(ProductBean p){
 
             img = new HBox(imageView);
         } catch (SQLException e) {
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            Label notimg = new Label("IMG \n NON PRESENTE");
+            notimg.wrapTextProperty();
+            img = new HBox(notimg);
         }
     }else{
-        img = new HBox(new Text("IMG NON PRESENTE"));
+        Label notimg = new Label("IMG \n NON PRESENTE");
+        notimg.wrapTextProperty();
+        img = new HBox(notimg);
     }
     img.setAlignment(Pos.CENTER);
     img.setMinWidth(90);
@@ -268,7 +320,11 @@ private HBox showInfoCartProducts(ProductBean p){
     img.setMinHeight(90);
     img.setPrefHeight(90);
     img.setMaxHeight(90);
-    img.getStyleClass().add("scroll-image");
+    img.setStyle(" -fx-border-color: #cccccc;\n" +
+            "    -fx-border-width: 1;\n" +
+            "    -fx-background-color: #ffffff;\n" +
+            "    -fx-border-radius: 6;\n" +
+            "    -fx-background-radius: 6;");
 
     info.getChildren().addAll(name,price);
     product.getChildren().addAll(img,info,numProd);

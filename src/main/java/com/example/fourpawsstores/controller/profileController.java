@@ -4,6 +4,7 @@ import com.example.fourpawsstores.exception.DAOException;
 import com.example.fourpawsstores.model.bean.CardBean;
 import com.example.fourpawsstores.model.bean.ProfileBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
 import com.example.fourpawsstores.model.dao.ProfileProcDAO;
 import com.example.fourpawsstores.model.dao.cardProcedureDAO;
@@ -35,7 +36,11 @@ public class profileController {
     }
 
     public CardBean getCard() throws DAOException, SQLException {
-         card= new cardProcedureDAO().getCardUser(Profile.getCardNum());
+        if (utils.getMode()==0){
+         card= new cardProcedureDAO().getCardUser(Profile.getCardNum());}
+        else {
+            card= new DEMODAO().obtainCard(Profile.getCardNum());
+        }
          CardBean cardBean=  new CardBean(card.getCardNumber(), card.getCardUser(),card.getCVV(),card.getExpire() );
          return cardBean;
     }
@@ -45,45 +50,13 @@ public class profileController {
         return s;
     }
 
-    public void goToMap() throws IOException {
-        FXMLLoader fxmlLoader;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
-        String fxmlFile;
-        fxmlFile="/com/example/fourpawsstores/utente.fxml";
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        final SearchControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-
-
-        stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void goToOrder() throws DAOException, SQLException, IOException {
-        FXMLLoader fxmlLoader;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
-        String fxmlFile;
-        fxmlFile="/com/example/fourpawsstores/ordini.fxml";
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        final OrderControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-
-
-        stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
     public StoreBeans obtainStorebyId(int storeIdB) throws DAOException, SQLException {
-        Store store=  new FindStoresDAO().findStoreById(storeIdB);
+        Store store;
+        if (utils.getMode()==0){
+         store=  new FindStoresDAO().findStoreById(storeIdB);}
+        else {
+            store=new DEMODAO().getStore(storeIdB);
+        }
         StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(),store.getTel());
         return storeB;
     }

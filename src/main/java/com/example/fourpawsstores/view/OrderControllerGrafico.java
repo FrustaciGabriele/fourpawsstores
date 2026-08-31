@@ -9,6 +9,7 @@ import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -19,6 +20,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -42,6 +45,7 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
     private VBox orderList;
     private ListOrderBean orders;
     private OrderController controller;
+    private static final String SETTING1 = "TimesNewRoman";
     public void inizializza()  throws DAOException, SQLException {
         Title.setText("I tuoi ordini:");
         Iprofilo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
@@ -65,13 +69,17 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
         Popup popup = new Popup();
 
         Stage owner = ApplicazioneStage.getStage();
-        Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
+        Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 150, Color.WHITE);
+        overlay.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
 
         Label title=new Label("Dettagli ordine:");
+        title.setFont(Font.font(SETTING1, FontWeight.BOLD, 18));
+        title.setStyle("-fx-alignment: center");
         Button buttonClose = new Button("X");
         buttonClose.setOnAction(e -> popup.hide());
         buttonClose.setStyle("-fx-alignment: center-right;");
         HBox top=new HBox(title,buttonClose);
+        top.setAlignment(Pos.CENTER);
 
         HBox storeInfo= new HBox(10);
         HBox img;
@@ -82,16 +90,29 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
 
                 ImageView imageView = new ImageView(image);
 
-                imageView.setFitHeight(200);
+                imageView.setFitHeight(85);
+                imageView.setFitWidth(85);
                 imageView.setPreserveRatio(true);
 
                 img = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
+                img = new HBox(new Text("IMG \n NON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            img = new HBox(new Text("IMG \n NON PRESENTE"));
         }
+        img.setAlignment(Pos.CENTER);
+        img.setMinWidth(90);
+        img.setPrefWidth(90);
+        img.setMaxWidth(90);
+        img.setMinHeight(90);
+        img.setPrefHeight(90);
+        img.setMaxHeight(90);
+        img.setStyle(" -fx-border-color: #cccccc;\n" +
+                "    -fx-border-width: 1;\n" +
+                "    -fx-background-color: #ffffff;\n" +
+                "    -fx-border-radius: 6;\n" +
+                "    -fx-background-radius: 6;");
         Text Name=new Text("Nome: "+ store.getName());
         Text Address=new Text("Indirizzo: "+ store.getAddress());
         Text Tel= new Text("Tel. : "+ store.getTel());
@@ -105,7 +126,18 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
             productOrderList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productOrderList);
+        scrollProduct.setPrefHeight(400);
+        scrollProduct.setPrefWidth(355);
+        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProduct.setFitToWidth(true);
+
+        productOrderList.setFillWidth(true);
+        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
         VBox all=new VBox(top,storeInfo,scrollProduct);
+        all.maxWidthProperty().bind(overlay.widthProperty());
+        all.maxHeightProperty().bind(overlay.heightProperty());
+        all.prefWidthProperty().bind(overlay.widthProperty());
+        all.prefHeightProperty().bind(overlay.heightProperty());
         popup.getContent().addAll(overlay,all);
         popup.show(owner);
     }

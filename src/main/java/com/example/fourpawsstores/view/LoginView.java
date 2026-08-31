@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -26,8 +27,12 @@ public class LoginView {
     @FXML
     private PasswordField textFieldPassword;
     @FXML
+    private ComboBox<String> demo;
+    @FXML
     public void login() {
-        CredentialsBean credB;
+        if (demo.getValue().equals("Mode: Demo")){
+            utils.switchMode();}
+            CredentialsBean credB;
 
         credB= new CredentialsBean(textFieldUsername.getText(), textFieldPassword.getText());
         try{

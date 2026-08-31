@@ -73,7 +73,8 @@ public class OrderControllerGrafico2 extends InfoCardControllerGrafico{
 
                 ImageView imageView = new ImageView(image);
 
-                imageView.setFitHeight(200);
+                imageView.setFitHeight(100);
+                imageView.setFitHeight(100);
                 imageView.setPreserveRatio(true);
 
                 img = new HBox(imageView);
@@ -83,6 +84,7 @@ public class OrderControllerGrafico2 extends InfoCardControllerGrafico{
         }else{
             img = new HBox(new Text("IMG NON PRESENTE"));
         }
+
         Text Name=new Text("Nome: "+ store.getName());
         Text Address=new Text("Indirizzo: "+ store.getAddress());
         Text Tel= new Text("Tel. : "+ store.getTel());
@@ -96,6 +98,12 @@ public class OrderControllerGrafico2 extends InfoCardControllerGrafico{
             productOrderList.getChildren().add(product);
         }
         ScrollPane scrollProduct = new ScrollPane(productOrderList);
+        scrollProduct.setPrefHeight(400);
+        scrollProduct.setPrefWidth(355);
+        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProduct.setFitToWidth(true);
+        productOrderList.setFillWidth(true);
+        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
         VBox all=new VBox(storeInfo,scrollProduct);
         return all;
     }

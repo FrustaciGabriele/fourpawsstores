@@ -6,7 +6,9 @@ import com.example.fourpawsstores.model.bean.CatalogueBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.dao.AddProductDAO;
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
+import com.example.fourpawsstores.model.dao.insertOrderDAO;
 import com.example.fourpawsstores.model.domain.*;
 import com.example.fourpawsstores.utils.utils;
 import com.example.fourpawsstores.view.*;
@@ -25,6 +27,7 @@ public class CatalogueController {
     private Cart clientCart;
     private int storeid;
     private StoreBeans storeB;
+
     public CatalogueController(StoreBeans store){
         facade=new FacadeGetCatalogue();
         storeid=store.getid();
@@ -35,7 +38,6 @@ public class CatalogueController {
        catalogue= facade.getItems(store);
        cat= new CatalogueBean(store.getid());
        for(Product p : catalogue.getList()){
-           System.out.println("id prodotto" + p.getId());
            ProductBean prodB = new ProductBean(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice(),p.getState());
            cat.addProductBean(prodB);
        }
@@ -45,7 +47,6 @@ public class CatalogueController {
         catalogue= facade.getItems(storeB);
         CatalogueBean cat = new CatalogueBean(storeB.getid());
         for(Product p : catalogue.getList()){
-            System.out.println("id prodotto" + p.getId());
             ProductBean prodB = new ProductBean(p.getId(),p.getName(),p.getDescription(),p.getImg(),p.getPrice(),p.getState());
             cat.addProductBean(prodB);
         }
@@ -89,7 +90,10 @@ public class CatalogueController {
         }
         facadeOrder=new FacadeCreateOrder();
         Order newOrder= facadeOrder.createOrder(clientCart,storeid,paymentType);
-        facadeOrder.insertOrder(newOrder);}
+
+       insertOrder(newOrder);
+
+        }
     }
 
     public boolean checkLenght() {
@@ -99,33 +103,17 @@ public class CatalogueController {
         return false;
     }
 
-    public void goBackScene() throws IOException {
-        FXMLLoader fxmlLoader;
-        Stage stages = ApplicazioneStage.getStage();
-        Scene scene;
-
-        String fxmlFile;
-        fxmlFile = "/com/example/fourpawsstores/utente.fxml";
-
-        fxmlLoader = new FXMLLoader();
-        Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-
-        SearchControllerGrafico controller=fxmlLoader.getController();
-        controller.inizializza();
-        stages.setTitle("4Paws Stores");
-        stages.setScene(scene);
-        stages.show();
-    }
-
     public void changeProductState(ProductBean prodB) throws DAOException, SQLException {
         int prodid=prodB.getId();
         for (Product p : catalogue.getList()){
             if (p.getId()== prodid){
                 String text;
                 if(p.getState().equals("disponibile")){text="non disponibile";}else{text="disponibile";}
-                System.out.println("sto modificando:"+p.getId()+"con :"+text);
-                new AddProductDAO().changeStateProduct(p,text);
+                if(utils.getMode()==0){
+                new AddProductDAO().changeStateProduct(p,text);}
+                else {
+                    new DEMODAO().changeProduct(p,text);
+                }
             }
         }
     }
@@ -133,8 +121,26 @@ public class CatalogueController {
         int prodid=prodB.getId();
         for (Product p : catalogue.getList()){
             if (p.getId()==prodid){
-                new AddProductDAO().deleteProduct(p);
+                if(utils.getMode()==0){
+                new AddProductDAO().deleteProduct(p);}
+                else {
+                    new DEMODAO().changeProduct(p,"rimosso");
+                }
 
+            }
+        }
+    }
+    public void insertOrder(Order newOrder) throws DAOException, SQLException {
+        if(utils.getMode()==0){
+        for (Product p : newOrder.getListProduct()){
+                new insertOrderDAO().checkAvailable(p);
+        }
+
+        new insertOrderDAO().insertOnDB(newOrder);
+    }else {
+            boolean status = new DEMODAO().addOrder(newOrder);
+            if(!status){
+                throw new RuntimeException("presenza di un prodotto non disponibile");
             }
         }
     }

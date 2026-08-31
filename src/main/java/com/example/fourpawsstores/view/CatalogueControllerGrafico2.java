@@ -37,10 +37,12 @@ public class CatalogueControllerGrafico2{
     private CatalogueBean catB;
     private CatalogueController controller;
     private CartBean cart;
+    private StoreBeans storeB;
 
     public void inizializza(StoreBeans store)  throws DAOException, SQLException {
         Back.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backArrow.png"))));
         title.setText(""+ store.getName()+ " catalogo:");
+        storeB=store;
         controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
         cart= controller.createCart();
@@ -73,25 +75,51 @@ public class CatalogueControllerGrafico2{
         cashButton.setOnAction(e->{
             try {
                 controller.inviaordine(1);
-            } catch (DAOException | SQLException ex) {
-                throw new RuntimeException(ex);
+                utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+                refreshUI2();
+            } catch (DAOException|RuntimeException | SQLException ex) {
+                utils.showErrorPopup(ex.getMessage());
+                try {
+                    refreshUI2();
+                } catch (DAOException | SQLException exc) {
+                    throw new RuntimeException(exc);
+                }
             }
-            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+
         });
         Button creditButton= new Button("Paga con carta");
         creditButton.setOnAction(e->{
             try {
                 controller.inviaordine(2);
-            } catch (DAOException | SQLException ex) {
-                throw new RuntimeException(ex);
+                utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+                refreshUI2();
+            } catch (DAOException|RuntimeException | SQLException ex) {
+                utils.showErrorPopup(ex.getMessage());
+                try {
+                    refreshUI2();
+                } catch (DAOException | SQLException exc) {
+                    throw new RuntimeException(exc);
+                }
             }
-            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+
         });
 
         Label total=new Label("Totale: "+ String.valueOf(cart.getTot())+"€");
         buttonPay.getChildren().addAll(cashButton,creditButton);
         VBox Content= new VBox(scrollProduct,total,buttonPay);
         return Content;
+    }
+    private void refreshUI2() throws DAOException, SQLException {
+        productList.getChildren().clear();
+        cart= controller.createCart();
+        cartBox.getChildren().clear();
+        catB= controller.getCatalogue(storeB);
+        for(ProductBean p :catB.getListProdB()){
+            HBox product =showInfoProduct(p);
+
+            productList.getChildren().add(product);
+
+        }
     }
 
     private HBox showInfoProduct(ProductBean p){

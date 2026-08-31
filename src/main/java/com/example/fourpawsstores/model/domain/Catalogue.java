@@ -15,4 +15,5 @@ public class Catalogue {
 
     public List<Product> getList() {return productList;
     }
+    public int getidCat(){return storeid;}
 }

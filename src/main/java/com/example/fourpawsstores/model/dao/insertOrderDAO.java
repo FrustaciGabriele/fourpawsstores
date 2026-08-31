@@ -41,12 +41,34 @@ public class insertOrderDAO {
 
   }
   catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
-  } finally{
-  } {
+  } finally
+   {
    if(cs!= null){
     cs.close();
    }
 
+  }
+ }
+
+ public void checkAvailable(Product p) throws DAOException, SQLException {CallableStatement cs=null;
+  try { Connection conn= ConnectionFactory.getConnection();
+   cs=conn.prepareCall("{call disponibilitaProd(?)}");
+   cs.setInt(1, p.getId());
+   boolean status=cs.execute();
+   if (status){
+    ResultSet rs=cs.getResultSet();
+    if (rs.next()){
+     if(!rs.getString(1).equals("disponibile")){
+      throw new RuntimeException("presenza di un prodotto non disponibile");
+     }
+    }
+   }
+
+  }catch (SQLException e) {throw new DAOException("Error: " + e.getMessage());
+  }finally {
+   if(cs!= null){
+    cs.close();
+   }
   }
  }
 }

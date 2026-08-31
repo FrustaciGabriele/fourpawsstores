@@ -5,8 +5,10 @@ import com.example.fourpawsstores.model.bean.ListOrderBean;
 import com.example.fourpawsstores.model.bean.OrderBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
+import com.example.fourpawsstores.model.dao.DEMODAO;
 import com.example.fourpawsstores.model.dao.FindOrdersDao;
 import com.example.fourpawsstores.model.dao.FindStoresDAO;
+import com.example.fourpawsstores.model.dao.insertOrderDAO;
 import com.example.fourpawsstores.model.domain.*;
 import com.example.fourpawsstores.utils.utils;
 import com.example.fourpawsstores.view.CatalogueStoreControllerGrafico;
@@ -38,7 +40,12 @@ public class OrderController {
     }
 
     public OrderBean getCompleteOrder(OrderBean order) throws DAOException, SQLException {
-        Order completeOrder= new FindOrdersDao().getCompleteOrder(order);
+        Order completeOrder;
+        if (utils.getMode()==0){
+       completeOrder= new FindOrdersDao().getCompleteOrder(order);}
+        else {
+            completeOrder= new DEMODAO().getOrderbyId(order.getOrderIdB());
+        }
         List<Product> list= completeOrder.getListProduct();
         List<Integer> listQuantity= completeOrder.getQuantity();
         List<Integer> listid=completeOrder.getListProdId();
@@ -52,30 +59,18 @@ public class OrderController {
             order.addToProdIdB(listid.get(list.indexOf(p)));
         }
     return order;
+
     }
 
     public StoreBeans getInfoStore(int storeIdB) throws DAOException, SQLException {
-        Store store=  new FindStoresDAO().findStoreById(storeIdB);
+        Store store;
+        if(utils.getMode()==0){
+            store=  new FindStoresDAO().findStoreById(storeIdB);}
+        else{
+            store= new DEMODAO().getStore(storeIdB);
+        }
         StoreBeans storeB= new StoreBeans(store.getid(),store.getName(),store.getDescription(),store.getImage(),store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(),store.getTel());
         return storeB;
-    }
-
-    public void goBackToMap() throws IOException {
-        FXMLLoader fxmlLoad;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
-        String FxmlRole = "/com/example/fourpawsstores/utente.fxml";
-        fxmlLoad = new FXMLLoader();
-        Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-        SearchControllerGrafico controller=fxmlLoad.getController();
-        controller.inizializza();
-        scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-        scene.getRoot().requestFocus();
-        stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show(); stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
     }
 
     public ListOrderBean getOrdersStore() throws DAOException, SQLException {
@@ -92,7 +87,11 @@ public class OrderController {
         int id = orderB.getOrderIdB();
         for(Order o : orders.getListOrders()){
             if (o.getOrderId()==id){
-                new FindOrdersDao().updateOrder(id,"Accettato");
+                if(utils.getMode()==0){
+                new FindOrdersDao().updateOrder(id,"Accettato");}
+                else {
+                    new DEMODAO().orderModify(id,"Accettato");
+                }
             }
         }
     }
@@ -101,8 +100,13 @@ public class OrderController {
         int id = orderB.getOrderIdB();
         for(Order o : orders.getListOrders()){
             if (o.getOrderId()==id){
-                new FindOrdersDao().updateOrder(id,"Rifiutato");
+                if(utils.getMode()==0){
+                new FindOrdersDao().updateOrder(id,"Rifiutato");}
+                else {
+                    new DEMODAO().orderModify(id,"Rifiutato");
+                }
             }
         }
     }
+
 }
