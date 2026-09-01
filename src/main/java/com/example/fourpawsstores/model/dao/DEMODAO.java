@@ -16,6 +16,7 @@ public class DEMODAO {
     private static List<Card> cards= new ArrayList<>();
     private static int idProd=1;
     private static int idOrder=1;
+    private String available= "disponibile";
 
 
     public void inizializza(){
@@ -30,7 +31,7 @@ public class DEMODAO {
         stores.add(negozioDemo);
         Catalogue cat= new Catalogue(1);
         Product p=new Product(1,"ProdottoDemo","questo prodotto viene utilizzato per la demo",null,BigDecimal.valueOf(10.20));
-        p.setState("disponibile");
+        p.setState(available);
         cat.addProduct(p);
         catalogs.add(cat);
         Card c= new Card("1111111111111111","utente demo",456,"03/28");
@@ -68,7 +69,7 @@ public class DEMODAO {
         Product p = new Product(newProduct.getName(),newProduct.getDescription(),newProduct.getImg(),newProduct.getPrice());
         idProd=idProd+1;
         p.setid(idProd);
-        p.setState("disponibile");
+        p.setState(available);
         for (Catalogue c: catalogs){
             if (c.getidCat()==Profile.getStoreId()){
                     c.addProduct(p);
@@ -103,7 +104,7 @@ public class DEMODAO {
         List<Product> listorder=newOrder.getListProduct();
         for (Product p1: listorder){
             for (Product p2: listcat){
-                if(p1.getId()== p2.getId() && !p2.getState().equals("disponibile")){
+                if(p1.getId()== p2.getId() && !p2.getState().equals(available)){
                     return false;
                 }
             }

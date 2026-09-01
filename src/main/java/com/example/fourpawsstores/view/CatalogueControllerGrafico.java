@@ -154,7 +154,7 @@ public class CatalogueControllerGrafico {
 
         Label total=new Label("Totale: "+ String.valueOf(cart.getTot())+"€");
         buttonPay.getChildren().addAll(cashButton,creditButton);
-        buttonPay.setStyle("-fx-alignment: center;");
+        buttonPay.setStyle(SETTING1);
         VBox popUpContent= new VBox(header,scrollProduct,total,buttonPay);
             popUpContent.maxWidthProperty().bind(overlay.widthProperty());
             popUpContent.maxHeightProperty().bind(overlay.heightProperty());

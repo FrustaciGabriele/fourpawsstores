@@ -81,10 +81,6 @@ public class OrderBean {
         public List<Integer> getQuantityB() {return quantityB;
         }
 
-        public void setListProductB(List<Product> listProduct) {
-
-        }
-
     public List<Integer> getListProdIdB() {return listProdIdB;
     }
 }
