@@ -8,8 +8,6 @@ import com.example.fourpawsstores.model.bean.CatalogueBean;
 import com.example.fourpawsstores.model.bean.ProductBean;
 import com.example.fourpawsstores.model.bean.StoreBeans;
 import com.example.fourpawsstores.model.domain.ApplicazioneStage;
-import com.example.fourpawsstores.model.domain.Credentials;
-import com.example.fourpawsstores.model.domain.Role;
 import com.example.fourpawsstores.utils.utils;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -49,9 +47,9 @@ public class CatalogueControllerGrafico {
     @FXML
     private Label title;
     @FXML
-    private VBox productList;
-    private CatalogueBean catB;
-    private CatalogueController controller;
+    private VBox productListCat;
+    private CatalogueBean catalogB;
+    private CatalogueController controllerCat;
     private CartBean cart;
     private StoreBeans storebean;
 
@@ -61,16 +59,16 @@ public class CatalogueControllerGrafico {
         ShoppingCart.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cart.png"))));
         storebean=store;
         title.setText(""+ store.getName()+ " catalogo:");
-        controller= new CatalogueController(store);
-        catB= controller.getCatalogue(store);
-        cart= controller.createCart();
-        if (catB.getListProdB().size()==0){
-            productList.getChildren().add(new Label("Il catalogo è vuoto"));
+        controllerCat = new CatalogueController(store);
+        catalogB = controllerCat.getCatalogue(store);
+        cart= controllerCat.createCart();
+        if (catalogB.getListProdB().size()==0){
+            productListCat.getChildren().add(new Label("Il catalogo è vuoto"));
         }
-        for(ProductBean p :catB.getListProdB()){
-            HBox product =showInfoProduct(p);
+        for(ProductBean p : catalogB.getListProdB()){
+            HBox product = showInfoProductCat(p);
 
-            productList.getChildren().add(product);
+            productListCat.getChildren().add(product);
 
         }
 
@@ -128,7 +126,7 @@ public void openPopUpCart(){
     Button cashButton= new Button("Paga al ritiro");
     cashButton.setOnAction(e->{
         try {
-            controller.inviaordine(1);
+            controllerCat.inviaordine(1);
             popup.hide();
             utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
             //refreshUI();
@@ -137,7 +135,7 @@ public void openPopUpCart(){
             utils.showErrorPopup(ex.getMessage());
         }
         try {
-            refreshUI();
+            refreshUICat();
         } catch (DAOException | SQLException exc) {
             throw new RuntimeException(exc);
         }
@@ -146,7 +144,7 @@ public void openPopUpCart(){
     Button creditButton= new Button("Paga con carta");
     creditButton.setOnAction(e->{
         try {
-            controller.inviaordine(2);
+            controllerCat.inviaordine(2);
             popup.hide();
             utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
             //refreshUI();
@@ -155,7 +153,7 @@ public void openPopUpCart(){
             utils.showErrorPopup(ex.getMessage());
         }
         try {
-            refreshUI();
+            refreshUICat();
         } catch (DAOException | SQLException exc) {
             throw new RuntimeException(exc);
         }
@@ -176,40 +174,40 @@ public void openPopUpCart(){
     popup.show(owner);
 }
 
-    private void refreshUI() throws DAOException, SQLException {
-        productList.getChildren().clear();
-        cart= controller.createCart();
-        catB= controller.getCatalogue(storebean);
-        for(ProductBean p :catB.getListProdB()){
-            HBox product =showInfoProduct(p);
+    private void refreshUICat() throws DAOException, SQLException {
+        productListCat.getChildren().clear();
+        cart= controllerCat.createCart();
+        catalogB = controllerCat.getCatalogue(storebean);
+        for(ProductBean p : catalogB.getListProdB()){
+            HBox product = showInfoProductCat(p);
 
-            productList.getChildren().add(product);
+            productListCat.getChildren().add(product);
         }
     }
 
-    private HBox showInfoProduct(ProductBean p){
-    HBox product =new HBox(10);
-     product.getStyleClass().add("product-row");
-     product.setPrefHeight(100);
-     product.setMinHeight(100);
-     product.setMaxHeight(100);
-     product.setAlignment(Pos.CENTER_LEFT);
-     product.setFillHeight(true);
-     HBox.setHgrow(product, Priority.ALWAYS);
+    private HBox showInfoProductCat(ProductBean p){
+    HBox productCat =new HBox(10);
+     productCat.getStyleClass().add("product-row");
+     productCat.setPrefHeight(100);
+     productCat.setMinHeight(100);
+     productCat.setMaxHeight(100);
+     productCat.setAlignment(Pos.CENTER_LEFT);
+     productCat.setFillHeight(true);
+     HBox.setHgrow(productCat, Priority.ALWAYS);
 
     VBox info =new VBox(10);
-        product.setAlignment(Pos.CENTER);
+        productCat.setAlignment(Pos.CENTER);
         HBox.setHgrow(info, Priority.ALWAYS);
         info.setMaxWidth(Double.MAX_VALUE);
 
-    HBox buttons= new HBox(10);
-        buttons.setMinWidth(130);
-        buttons.setPrefWidth(130);
-        product.setAlignment(Pos.CENTER_RIGHT);
+    HBox button= new HBox(10);
+        button.setMinWidth(130);
+        button.setPrefWidth(130);
+        productCat.setAlignment(Pos.CENTER_RIGHT);
     Label name = new Label("Prodotto: \n" + p.getNameB());
     Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
     Label numAdd= new Label("0");
-    HBox img;
+    HBox imgProd;
         if(p.getImage() != null) {
         try {
             InputStream input = p.getImage().getBinaryStream();
@@ -221,27 +219,27 @@ public void openPopUpCart(){
             imageView.setFitWidth(90);
             imageView.setPreserveRatio(true);
 
-            img = new HBox(imageView);
+            imgProd = new HBox(imageView);
         } catch (SQLException e) {
-            img = new HBox(new Text("IMG \nNON PRESENTE"));
+            imgProd = new HBox(new Text("IMG \nNON PRESENTE"));
         }
     }else{
-        img = new HBox(new Text("IMG \nNON PRESENTE"));
+        imgProd = new HBox(new Text("IMG \nNON PRESENTE"));
     }
-     img.setAlignment(Pos.CENTER);
-     img.setMinWidth(90);
-     img.setPrefWidth(90);
-     img.setMaxWidth(90);
-     img.setMinHeight(90);
-     img.setPrefHeight(90);
-     img.setMaxHeight(90);
-     img.getStyleClass().add("scroll-image");
+     imgProd.setAlignment(Pos.CENTER);
+     imgProd.setMinWidth(90);
+     imgProd.setPrefWidth(90);
+     imgProd.setMaxWidth(90);
+     imgProd.setMinHeight(90);
+     imgProd.setPrefHeight(90);
+     imgProd.setMaxHeight(90);
+     imgProd.getStyleClass().add("scroll-image");
 
      if(p.getState().equals("disponibile")){
      Button addCartButton= new Button("+");
      addCartButton.setOnAction(e ->{
          int q = Integer.parseInt(numAdd.getText()) + 1;
-         if(controller.addProduct(p,q)){
+         if(controllerCat.addProduct(p,q)){
              numAdd.setText(String.valueOf(q));
              cart.addToCart(p,q);}
          else {utils.showErrorPopup("Errore nell'inserimento");}
@@ -249,16 +247,16 @@ public void openPopUpCart(){
      Button removeCartButton= new Button("-");
      removeCartButton.setOnAction(e->{
          int q= Integer.parseInt(numAdd.getText());
-         if (controller.removeProduct(p,q)){
+         if (controllerCat.removeProduct(p,q)){
              q=q -1;
              numAdd.setText(String.valueOf(q));
              cart.deletefromCart(p,q);
          }else {utils.showErrorPopup("Errore nella rimozione");}
      });
 
-     buttons.getChildren().addAll(addCartButton,numAdd,removeCartButton);}
+     button.getChildren().addAll(addCartButton,numAdd,removeCartButton);}
      else{
-         buttons.getChildren().add(new Text("Non disponibile"));
+         button.getChildren().add(new Text("Non disponibile"));
      }
      Button description= new Button("i");
      description.getStyleClass().add("roundbutton");
@@ -267,8 +265,8 @@ public void openPopUpCart(){
      });
 
      info.getChildren().addAll(name,price);
-     product.getChildren().addAll(img,info,description,buttons);
-     return product;
+     productCat.getChildren().addAll(imgProd,info,description,button);
+     return productCat;
 }
 private HBox showInfoCartProducts(ProductBean p){
     HBox product =new HBox(10);

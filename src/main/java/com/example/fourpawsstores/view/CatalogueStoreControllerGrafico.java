@@ -42,7 +42,7 @@ public class CatalogueStoreControllerGrafico {
     private Label titleC;
     @FXML
     private VBox productList;
-    private CatalogueController controller;
+    private CatalogueController controllerCatalog;
     private CatalogueBean catalogueBean;
     public void inizializza(StoreBeans storeB) throws DAOException, SQLException {
         Add.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/Add.png"))));
@@ -50,12 +50,12 @@ public class CatalogueStoreControllerGrafico {
         Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/catalogo2.png"))));
         Iordini.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/package.png"))));
         titleC.setText("Il tuo catalogo: ");
-        controller= new CatalogueController(storeB);
-        catalogueBean= controller.getCatalogue(storeB);
-        if(controller.checkLenght()){
+        controllerCatalog = new CatalogueController(storeB);
+        catalogueBean= controllerCatalog.getCatalogue(storeB);
+        if(controllerCatalog.checkLenght()){
         for(ProductBean p :catalogueBean.getListProdB()){
 
-            HBox productInfo =productInfo(p);
+            HBox productInfo = productInfoCatStore(p);
 
             productList.getChildren().add(productInfo);
 
@@ -65,28 +65,28 @@ public class CatalogueStoreControllerGrafico {
             productList.getChildren().add(warning);
         }
     }
-    private HBox productInfo(ProductBean p){
-        HBox product =new HBox(10);
-        product.getStyleClass().add("product-row");
-        product.setPrefHeight(100);
-        product.setMinHeight(100);
-        product.setMaxHeight(100);
-        product.setAlignment(Pos.CENTER_LEFT);
-        product.setFillHeight(true);
-        HBox.setHgrow(product, Priority.ALWAYS);
+    private HBox productInfoCatStore(ProductBean p){
+        HBox prodCatStore =new HBox(10);
+        prodCatStore.getStyleClass().add("product-row");
+        prodCatStore.setPrefHeight(100);
+        prodCatStore.setMinHeight(100);
+        prodCatStore.setMaxHeight(100);
+        prodCatStore.setAlignment(Pos.CENTER_LEFT);
+        prodCatStore.setFillHeight(true);
+        HBox.setHgrow(prodCatStore, Priority.ALWAYS);
 
         VBox info =new VBox(10);
-        product.setAlignment(Pos.CENTER);
+        prodCatStore.setAlignment(Pos.CENTER);
         HBox.setHgrow(info, Priority.ALWAYS);
         info.setMaxWidth(Double.MAX_VALUE);
 
         VBox buttons= new VBox(10);
         buttons.setMinWidth(130);
         buttons.setPrefWidth(130);
-        product.setAlignment(Pos.CENTER_RIGHT);
+        prodCatStore.setAlignment(Pos.CENTER_RIGHT);
         Label name = new Label("Prodotto: \n" + p.getNameB());
         Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
-        HBox img;
+        HBox iamgeProd;
         if(p.getImage() != null) {
             try {
                 InputStream input = p.getImage().getBinaryStream();
@@ -98,21 +98,21 @@ public class CatalogueStoreControllerGrafico {
                 imageView.setFitWidth(90);
                 imageView.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                iamgeProd = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG \nNON PRESENTE"));
+                iamgeProd = new HBox(new Text("IMG \nNON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG \nNON PRESENTE"));
+            iamgeProd = new HBox(new Text("IMG \nNON PRESENTE"));
         }
-        img.setAlignment(Pos.CENTER);
-        img.setMinWidth(90);
-        img.setPrefWidth(90);
-        img.setMaxWidth(90);
-        img.setMinHeight(90);
-        img.setPrefHeight(90);
-        img.setMaxHeight(90);
-        img.getStyleClass().add("scroll-image");
+        iamgeProd.setAlignment(Pos.CENTER);
+        iamgeProd.setMinWidth(90);
+        iamgeProd.setPrefWidth(90);
+        iamgeProd.setMaxWidth(90);
+        iamgeProd.setMinHeight(90);
+        iamgeProd.setPrefHeight(90);
+        iamgeProd.setMaxHeight(90);
+        iamgeProd.getStyleClass().add("scroll-image");
         Button removeProd= new Button("Rimuovi il prodotto");
         removeProd.setOnAction(e ->{
             try {
@@ -150,16 +150,16 @@ public class CatalogueStoreControllerGrafico {
 
         buttons.getChildren().addAll(removeProd,notAvailableProd);
         info.getChildren().addAll(name,price);
-        product.getChildren().addAll(img,info,description,buttons);
-        return product;
+        prodCatStore.getChildren().addAll(iamgeProd,info,description,buttons);
+        return prodCatStore;
     }
 
     private void refreshUI() throws DAOException, SQLException {
-        catalogueBean = controller.refreshCatalogue();
+        catalogueBean = controllerCatalog.refreshCatalogue();
         productList.getChildren().clear();
         for(ProductBean p :catalogueBean.getListProdB()){
 
-            HBox productInfo =productInfo(p);
+            HBox productInfo = productInfoCatStore(p);
 
             productList.getChildren().add(productInfo);
 
@@ -167,11 +167,11 @@ public class CatalogueStoreControllerGrafico {
     }
 
     private void changeState(ProductBean p) throws DAOException, SQLException {
-        controller.changeProductState(p);
+        controllerCatalog.changeProductState(p);
     }
 
     private  void deleteProd(ProductBean p) throws DAOException, SQLException {
-        controller.deleteProduct(p);
+        controllerCatalog.deleteProduct(p);
 
     }
 

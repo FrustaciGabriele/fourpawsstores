@@ -21,7 +21,7 @@
     </HBox>
 
     <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="80" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-        <VBox fx:id="productList" spacing="15" >
+        <VBox fx:id="productListCat" spacing="15" >
         <padding>
             <Insets top="10" right="10" bottom="10" left="10"/>
         </padding>
