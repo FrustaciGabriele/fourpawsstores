@@ -35,18 +35,18 @@ public class ProfileProcDAO {
         }
     }
     public void getStoreProfile() throws DAOException {
-        CallableStatement cs;
+        CallableStatement statement;
         try {
             Connection conn = ConnectionFactory.getConnection();
-            cs = conn.prepareCall("{call recuperaProfiloNegozio(?)}");
-            cs.setString(1, Credentials.getUsername());
-            boolean status = cs.execute();
+            statement = conn.prepareCall("{call recuperaProfiloNegozio(?)}");
+            statement.setString(1, Credentials.getUsername());
+            boolean status = statement.execute();
             if (status) {
-                ResultSet rs = cs.getResultSet();
-                if (rs.next()) {
-                    Profile.setUsername(rs.getString(1));
-                    Profile.setName(rs.getString(2));
-                    Profile.setIdStore(rs.getInt(3));
+                ResultSet result = statement.getResultSet();
+                if (result.next()) {
+                    Profile.setUsername(result.getString(1));
+                    Profile.setName(result.getString(2));
+                    Profile.setIdStore(result.getInt(3));
                 }
             }
         } catch (SQLException e) {
