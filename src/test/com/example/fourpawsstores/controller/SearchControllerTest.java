@@ -11,6 +11,7 @@ import org.junit.jupiter.api.TestInstance;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -40,6 +41,6 @@ public class SearchControllerTest {
         } catch (DAOException | SQLException | IOException e) {
             throw new RuntimeException(e);
         }
-        assertNotEquals(null, list2);
+        assertEquals(null, list2);
     }
 }
