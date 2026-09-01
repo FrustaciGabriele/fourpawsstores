@@ -26,13 +26,9 @@ public class AddProductController {
     public  void newProduct(ProductBean prodB) throws DAOException, SQLException {
         Product newProduct= new Product(prodB.getNameB(), prodB.getDescriptionB(), prodB.getImage(), prodB.getPriceB());
         if (utils.getMode()==0){
-            if (checkName(newProduct.getName())||checkDescription(newProduct.getDescription())||checkPrice(String.valueOf(newProduct.getPrice()))){
         new AddProductDAO().AddProduct(newProduct);}
         else{
             new DEMODAO().Addproduct(newProduct);
-        }}
-        else {
-            throw new RuntimeException("Errore");
         }
     }
 
