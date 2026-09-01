@@ -58,12 +58,15 @@ public class CatalogueControllerGrafico {
     public void inizializza(StoreBeans store) throws DAOException, SQLException {
 
         Back.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/backArrow.png"))));
-        ShoppingCart.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
+        ShoppingCart.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cart.png"))));
         storebean=store;
         title.setText(""+ store.getName()+ " catalogo:");
         controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
         cart= controller.createCart();
+        if (catB.getListProdB().size()==0){
+            productList.getChildren().add(new Label("Il catalogo è vuoto"));
+        }
         for(ProductBean p :catB.getListProdB()){
             HBox product =showInfoProduct(p);
 

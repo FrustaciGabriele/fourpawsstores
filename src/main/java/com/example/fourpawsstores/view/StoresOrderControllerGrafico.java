@@ -51,7 +51,7 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
     private static final String SETTING1 = "TimesNewRoman";
     public void inizializza() throws DAOException, SQLException {
         Iprofilo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
-        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
+        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/catalogo.png"))));
         Iordini.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/packageclicked.png"))));
         Title.setText("I tuoi ordini:");
         controller=new OrderController();

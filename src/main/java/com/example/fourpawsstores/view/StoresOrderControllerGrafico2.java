@@ -38,7 +38,7 @@ public class StoresOrderControllerGrafico2 extends InfoCardControllerGrafico{
     private ListOrderBean orders;
     public void inizializza() throws DAOException, SQLException {
         Iprofilo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
-        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
+        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/catalogo.png"))));
         Iordini.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/packageclicked.png"))));
         controller=new OrderController();
         orders=controller.getOrdersStore();

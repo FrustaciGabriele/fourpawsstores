@@ -44,7 +44,7 @@ public class StoreProfileControllerGrafico {
     private ProfileBean profileB;
     public void inizializza() throws DAOException, SQLException {
         Iprofilo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona2.png"))));
-        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
+        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/catalogo.png"))));
         Iordini.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/package.png"))));
         controller=new profileController();
         profileB=controller.getProfileStore();

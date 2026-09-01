@@ -57,7 +57,7 @@ public class CatalogueStoreControllerGrafico2 {
 
     public void inizializza(StoreBeans storeB) throws DAOException, SQLException {
         Iprofilo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
-        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icona.png"))));
+        Icatalogo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/catalogo2.png"))));
         Iordini.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/package.png"))));
         controller= new CatalogueController(storeB);
         catalogueBean= controller.getCatalogue(storeB);

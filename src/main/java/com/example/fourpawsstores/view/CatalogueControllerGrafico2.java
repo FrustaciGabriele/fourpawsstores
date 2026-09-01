@@ -46,6 +46,9 @@ public class CatalogueControllerGrafico2{
         controller= new CatalogueController(store);
         catB= controller.getCatalogue(store);
         cart= controller.createCart();
+        if (catB.getListProdB().size()==0){
+            productList.getChildren().add(new Label("Il catalogo è vuoto"));
+        }
         for(ProductBean p :catB.getListProdB()){
             HBox product = showInfoProduct(p);
 
