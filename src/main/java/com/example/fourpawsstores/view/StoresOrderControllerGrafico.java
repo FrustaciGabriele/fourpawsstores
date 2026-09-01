@@ -1,7 +1,5 @@
 package com.example.fourpawsstores.view;
 
-import com.example.fourpawsstores.controller.AddProductController;
-import com.example.fourpawsstores.controller.CatalogueController;
 import com.example.fourpawsstores.controller.NavigationController;
 import com.example.fourpawsstores.controller.OrderController;
 import com.example.fourpawsstores.exception.DAOException;
@@ -19,18 +17,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -81,28 +76,28 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
         Button buttonClose = new Button("X");
         buttonClose.setOnAction(e -> popup.hide());
         HBox top=new HBox(title,buttonClose);
-        Label client=new Label("Ordine per: "+orderB.getUserIdB());
-        HBox infoClinet= new HBox(client);
+        Label clientName=new Label("Ordine per: "+orderB.getUserIdB());
+        HBox infoClient= new HBox(clientName);
         VBox productOrderList=new VBox(10);
         List<ProductBean> listB=orderB.getListProductB();
         for(ProductBean p :listB){
             HBox product = cardInfoProduct(p,orderB);
             productOrderList.getChildren().add(product);
         }
-        ScrollPane scrollProduct = new ScrollPane(productOrderList);
-        scrollProduct.setPrefHeight(400);
-        scrollProduct.setPrefWidth(355);
-        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollProduct.setFitToWidth(true);
+        ScrollPane scrollProductOrder = new ScrollPane(productOrderList);
+        scrollProductOrder.setPrefHeight(400);
+        scrollProductOrder.setPrefWidth(355);
+        scrollProductOrder.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProductOrder.setFitToWidth(true);
 
         productOrderList.setFillWidth(true);
-        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
+        productOrderList.maxWidthProperty().bind(scrollProductOrder.widthProperty());
         VBox all;
         if (orderB.getStateB().equals("in attesa")){
             HBox buttons= new HBox(10);
             buttons.setAlignment(Pos.BOTTOM_CENTER);
-            Button accept =new Button("Accetta");
-            accept.setOnAction(e->{
+            Button acceptOrder =new Button("Accetta");
+            acceptOrder.setOnAction(e->{
                 try {
                     controller.acceptOrder(orderB);
                 } catch (SQLException ex) {
@@ -112,13 +107,13 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
                 popup.hide();
                 utils.openAdvisepopup("Ordine accettato");
                 try {
-                    refreshUI();
+                    refreshUIOrder();
                 } catch (DAOException | SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             });
-            Button reject =new Button("Rifiuta");
-            reject.setOnAction(e->{
+            Button rejectOrder =new Button("Rifiuta");
+            rejectOrder.setOnAction(e->{
                 try {
                     controller.rejectOrder(orderB);
                 } catch (SQLException ex) {
@@ -128,15 +123,15 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
                 popup.hide();
                 utils.openAdvisepopup("Ordine rifiutato");
                 try {
-                    refreshUI();
+                    refreshUIOrder();
                 } catch (DAOException | SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             });
-            buttons.getChildren().addAll(accept,reject);
-             all=new VBox(top,infoClinet,scrollProduct,buttons);
+            buttons.getChildren().addAll(acceptOrder,rejectOrder);
+             all=new VBox(top,infoClient,scrollProductOrder,buttons);
         }else {
-             all= new VBox(top,infoClinet,scrollProduct);
+             all= new VBox(top,infoClient,scrollProductOrder);
         }
         all.maxWidthProperty().bind(overlay.widthProperty());
         all.maxHeightProperty().bind(overlay.heightProperty());
@@ -146,7 +141,7 @@ public class StoresOrderControllerGrafico extends InfoCardControllerGrafico{
         popup.show(owner);
     }
 
-    private void refreshUI() throws DAOException, SQLException {
+    private void refreshUIOrder() throws DAOException, SQLException {
         orders= controller.getOrdersStore();
         orderList.getChildren().clear();
         for (OrderBean order : orders.getListOrderB()){
