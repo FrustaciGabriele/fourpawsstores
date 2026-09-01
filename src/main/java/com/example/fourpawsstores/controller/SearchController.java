@@ -33,7 +33,7 @@ public class SearchController {
     public ListStoresBean obtainStores(addressBean addrBean)  throws DAOException, SQLException, IOException {
         ListStoresBean StoresB;
         coordinateBean coordB;
-        Coordinate coordinate= Coordinate.addressConvert(addrBean);
+        Coordinate coordinate= facade.addressConvert(addrBean);
         coordB= new coordinateBean(coordinate.getAddress(), Coordinate.getlon(), Coordinate.getlat());
         Stores= facade.getListStores(coordinate);
         StoresB=new ListStoresBean(coordB.getAddressB(),coordB.getLatitudineB(),coordB.getLongitudineB());
