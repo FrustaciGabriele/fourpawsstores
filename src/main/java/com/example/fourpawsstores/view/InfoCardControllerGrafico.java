@@ -42,29 +42,29 @@ public abstract class InfoCardControllerGrafico {
     }
 
     HBox cardInfoProduct(ProductBean p, OrderBean orderB) {
-        HBox product =new HBox(10);
-        product.setStyle("-fx-border-color: #cccccc;\n" +
+        HBox productInfoCard =new HBox(10);
+        productInfoCard.setStyle("-fx-border-color: #cccccc;\n" +
                 "    -fx-border-width: 1;\n" +
                 "    -fx-border-radius: 5;\n" +
                 "    -fx-background-radius: 5;\n" +
                 "    -fx-padding: 5;");
-        product.setPrefHeight(100);
-        product.setMinHeight(100);
-        product.setMaxHeight(100);
-        product.setAlignment(Pos.CENTER_LEFT);
-        product.setFillHeight(true);
-        HBox.setHgrow(product, Priority.ALWAYS);
+        productInfoCard.setPrefHeight(100);
+        productInfoCard.setMinHeight(100);
+        productInfoCard.setMaxHeight(100);
+        productInfoCard.setAlignment(Pos.CENTER_LEFT);
+        productInfoCard.setFillHeight(true);
+        HBox.setHgrow(productInfoCard, Priority.ALWAYS);
 
         VBox info =new VBox(10);
-        product.setAlignment(Pos.CENTER);
+        productInfoCard.setAlignment(Pos.CENTER);
         HBox.setHgrow(info, Priority.ALWAYS);
         info.setMaxWidth(Double.MAX_VALUE);
 
-        Label name = new Label("Prodotto: " + p.getNameB());
-        Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
+        Label nameProd = new Label("Prodotto: " + p.getNameB());
+        Label priceProd= new Label("Prezzo: "+ p.getPriceB()+"€");
         Label numProd= new Label("Qt: "+ String.valueOf(orderB.getQuantityB().get(orderB.getListProductB().indexOf(p))));
 
-        HBox img;
+        HBox imageInfoCard;
         if(p.getImage() != null) {
             try {
                 InputStream input = p.getImage().getBinaryStream();
@@ -76,29 +76,29 @@ public abstract class InfoCardControllerGrafico {
                 imageView.setFitWidth(90);
                 imageView.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                imageInfoCard = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG \n NON PRESENTE"));
+                imageInfoCard = new HBox(new Text("IMG \n NON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG \n NON PRESENTE"));
+            imageInfoCard = new HBox(new Text("IMG \n NON PRESENTE"));
         }
-        img.setAlignment(Pos.CENTER);
-        img.setMinWidth(90);
-        img.setPrefWidth(90);
-        img.setMaxWidth(90);
-        img.setMinHeight(90);
-        img.setPrefHeight(90);
-        img.setMaxHeight(90);
-        img.setStyle(" -fx-border-color: #cccccc;\n" +
+        imageInfoCard.setAlignment(Pos.CENTER);
+        imageInfoCard.setMinWidth(90);
+        imageInfoCard.setPrefWidth(90);
+        imageInfoCard.setMaxWidth(90);
+        imageInfoCard.setMinHeight(90);
+        imageInfoCard.setPrefHeight(90);
+        imageInfoCard.setMaxHeight(90);
+        imageInfoCard.setStyle(" -fx-border-color: #cccccc;\n" +
                 "    -fx-border-width: 1;\n" +
                 "    -fx-background-color: #ffffff;\n" +
                 "    -fx-border-radius: 6;\n" +
                 "    -fx-background-radius: 6;");
 
-        info.getChildren().addAll(name,price);
-        product.getChildren().addAll(img,info,numProd);
-        return product;
+        info.getChildren().addAll(nameProd,priceProd);
+        productInfoCard.getChildren().addAll(imageInfoCard,info,numProd);
+        return productInfoCard;
     }
 
     protected abstract void showOrder(OrderBean order) throws DAOException, SQLException;
