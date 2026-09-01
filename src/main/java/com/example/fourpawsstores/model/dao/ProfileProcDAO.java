@@ -31,7 +31,12 @@ public class ProfileProcDAO {
             }
         }
         else{
-            try {
+            getStoreProfile();
+        }
+    }
+    public void getStoreProfile() throws DAOException {
+        CallableStatement cs;
+        try {
             Connection conn = ConnectionFactory.getConnection();
             cs = conn.prepareCall("{call recuperaProfiloNegozio(?)}");
             cs.setString(1, Credentials.getUsername());
@@ -48,6 +53,5 @@ public class ProfileProcDAO {
             throw new DAOException("recupera profilo error: " + e.getMessage());
         }
 
-        }
     }
 }
