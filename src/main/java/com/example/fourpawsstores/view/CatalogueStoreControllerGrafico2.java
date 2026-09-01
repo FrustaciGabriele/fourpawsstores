@@ -134,11 +134,11 @@ public class CatalogueStoreControllerGrafico2 {
             }
 
         });
-        String buttonText;
+        String buttonAvailableText;
         if(p.getState().equals("disponibile")){
-            buttonText="Segna indisponibile";
-        }else{buttonText="Segna disponibile  ";}
-        Button AvailableProd= new Button(buttonText);
+            buttonAvailableText="Segna indisponibile";
+        }else{buttonAvailableText="Segna disponibile  ";}
+        Button AvailableProd= new Button(buttonAvailableText);
         AvailableProd.setOnAction(e->{
             try {
                 changeState(p);
