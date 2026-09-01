@@ -105,7 +105,7 @@ public class utils {
     }
 
     public static void openAdvisepopup(String msg) {
-        Popup popup = new Popup();
+        Popup advisePopup = new Popup();
         Stage owner = ApplicazioneStage.getStage();
 
         // Crea l'overlay nero
@@ -115,7 +115,7 @@ public class utils {
         // Crea il pulsante di chiusura
         Button closeButton = new Button("X");
 
-        closeButton.setOnAction(e -> popup.hide());
+        closeButton.setOnAction(e -> advisePopup.hide());
         closeButton.setStyle(SETTING2);
 
         Text title = new Text("Avviso:" +"\t");
@@ -129,22 +129,22 @@ public class utils {
         messageLabel.setText("\n" + msg);
         messageLabel.setWrapText(true);
 
-        VBox vBoxContentBody = new VBox(messageLabel);
+        VBox vBoxContent = new VBox(messageLabel);
 
         // Crea il contenuto del popup
-        VBox popupContent = new VBox(header, vBoxContentBody);
-        popupContent.setFillWidth(true);
-        popupContent.setMaxWidth(owner.getWidth() - 200);
-        popupContent.setMaxHeight(owner.getHeight() - 600);
-        popupContent.setStyle(SETTING4);
+        VBox popupAdviseContent = new VBox(header, vBoxContent);
+        popupAdviseContent.setFillWidth(true);
+        popupAdviseContent.setMaxWidth(owner.getWidth() - 200);
+        popupAdviseContent.setMaxHeight(owner.getHeight() - 600);
+        popupAdviseContent.setStyle(SETTING4);
 
         // Aggiungi l'overlay e il contenuto al popup
-        StackPane popupRoot = new StackPane(overlay, popupContent);
-        popupRoot.setStyle(SETTING1); // Centra il contenuto del popup
-        popup.getContent().add(popupRoot);
+        StackPane root = new StackPane(overlay, popupAdviseContent);
+        root.setStyle(SETTING1); // Centra il contenuto del popup
+        advisePopup.getContent().add(root);
 
         // Mostra il popup
-        popup.show(owner);
+        advisePopup.show(owner);
     }
     public static void showPopUpDes(String descriptionB) {
 
