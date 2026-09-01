@@ -52,7 +52,7 @@ public class CatalogueStoreControllerGrafico2 {
     private TextField prodPrice;
     private CatalogueController controller;
     private CatalogueBean catalogueBean;
-    private Image image;
+    private Image imgNewProd;
     private byte[] imageBytes;
 
     public void inizializza(StoreBeans storeB) throws DAOException, SQLException {
@@ -75,27 +75,27 @@ public class CatalogueStoreControllerGrafico2 {
         }
     }
     private HBox productInfo(ProductBean p){
-        HBox product =new HBox(10);
-        product.getStyleClass().add("product-row");
-        product.setPrefHeight(100);
-        product.setMinHeight(100);
-        product.setMaxHeight(100);
-        product.setAlignment(Pos.CENTER_LEFT);
-        product.setFillHeight(true);
-        HBox.setHgrow(product, Priority.ALWAYS);
+        HBox prodInfoCat =new HBox(10);
+        prodInfoCat.getStyleClass().add("product-row");
+        prodInfoCat.setPrefHeight(100);
+        prodInfoCat.setMinHeight(100);
+        prodInfoCat.setMaxHeight(100);
+        prodInfoCat.setAlignment(Pos.CENTER_LEFT);
+        prodInfoCat.setFillHeight(true);
+        HBox.setHgrow(prodInfoCat, Priority.ALWAYS);
 
         VBox info =new VBox(10);
-        product.setAlignment(Pos.CENTER);
+        prodInfoCat.setAlignment(Pos.CENTER);
         HBox.setHgrow(info, Priority.ALWAYS);
         info.setMaxWidth(Double.MAX_VALUE);
 
-        VBox buttons= new VBox(10);
-        buttons.setMinWidth(130);
-        buttons.setPrefWidth(130);
-        product.setAlignment(Pos.CENTER_RIGHT);
+        VBox prodbuttons= new VBox(10);
+        prodbuttons.setMinWidth(130);
+        prodbuttons.setPrefWidth(130);
+        prodInfoCat.setAlignment(Pos.CENTER_RIGHT);
         Label name = new Label("Prodotto: \n" + p.getNameB());
         Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
-        HBox img;
+        HBox imgProdCatalog;
         if(p.getImage() != null) {
             try {
                 InputStream input = p.getImage().getBinaryStream();
@@ -107,23 +107,23 @@ public class CatalogueStoreControllerGrafico2 {
                 imageView.setFitWidth(90);
                 imageView.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                imgProdCatalog = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG \nNON PRESENTE"));
+                imgProdCatalog = new HBox(new Text("IMG \nNON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG \nNON PRESENTE"));
+            imgProdCatalog = new HBox(new Text("IMG \nNON PRESENTE"));
         }
-        img.setAlignment(Pos.CENTER);
-        img.setMinWidth(90);
-        img.setPrefWidth(90);
-        img.setMaxWidth(90);
-        img.setMinHeight(90);
-        img.setPrefHeight(90);
-        img.setMaxHeight(90);
-        img.getStyleClass().add("scroll-image");
-        Button removeProd= new Button("Rimuovi il prodotto");
-        removeProd.setOnAction(e ->{
+        imgProdCatalog.setAlignment(Pos.CENTER);
+        imgProdCatalog.setMinWidth(90);
+        imgProdCatalog.setPrefWidth(90);
+        imgProdCatalog.setMaxWidth(90);
+        imgProdCatalog.setMinHeight(90);
+        imgProdCatalog.setPrefHeight(90);
+        imgProdCatalog.setMaxHeight(90);
+        imgProdCatalog.getStyleClass().add("scroll-image");
+        Button removeProduct= new Button("Rimuovi il prodotto");
+        removeProduct.setOnAction(e ->{
             try {
                 deleteProd(p);
                 utils.openAdvisepopup("Prodotto rimosso correttamente");
@@ -138,8 +138,8 @@ public class CatalogueStoreControllerGrafico2 {
         if(p.getState().equals("disponibile")){
             buttonText="Segna indisponibile";
         }else{buttonText="Segna disponibile  ";}
-        Button notAvailableProd= new Button(buttonText);
-        notAvailableProd.setOnAction(e->{
+        Button AvailableProd= new Button(buttonText);
+        AvailableProd.setOnAction(e->{
             try {
                 changeState(p);
                 utils.openAdvisepopup("Prodotto modificato correttamente");
@@ -150,17 +150,17 @@ public class CatalogueStoreControllerGrafico2 {
             }
 
         });
-        Button description= new Button("i");
-        description.getStyleClass().add("roundbutton");
-        description.setOnAction(e ->{
+        Button descriptionProd= new Button("i");
+        descriptionProd.getStyleClass().add("roundbutton");
+        descriptionProd.setOnAction(e ->{
             utils.showPopUpDes(p.getDescriptionB());
         });
 
 
-        buttons.getChildren().addAll(removeProd,notAvailableProd);
+        prodbuttons.getChildren().addAll(removeProduct,AvailableProd);
         info.getChildren().addAll(name,price);
-        product.getChildren().addAll(img,info,description,buttons);
-        return product;
+        prodInfoCat.getChildren().addAll(imgProdCatalog,info,descriptionProd,prodbuttons);
+        return prodInfoCat;
     }
     private void refreshUI() throws DAOException, SQLException {
         catalogueBean = controller.refreshCatalogue();
@@ -193,12 +193,12 @@ public class CatalogueStoreControllerGrafico2 {
     }
 
     public void addImg(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleziona un'immagine");
-        File selectedFile = fileChooser.showOpenDialog(null);
+        FileChooser fileChooserImg = new FileChooser();
+        fileChooserImg.setTitle("Seleziona un'immagine");
+        File selectedFile = fileChooserImg.showOpenDialog(null);
         if (selectedFile != null) {
             try {
-                image = new Image(selectedFile.toURI().toString());
+                imgNewProd = new Image(selectedFile.toURI().toString());
                 imageBytes = Files.readAllBytes(selectedFile.toPath());
 
 
@@ -212,7 +212,7 @@ public class CatalogueStoreControllerGrafico2 {
     public void addProduct(ActionEvent actionEvent) {
         AddProductController addcontroller= new AddProductController();
         Blob blob=null;
-        if(image!=null){
+        if(imgNewProd !=null){
             try {
                 blob = new SerialBlob(imageBytes);
             } catch (SQLException e) {
@@ -243,7 +243,7 @@ public class CatalogueStoreControllerGrafico2 {
     }
 
     private void refreshAddProd() {
-        image=null;
+        imgNewProd =null;
         imageBytes=null;
         prodName.clear();
         prodDescription.clear();
