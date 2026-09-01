@@ -126,28 +126,28 @@ public class CatalogueControllerGrafico2{
     }
 
     private HBox showInfoProduct(ProductBean p){
-        HBox product =new HBox(10);
-        product.getStyleClass().add("product-row");
-        product.setPrefHeight(100);
-        product.setMinHeight(100);
-        product.setMaxHeight(100);
-        product.setAlignment(Pos.CENTER_LEFT);
-        product.setFillHeight(true);
-        HBox.setHgrow(product, Priority.ALWAYS);
+        HBox productInfo =new HBox(10);
+        productInfo.getStyleClass().add("product-row");
+        productInfo.setPrefHeight(100);
+        productInfo.setMinHeight(100);
+        productInfo.setMaxHeight(100);
+        productInfo.setAlignment(Pos.CENTER_LEFT);
+        productInfo.setFillHeight(true);
+        HBox.setHgrow(productInfo, Priority.ALWAYS);
 
         VBox info =new VBox(10);
-        product.setAlignment(Pos.CENTER);
+        productInfo.setAlignment(Pos.CENTER);
         HBox.setHgrow(info, Priority.ALWAYS);
         info.setMaxWidth(Double.MAX_VALUE);
 
         HBox buttons= new HBox(10);
         buttons.setMinWidth(130);
         buttons.setPrefWidth(130);
-        product.setAlignment(Pos.CENTER_RIGHT);
+        productInfo.setAlignment(Pos.CENTER_RIGHT);
         Label name = new Label("Prodotto: \n" + p.getNameB());
         Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
         Label numAdd= new Label("0");
-        HBox img;
+        HBox imgProdInfo;
         if(p.getImage() != null) {
             try {
                 InputStream input = p.getImage().getBinaryStream();
@@ -159,21 +159,21 @@ public class CatalogueControllerGrafico2{
                 imageView.setFitWidth(90);
                 imageView.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                imgProdInfo = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG \nNON PRESENTE"));
+                imgProdInfo = new HBox(new Text("IMG \nNON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG \nNON PRESENTE"));
+            imgProdInfo = new HBox(new Text("IMG \nNON PRESENTE"));
         }
-        img.setAlignment(Pos.CENTER);
-        img.setMinWidth(90);
-        img.setPrefWidth(90);
-        img.setMaxWidth(90);
-        img.setMinHeight(90);
-        img.setPrefHeight(90);
-        img.setMaxHeight(90);
-        img.getStyleClass().add("scroll-image");
+        imgProdInfo.setAlignment(Pos.CENTER);
+        imgProdInfo.setMinWidth(90);
+        imgProdInfo.setPrefWidth(90);
+        imgProdInfo.setMaxWidth(90);
+        imgProdInfo.setMinHeight(90);
+        imgProdInfo.setPrefHeight(90);
+        imgProdInfo.setMaxHeight(90);
+        imgProdInfo.getStyleClass().add("scroll-image");
 
         if(p.getState().equals("disponibile")){
             Button addCartButton= new Button("+");
@@ -210,21 +210,21 @@ public class CatalogueControllerGrafico2{
         });
 
         info.getChildren().addAll(name,price);
-        product.getChildren().addAll(img,info,description,buttons);
-        return product;
+        productInfo.getChildren().addAll(imgProdInfo,info,description,buttons);
+        return productInfo;
     }
     public HBox showInfoProductCart(ProductBean p){
-        HBox product =new HBox(10);
-        product.getStyleClass().add("product-row");
-        product.setPrefHeight(100);
-        product.setMinHeight(100);
-        product.setMaxHeight(100);
-        product.setAlignment(Pos.CENTER_LEFT);
-        product.setFillHeight(true);
-        HBox.setHgrow(product, Priority.ALWAYS);
+        HBox productInfoCart =new HBox(10);
+        productInfoCart.getStyleClass().add("product-row");
+        productInfoCart.setPrefHeight(100);
+        productInfoCart.setMinHeight(100);
+        productInfoCart.setMaxHeight(100);
+        productInfoCart.setAlignment(Pos.CENTER_LEFT);
+        productInfoCart.setFillHeight(true);
+        HBox.setHgrow(productInfoCart, Priority.ALWAYS);
 
         VBox info =new VBox(10);
-        product.setAlignment(Pos.CENTER);
+        productInfoCart.setAlignment(Pos.CENTER);
         HBox.setHgrow(info, Priority.ALWAYS);
         info.setMaxWidth(Double.MAX_VALUE);
 
@@ -232,7 +232,7 @@ public class CatalogueControllerGrafico2{
         Label price= new Label("Prezzo: "+ p.getPriceB()+"€");
         Label numProd= new Label("Qt: "+ String.valueOf(cart.getListNumProd().get(cart.getList().indexOf(p))));
 
-        HBox img;
+        HBox imgInfocart;
         if(p.getImage() != null) {
             try {
                 InputStream input = p.getImage().getBinaryStream();
@@ -244,25 +244,25 @@ public class CatalogueControllerGrafico2{
                 imageView.setFitWidth(90);
                 imageView.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                imgInfocart = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
+                imgInfocart = new HBox(new Text("IMG NON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            imgInfocart = new HBox(new Text("IMG NON PRESENTE"));
         }
-        img.setAlignment(Pos.CENTER);
-        img.setMinWidth(90);
-        img.setPrefWidth(90);
-        img.setMaxWidth(90);
-        img.setMinHeight(90);
-        img.setPrefHeight(90);
-        img.setMaxHeight(90);
-        img.getStyleClass().add("scroll-image");
+        imgInfocart.setAlignment(Pos.CENTER);
+        imgInfocart.setMinWidth(90);
+        imgInfocart.setPrefWidth(90);
+        imgInfocart.setMaxWidth(90);
+        imgInfocart.setMinHeight(90);
+        imgInfocart.setPrefHeight(90);
+        imgInfocart.setMaxHeight(90);
+        imgInfocart.getStyleClass().add("scroll-image");
 
         info.getChildren().addAll(name,price);
-        product.getChildren().addAll(img,info,numProd);
-        return product;
+        productInfoCart.getChildren().addAll(imgInfocart,info,numProd);
+        return productInfoCart;
     }
     public void refreshCart(){
         cartBox.getChildren().clear();
