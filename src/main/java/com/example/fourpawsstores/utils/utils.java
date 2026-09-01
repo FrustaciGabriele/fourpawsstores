@@ -61,17 +61,18 @@ public class utils {
         return sceneH;
     }
 
-    public static void showErrorPopup(String msg) {Popup popup = new Popup();
+    public static void showErrorPopup(String msg) {
+        Popup popupError = new Popup();
 
-        Stage owner = ApplicazioneStage.getStage();
+        Stage ownerPopup = ApplicazioneStage.getStage();
 
-        // Crea l'overlay nero
-        Rectangle overlay = new Rectangle(owner.getWidth() - 5, owner.getHeight() - 5, Color.BLACK);
-        overlay.setOpacity(0.3);
 
-        // Crea il pulsante di chiusura
+        Rectangle popupOverlay = new Rectangle(ownerPopup.getWidth() - 5, ownerPopup.getHeight() - 5, Color.BLACK);
+        popupOverlay.setOpacity(0.3);
+
+
         Button closeButton = new Button("X");
-        closeButton.setOnAction(e -> popup.hide());
+        closeButton.setOnAction(e -> popupError.hide());
         closeButton.setStyle(SETTING2);
 
         Text title = new Text("Attenzione \t");
@@ -81,26 +82,26 @@ public class utils {
         HBox header = new HBox(10, title, closeButton);
         header.setAlignment(Pos.CENTER);
 
-        Label messageLabel = new Label();
-        messageLabel.setText("\n" + msg);
-        messageLabel.setWrapText(true);
+        Label errorMessageLabel = new Label();
+        errorMessageLabel.setText("\n" + msg);
+        errorMessageLabel.setWrapText(true);
 
-        VBox vBoxContentBody = new VBox(messageLabel);
+        VBox vBoxContentBody = new VBox(errorMessageLabel);
 
-        // Crea il contenuto del popup
-        VBox popupContent = new VBox(header, vBoxContentBody);
-        popupContent.setFillWidth(true);
-        popupContent.setMaxWidth(owner.getWidth() - 200);
-        popupContent.setMaxHeight(owner.getHeight() - 600);
-        popupContent.setStyle(SETTING4);
 
-        // Aggiungi l'overlay e il contenuto al popup
-        StackPane popupRoot = new StackPane(overlay, popupContent);
-        popupRoot.setStyle(SETTING1); // Centra il contenuto del popup
-        popup.getContent().add(popupRoot);
+        VBox popupErrorContent = new VBox(header, vBoxContentBody);
+        popupErrorContent.setFillWidth(true);
+        popupErrorContent.setMaxWidth(ownerPopup.getWidth() - 200);
+        popupErrorContent.setMaxHeight(ownerPopup.getHeight() - 600);
+        popupErrorContent.setStyle(SETTING4);
 
-        // Mostra il popup
-        popup.show(owner);
+
+        StackPane popupRoot = new StackPane(popupOverlay, popupErrorContent);
+        popupRoot.setStyle(SETTING1);
+        popupError.getContent().add(popupRoot);
+
+
+        popupError.show(ownerPopup);
     }
 
     public static void openAdvisepopup(String msg) {
