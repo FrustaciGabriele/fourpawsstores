@@ -63,19 +63,19 @@ public class StoresOrderControllerGrafico2 extends InfoCardControllerGrafico{
     private VBox showOrderBox(OrderBean orderB) {
         Label client=new Label("Ordine per: "+orderB.getUserIdB());
         HBox infoClinet= new HBox(client);
-        VBox productOrderList=new VBox(10);
+        VBox productsOrderList=new VBox(10);
         List<ProductBean> listB=orderB.getListProductB();
         for(ProductBean p :listB){
             HBox product = cardInfoProduct(p,orderB);
-            productOrderList.getChildren().add(product);
+            productsOrderList.getChildren().add(product);
         }
-        ScrollPane scrollProduct = new ScrollPane(productOrderList);
-        scrollProduct.setPrefHeight(400);
-        scrollProduct.setPrefWidth(355);
-        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollProduct.setFitToWidth(true);
-        productOrderList.setFillWidth(true);
-        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
+        ScrollPane scrollProductBox = new ScrollPane(productsOrderList);
+        scrollProductBox.setPrefHeight(400);
+        scrollProductBox.setPrefWidth(355);
+        scrollProductBox.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProductBox.setFitToWidth(true);
+        productsOrderList.setFillWidth(true);
+        productsOrderList.maxWidthProperty().bind(scrollProductBox.widthProperty());
         VBox all;
         if (orderB.getStateB().equals("in attesa")){
             HBox buttons= new HBox(10);
@@ -111,9 +111,9 @@ public class StoresOrderControllerGrafico2 extends InfoCardControllerGrafico{
                 }
             });
             buttons.getChildren().addAll(accept,reject);
-            all=new VBox(infoClinet,scrollProduct,buttons);
+            all=new VBox(infoClinet,scrollProductBox,buttons);
         }else {
-            all= new VBox(infoClinet,scrollProduct);
+            all= new VBox(infoClinet,scrollProductBox);
         }
         return all;
     }
