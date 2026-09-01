@@ -16,7 +16,7 @@ public class DEMODAO {
     private static List<Card> cards= new ArrayList<>();
     private static int idProd=1;
     private static int idOrder=1;
-    private String available= "disponibile";
+    private static String available= "disponibile";
 
 
     public void inizializza(){
@@ -52,7 +52,7 @@ public class DEMODAO {
         return null;
     }
 
-    public Catalogue getCatalog(int id) {
+    public static Catalogue getCatalog(int id) {
        Catalogue cat=new Catalogue(id);
        for (Catalogue c: catalogs){
            if (c.getidCat()==id){
@@ -65,7 +65,7 @@ public class DEMODAO {
        return cat;
     }
 
-    public void Addproduct(Product newProduct) {
+    public static void Addproduct(Product newProduct) {
         Product p = new Product(newProduct.getName(),newProduct.getDescription(),newProduct.getImg(),newProduct.getPrice());
         idProd=idProd+1;
         p.setid(idProd);
@@ -99,7 +99,7 @@ public class DEMODAO {
         return list;
     }
 
-    public boolean addOrder(Order newOrder) {
+    public static boolean addOrder(Order newOrder) {
         List<Product> listcat=getCatalog(newOrder.getStoreId()).getList();
         List<Product> listorder=newOrder.getListProduct();
         for (Product p1: listorder){
