@@ -137,24 +137,24 @@ public class SearchControllerGrafico2 {
         root.setPadding(new Insets(15));
         root.setStyle("-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-width: 1;");
         root.setPrefWidth(280);
-        HBox img;
+        HBox imageStorePopup;
         if(store.getImage() != null) {
             try {
                 InputStream input = store.getImage().getBinaryStream();
                 Image image = new Image(input);
 
-                ImageView imageView = new ImageView(image);
+                ImageView imageViewStore = new ImageView(image);
 
-                imageView.setFitHeight(60);
-                imageView.setFitWidth(60);
-                imageView.setPreserveRatio(true);
+                imageViewStore.setFitHeight(60);
+                imageViewStore.setFitWidth(60);
+                imageViewStore.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                imageStorePopup = new HBox(imageViewStore);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
+                imageStorePopup = new HBox(new Text("IMG NON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            imageStorePopup = new HBox(new Text("IMG NON PRESENTE"));
         }
         Label name = new Label("Nome: "+ store.getName());
         name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
@@ -185,7 +185,7 @@ public class SearchControllerGrafico2 {
         Button close=new Button("Chiudi");
         close.setOnAction(e -> popup.hide());
         HBox buttons =new HBox(10,catalogue,close);
-        root.getChildren().addAll(img, name, address, tel, description, buttons);
+        root.getChildren().addAll(imageStorePopup, name, address, tel, description, buttons);
 
         popup.getContent().add(root);
 
