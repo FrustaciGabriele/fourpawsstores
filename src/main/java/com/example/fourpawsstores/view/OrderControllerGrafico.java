@@ -113,27 +113,27 @@ public class OrderControllerGrafico extends InfoCardControllerGrafico {
                 "    -fx-background-color: #ffffff;\n" +
                 "    -fx-border-radius: 6;\n" +
                 "    -fx-background-radius: 6;");
-        Text Name=new Text("Nome: "+ store.getName());
-        Text Address=new Text("Indirizzo: "+ store.getAddress());
-        Text Tel= new Text("Tel. : "+ store.getTel());
-        VBox information= new VBox(Name,Address,Tel);
-        storeInfo.getChildren().addAll(img,information);
+        Text storeName=new Text("Nome: "+ store.getName());
+        Text storeAddress=new Text("Indirizzo: "+ store.getAddress());
+        Text StoreTel= new Text("Tel. : "+ store.getTel());
+        VBox storeInformation= new VBox(storeName,storeAddress,StoreTel);
+        storeInfo.getChildren().addAll(img,storeInformation);
 
         VBox productOrderList=new VBox(10);
         List<ProductBean> listB=orderB.getListProductB();
-        for(ProductBean p :listB){
-            HBox product = cardInfoProduct(p,orderB);
+        for(ProductBean prod :listB){
+            HBox product = cardInfoProduct(prod,orderB);
             productOrderList.getChildren().add(product);
         }
-        ScrollPane scrollProduct = new ScrollPane(productOrderList);
-        scrollProduct.setPrefHeight(400);
-        scrollProduct.setPrefWidth(355);
-        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollProduct.setFitToWidth(true);
+        ScrollPane scrollProductOrder = new ScrollPane(productOrderList);
+        scrollProductOrder.setPrefHeight(400);
+        scrollProductOrder.setPrefWidth(355);
+        scrollProductOrder.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollProductOrder.setFitToWidth(true);
 
         productOrderList.setFillWidth(true);
-        productOrderList.maxWidthProperty().bind(scrollProduct.widthProperty());
-        VBox all=new VBox(top,storeInfo,scrollProduct);
+        productOrderList.maxWidthProperty().bind(scrollProductOrder.widthProperty());
+        VBox all=new VBox(top,storeInfo,scrollProductOrder);
         all.maxWidthProperty().bind(overlay.widthProperty());
         all.maxHeightProperty().bind(overlay.heightProperty());
         all.prefWidthProperty().bind(overlay.widthProperty());
