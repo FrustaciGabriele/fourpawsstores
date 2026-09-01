@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class NavigationController {
+    private String title="4Paws Stores";
 
     public void changeUIStyle() throws IOException {
         utils.switchGUI();
@@ -35,7 +36,7 @@ public class NavigationController {
         fxmlLoader = new FXMLLoader();
         Parent rootNode = fxmlLoader.load(getClass().getResourceAsStream(fxmlFile));
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
@@ -63,7 +64,7 @@ public class NavigationController {
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
 
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
     }
@@ -90,7 +91,7 @@ public class NavigationController {
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
 
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
     }
@@ -115,11 +116,8 @@ public class NavigationController {
         }
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
         scene.getRoot().requestFocus();
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
-        stage.show(); stage.setTitle("4Paws Stores");
-        stage.setScene(scene);
-        stage.show();
     }
     public void goToOrderSceneStore() throws DAOException, SQLException, IOException {
         FXMLLoader fxmlLoader;
@@ -143,7 +141,7 @@ public class NavigationController {
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
 
 
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
     }
@@ -168,7 +166,7 @@ public class NavigationController {
         }
 
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
     }
@@ -206,7 +204,7 @@ public class NavigationController {
             controller.inizializza(storeB);
         }
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-        stages.setTitle("4Paws Stores");
+        stages.setTitle(title);
         stages.setScene(scene);
         stages.show();
     }
@@ -231,7 +229,7 @@ public class NavigationController {
             controller.inizializza(store);
         }
         scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-        stage.setTitle("4Paws Stores");
+        stage.setTitle(title);
         stage.setScene(scene);
         stage.show();
 
