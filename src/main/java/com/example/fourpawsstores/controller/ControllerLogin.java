@@ -34,20 +34,10 @@ public class ControllerLogin {
         } catch (DAOException | SQLException e) {
             throw new IllegalArgumentException(e);
         }
-        FXMLLoader fxmlLoad;
-        Stage stage = ApplicazioneStage.getStage();
-        Scene scene;
+
         if (Credentials.getRole() == null) {
             utils.showErrorPopup("Credenziali non valide");
-            if(utils.getGUI()==0){
-            fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login.fxml"));}
-            else{
-                fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login2.fxml"));
-            }
-            scene = new Scene(fxmlLoad.load(), utils.getSceneW(), utils.getSceneH());
-            stage.setTitle("4Paws Stores");
-            stage.setScene(scene);
-            stage.show();
+            refreshLogin();
         }
         else {
             try {
@@ -74,5 +64,20 @@ public class ControllerLogin {
                 navcontroller.goBackToMap();
             }
     }
+    }
+
+    private void refreshLogin() throws IOException {
+        FXMLLoader fxmlLoad;
+        Stage stage = ApplicazioneStage.getStage();
+        Scene scene;
+        if(utils.getGUI()==0){
+            fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login.fxml"));}
+        else{
+            fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login2.fxml"));
+        }
+        scene = new Scene(fxmlLoad.load(), utils.getSceneW(), utils.getSceneH());
+        stage.setTitle("4Paws Stores");
+        stage.setScene(scene);
+        stage.show();
     }
 }
