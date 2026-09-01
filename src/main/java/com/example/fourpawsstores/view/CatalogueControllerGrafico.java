@@ -121,15 +121,15 @@ public class CatalogueControllerGrafico {
                 controller.inviaordine(1);
                 popup.hide();
                 utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
-                refreshUI();
+                //refreshUI();
             } catch (DAOException|RuntimeException | SQLException ex) {
                 popup.hide();
                 utils.showErrorPopup(ex.getMessage());
-                try {
-                    refreshUI();
-                } catch (DAOException | SQLException exc) {
-                    throw new RuntimeException(exc);
-                }
+            }
+            try {
+                refreshUI();
+            } catch (DAOException | SQLException exc) {
+                throw new RuntimeException(exc);
             }
 
         });
@@ -139,16 +139,15 @@ public class CatalogueControllerGrafico {
                 controller.inviaordine(2);
                 popup.hide();
                 utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
-                refreshUI();
+                //refreshUI();
             } catch (DAOException|RuntimeException | SQLException ex) {
                 popup.hide();
                 utils.showErrorPopup(ex.getMessage());
-                try {
-                    refreshUI();
-                } catch (DAOException | SQLException exc) {
-                    throw new RuntimeException(exc);
-                }
-
+            }
+            try {
+                refreshUI();
+            } catch (DAOException | SQLException exc) {
+                throw new RuntimeException(exc);
             }
         });
 
