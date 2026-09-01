@@ -19,9 +19,9 @@
                 <Insets top="60" right="30" bottom="30" left="30"/>
             </padding>
             <HBox>
-                <Button text="Cambia Grafica" onMouseClicked="#changeUI"/>
+                <Button text="Cambia Grafica" onMouseClicked="#changeUILogin"/>
             </HBox>
-            <ComboBox fx:id="demo" prefWidth="110" value="Mode: Final">
+            <ComboBox fx:id="mode" prefWidth="110" value="Mode: Final">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Mode: Final"/>
@@ -35,8 +35,8 @@
             </padding>
             <Label text="Login" styleClass="title-label2"/>
 
-            <TextField fx:id="textFieldUsername" promptText="Username" styleClass="text-field" onAction="#handleEnter"/>
-            <PasswordField fx:id="textFieldPassword" promptText="Password" styleClass="text-field" onAction="#handleEnter"/>
+            <TextField fx:id="textFieldUsername" promptText="Username" styleClass="text-field" onAction="#start"/>
+            <PasswordField fx:id="textFieldPassword" promptText="Password" styleClass="text-field" onAction="#start"/>
 
             <Button text="Login" onAction="#login" styleClass="login-button"/>
         </VBox>

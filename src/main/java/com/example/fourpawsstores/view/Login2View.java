@@ -21,17 +21,17 @@ public class Login2View {
     @FXML
     private PasswordField textFieldPassword;
     @FXML
-    private ComboBox<String> demo;
+    private ComboBox<String> mode;
     @FXML
     public void login() {
-        if (demo.getValue().equals("Mode: Demo")){
+        if (mode.getValue().equals("Mode: Demo")){
             utils.switchMode();}
-        CredentialsBean credB;
+        CredentialsBean credentialB;
 
-        credB= new CredentialsBean(textFieldUsername.getText(), textFieldPassword.getText());
+        credentialB= new CredentialsBean(textFieldUsername.getText(), textFieldPassword.getText());
         try{
-            ControllerLogin loginController= new ControllerLogin();
-            loginController.start(credB);
+            ControllerLogin loginController2= new ControllerLogin();
+            loginController2.start(credentialB);
         }catch (DAOException | IOException e){
             throw new IllegalArgumentException(e);
         } catch (SQLException e) {
@@ -39,10 +39,10 @@ public class Login2View {
         }
     }
     @FXML
-    public void handleEnter() {login();
+    public void start() {login();
     }
 
-    public void changeUI(MouseEvent mouseEvent) throws IOException {
+    public void changeUILogin(MouseEvent mouseEvent) throws IOException {
         NavigationController navController= new NavigationController();
         navController.changeUIStyle();
     }
