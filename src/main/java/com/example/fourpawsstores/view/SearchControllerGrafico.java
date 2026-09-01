@@ -135,15 +135,15 @@ public class SearchControllerGrafico {
     }
 
     private void openStorePopup(StoreBeans store) {
-        Popup popup = new Popup();
-        popup.setAutoHide(true);
+        Popup popupStore = new Popup();
+        popupStore.setAutoHide(true);
         Stage owner = ApplicazioneStage.getStage();
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(15));
         root.setStyle("-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-width: 1;");
         root.setPrefWidth(280);
-        HBox img;
+        HBox imgStore;
         if(store.getImage() != null) {
             try {
                 InputStream input = store.getImage().getBinaryStream();
@@ -155,28 +155,28 @@ public class SearchControllerGrafico {
                 imageView.setFitWidth(60);
                 imageView.setPreserveRatio(true);
 
-                img = new HBox(imageView);
+                imgStore = new HBox(imageView);
             } catch (SQLException e) {
-                img = new HBox(new Text("IMG NON PRESENTE"));
+                imgStore = new HBox(new Text("IMG NON PRESENTE"));
             }
         }else{
-            img = new HBox(new Text("IMG NON PRESENTE"));
+            imgStore = new HBox(new Text("IMG NON PRESENTE"));
         }
-        Label name = new Label("Nome: "+ store.getName());
-        name.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        Label nameStore = new Label("Nome: "+ store.getName());
+        nameStore.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
 
         // Telefono
-        Label tel = new Label("Tel: " + store.getTel());
+        Label telStore = new Label("Tel: " + store.getTel());
 
         // Via
-        Label address = new Label("Via: "+store.getAddress());
+        Label addressStore = new Label("Via: "+store.getAddress());
 
         // Descrizione
-        Label description = new Label("Descrizione: "+ store.getDescription());
-        description.setWrapText(true);
+        Label descriptionStore = new Label("Descrizione: "+ store.getDescription());
+        descriptionStore.setWrapText(true);
         Button catalogue =new Button("Catalogo");
         catalogue.setOnAction(e -> {
-            popup.hide();
+            popupStore.hide();
             try {
                 NavigationController navController= new NavigationController();
                 navController.showCatalogue(store);
@@ -189,13 +189,13 @@ public class SearchControllerGrafico {
             }
         });
         Button close=new Button("Chiudi");
-        close.setOnAction(e -> popup.hide());
-        HBox buttons =new HBox(10,catalogue,close);
-        root.getChildren().addAll(img, name, address, tel, description, buttons);
+        close.setOnAction(e -> popupStore.hide());
+        HBox buttonsPopup =new HBox(10,catalogue,close);
+        root.getChildren().addAll(imgStore, nameStore, addressStore, telStore, descriptionStore, buttonsPopup);
 
-        popup.getContent().add(root);
+        popupStore.getContent().add(root);
 
-        popup.show(owner, -10000, -10000);
+        popupStore.show(owner, -10000, -10000);
 
         double popupWidth = root.getWidth();
         double popupHeight = root.getHeight();
@@ -203,8 +203,8 @@ public class SearchControllerGrafico {
         double centerX = owner.getX() + (owner.getWidth() - popupWidth) / 2;
         double centerY = owner.getY() + (owner.getHeight() - popupHeight) / 2;
 
-        popup.setX(centerX);
-        popup.setY(centerY);
+        popupStore.setX(centerX);
+        popupStore.setY(centerY);
     }
 
     }
