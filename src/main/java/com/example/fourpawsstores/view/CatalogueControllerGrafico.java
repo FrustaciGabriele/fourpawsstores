@@ -83,90 +83,94 @@ public class CatalogueControllerGrafico {
 
     public void openCart(MouseEvent mouseEvent) {
         if(cart.getLenght()>=1){
-        Popup popup= new Popup();
-        Stage owner = ApplicazioneStage.getStage();
-
-        Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
-            overlay.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
-
-        Button closeButton = new Button("X");
-        closeButton.setOnAction(e -> popup.hide());
-        closeButton.setStyle(SETTING2);
-
-        Text title = new Text("IL TUO CARRELLO: \t");
-        title.setFont(Font.font(SETTING3, FontWeight.BOLD, 18));
-        title.setStyle(SETTING1);
-
-        HBox header = new HBox(10, title, closeButton);
-        header.setAlignment(Pos.CENTER);
-
-        VBox productCartList= new VBox(8);
-
-        for(ProductBean p :cart.getList()){
-            HBox product =showInfoCartProducts(p);
-            productCartList.getChildren().add(product);
+            openPopUpCart();
         }
-        ScrollPane scrollProduct = new ScrollPane(productCartList);
-        scrollProduct.setPrefHeight(400);
-        scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollProduct.setFitToWidth(true);
-
-        productCartList.setFillWidth(true);
-        productCartList.maxWidthProperty().bind(scrollProduct.widthProperty());
-
-        HBox buttonPay=new HBox(10);
-        Button cashButton= new Button("Paga al ritiro");
-        cashButton.setOnAction(e->{
-            try {
-                controller.inviaordine(1);
-                popup.hide();
-                utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
-                //refreshUI();
-            } catch (DAOException|RuntimeException | SQLException ex) {
-                popup.hide();
-                utils.showErrorPopup(ex.getMessage());
-            }
-            try {
-                refreshUI();
-            } catch (DAOException | SQLException exc) {
-                throw new RuntimeException(exc);
-            }
-
-        });
-        Button creditButton= new Button("Paga con carta");
-        creditButton.setOnAction(e->{
-            try {
-                controller.inviaordine(2);
-                popup.hide();
-                utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
-                //refreshUI();
-            } catch (DAOException|RuntimeException | SQLException ex) {
-                popup.hide();
-                utils.showErrorPopup(ex.getMessage());
-            }
-            try {
-                refreshUI();
-            } catch (DAOException | SQLException exc) {
-                throw new RuntimeException(exc);
-            }
-        });
-
-        Label total=new Label("Totale: "+ String.valueOf(cart.getTot())+"€");
-        buttonPay.getChildren().addAll(cashButton,creditButton);
-        buttonPay.setStyle(SETTING1);
-        VBox popUpContent= new VBox(header,scrollProduct,total,buttonPay);
-            popUpContent.maxWidthProperty().bind(overlay.widthProperty());
-            popUpContent.maxHeightProperty().bind(overlay.heightProperty());
-            popUpContent.prefWidthProperty().bind(overlay.widthProperty());
-            popUpContent.prefHeightProperty().bind(overlay.heightProperty());
-        StackPane popupRoot = new StackPane(overlay, popUpContent);
-
-
-        popup.getContent().add(popupRoot);
-        popup.show(owner);}
         else {
             utils.showErrorPopup("Non hai aggiunto nulla al carrello");
         }
+}
+public void openPopUpCart(){
+    Popup popup= new Popup();
+    Stage owner = ApplicazioneStage.getStage();
+
+    Rectangle overlay = new Rectangle(owner.getWidth() - 50, owner.getHeight() - 80, Color.WHITE);
+    overlay.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
+
+    Button closeButton = new Button("X");
+    closeButton.setOnAction(e -> popup.hide());
+    closeButton.setStyle(SETTING2);
+
+    Text title = new Text("IL TUO CARRELLO: \t");
+    title.setFont(Font.font(SETTING3, FontWeight.BOLD, 18));
+    title.setStyle(SETTING1);
+
+    HBox header = new HBox(10, title, closeButton);
+    header.setAlignment(Pos.CENTER);
+
+    VBox productCartList= new VBox(8);
+
+    for(ProductBean p :cart.getList()){
+        HBox product =showInfoCartProducts(p);
+        productCartList.getChildren().add(product);
+    }
+    ScrollPane scrollProduct = new ScrollPane(productCartList);
+    scrollProduct.setPrefHeight(400);
+    scrollProduct.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    scrollProduct.setFitToWidth(true);
+
+    productCartList.setFillWidth(true);
+    productCartList.maxWidthProperty().bind(scrollProduct.widthProperty());
+
+    HBox buttonPay=new HBox(10);
+    Button cashButton= new Button("Paga al ritiro");
+    cashButton.setOnAction(e->{
+        try {
+            controller.inviaordine(1);
+            popup.hide();
+            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+            //refreshUI();
+        } catch (DAOException|RuntimeException | SQLException ex) {
+            popup.hide();
+            utils.showErrorPopup(ex.getMessage());
+        }
+        try {
+            refreshUI();
+        } catch (DAOException | SQLException exc) {
+            throw new RuntimeException(exc);
+        }
+
+    });
+    Button creditButton= new Button("Paga con carta");
+    creditButton.setOnAction(e->{
+        try {
+            controller.inviaordine(2);
+            popup.hide();
+            utils.openAdvisepopup("Ordine inviato.\n" +"Controlla il suo stato nell'apposita sezione");
+            //refreshUI();
+        } catch (DAOException|RuntimeException | SQLException ex) {
+            popup.hide();
+            utils.showErrorPopup(ex.getMessage());
+        }
+        try {
+            refreshUI();
+        } catch (DAOException | SQLException exc) {
+            throw new RuntimeException(exc);
+        }
+    });
+
+    Label total=new Label("Totale: "+ String.valueOf(cart.getTot())+"€");
+    buttonPay.getChildren().addAll(cashButton,creditButton);
+    buttonPay.setStyle(SETTING1);
+    VBox popUpContent= new VBox(header,scrollProduct,total,buttonPay);
+    popUpContent.maxWidthProperty().bind(overlay.widthProperty());
+    popUpContent.maxHeightProperty().bind(overlay.heightProperty());
+    popUpContent.prefWidthProperty().bind(overlay.widthProperty());
+    popUpContent.prefHeightProperty().bind(overlay.heightProperty());
+    StackPane popupRoot = new StackPane(overlay, popUpContent);
+
+
+    popup.getContent().add(popupRoot);
+    popup.show(owner);
 }
 
     private void refreshUI() throws DAOException, SQLException {

@@ -37,11 +37,9 @@ public class ControllerLogin {
         FXMLLoader fxmlLoad;
         Stage stage = ApplicazioneStage.getStage();
         Scene scene;
-        String FxmlRole = null;
-        Parent rootNode;
         if (Credentials.getRole() == null) {
             utils.showErrorPopup("Credenziali non valide");
-            if(utils.getMode()==0){
+            if(utils.getGUI()==0){
             fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login.fxml"));}
             else{
                 fxmlLoad = new FXMLLoader(FourPawsApplication.class.getResource("Login2.fxml"));
@@ -66,27 +64,6 @@ public class ControllerLogin {
                 }
                 NavigationController navcontroller= new NavigationController();
                 navcontroller.goBackSceneCatStore();
-                /*Store store;
-                if(utils.getMode()==0){
-                    store = new FindStoresDAO().findStoreById(Profile.getStoreId());}
-                else {
-                    store=new DEMODAO().getStore(Profile.getStoreId());
-                }
-                if (utils.getGUI() == 0) {
-                    FxmlRole = "/com/example/fourpawsstores/negoziante.fxml";
-                    fxmlLoad = new FXMLLoader();
-                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-                    final CatalogueStoreControllerGrafico controller = fxmlLoad.getController();
-                    StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
-                    controller.inizializza(storeB);
-                } else {
-                    FxmlRole = "/com/example/fourpawsstores/negoziante2.fxml";
-                    fxmlLoad = new FXMLLoader();
-                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-                    final CatalogueStoreControllerGrafico2 controller = fxmlLoad.getController();
-                    StoreBeans storeB = new StoreBeans(store.getid(), store.getName(), store.getDescription(), store.getImage(), store.getAddress(), store.getLat(), store.getLon(), store.getIdCatalog(), store.getTel());
-                    controller.inizializza(storeB);
-                }*/
             } else {
                 try {
                     new ProfileProcDAO().getProfile();
@@ -95,27 +72,7 @@ public class ControllerLogin {
                 }
                 NavigationController navcontroller= new NavigationController();
                 navcontroller.goBackToMap();
-                /*if (utils.getGUI() == 0) {
-                    FxmlRole = "/com/example/fourpawsstores/utente.fxml";
-                    fxmlLoad = new FXMLLoader();
-                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-                    final SearchControllerGrafico controller = fxmlLoad.getController();
-                    controller.inizializza();
-                } else {
-                    FxmlRole = "/com/example/fourpawsstores/utente2.fxml";
-                    fxmlLoad = new FXMLLoader();
-                    rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-                    final SearchControllerGrafico2 controller = fxmlLoad.getController();
-                    controller.inizializza();
-                }*/
             }
-
-        //Parent rootNode = fxmlLoad.load(getClass().getResourceAsStream(FxmlRole));
-        //scene = new Scene(rootNode, utils.getSceneW(), utils.getSceneH());
-        //scene.getRoot().requestFocus();
     }
-        //stage.setTitle("4Paws Stores");
-        //stage.setScene(scene);
-        //stage.show();
     }
 }
